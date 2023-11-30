@@ -3,20 +3,20 @@ import { solidityPackedKeccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
 
 interface Key {
-	address: string
-	keyPath: string
-	publicKey: string
-	privateKey: string
+	address: string;
+	keyPath: string;
+	publicKey: string;
+	privateKey: string;
 	plain: {
-		generatorKeyPath: string
-		generatorKey: string
-		generatorPrivateKey: string
-		blsKeyPath: string
-		blsKey: string
-		blsProofOfPossession: string
-		blsPrivateKey: string
-	}
-	encrypted: {}
+		generatorKeyPath: string;
+		generatorKey: string;
+		generatorPrivateKey: string;
+		blsKeyPath: string;
+		blsKey: string;
+		blsProofOfPossession: string;
+		blsPrivateKey: string;
+	};
+	encrypted: {};
 }
 interface DevValidator {
 	keys: Key[];
@@ -25,21 +25,25 @@ interface DevValidator {
 interface Balances {
 	merkleRoot: string;
 	nodes: {
-		lskAddress: string
-		address: string
-		balance: number
-		balanceBeddows: number
-		numberOfSignatures: number
-		mandatoryKeys: Array<string>
-		optionalKeys: Array<string>
-		payload: string
-		hash: string
-		proof: Array<string>
+		lskAddress: string;
+		address: string;
+		balance: number;
+		balanceBeddows: number;
+		numberOfSignatures: number;
+		mandatoryKeys: Array<string>;
+		optionalKeys: Array<string>;
+		payload: string;
+		hash: string;
+		proof: Array<string>;
 	}[];
 }
 
-const keys = (JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator).keys;
-const balances = JSON.parse(fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8')) as Balances;
+const keys = (
+	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
+).keys;
+const balances = JSON.parse(
+	fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8'),
+) as Balances;
 
 const signMessage = (message: string, key: Key): string => {
 	return Buffer.from(
@@ -48,7 +52,7 @@ const signMessage = (message: string, key: Key): string => {
 			Buffer.from(key.privateKey, 'hex'),
 		),
 	).toString('hex');
-}
+};
 
 const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
 const BYTES_9 = '000000000000000000';
@@ -68,10 +72,7 @@ const signatures: Signature[] = [];
 
 for (const [index, account] of balances.nodes.entries()) {
 	const message =
-		solidityPackedKeccak256(
-			['bytes32', 'address'],
-			[account.hash, recipient],
-		) + BYTES_9;
+		solidityPackedKeccak256(['bytes32', 'address'], [account.hash, recipient]) + BYTES_9;
 
 	const sigs: SigPair[] = [];
 
@@ -83,8 +84,8 @@ for (const [index, account] of balances.nodes.entries()) {
 		sigs.push({
 			pubKey: '0x' + key.publicKey,
 			r: '0x' + signature.substring(0, 64),
-			s: '0x' + signature.substring(64)
-		})
+			s: '0x' + signature.substring(64),
+		});
 	} else {
 		// Multisig Account
 		// Signing all keys regardless of required amount
@@ -95,16 +96,15 @@ for (const [index, account] of balances.nodes.entries()) {
 			sigs.push({
 				pubKey: '0x' + key.publicKey,
 				r: '0x' + signature.substring(0, 64),
-				s: '0x' + signature.substring(64)
-			})
+				s: '0x' + signature.substring(64),
+			});
 		}
 	}
 
-
 	signatures.push({
 		message,
-		sigs
+		sigs,
 	});
 }
 
-fs.writeFileSync("./data/example/signatures.json", JSON.stringify(signatures), "utf-8");
+fs.writeFileSync('./data/example/signatures.json', JSON.stringify(signatures), 'utf-8');

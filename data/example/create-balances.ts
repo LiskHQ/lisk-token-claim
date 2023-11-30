@@ -12,25 +12,31 @@ const NUM_OF_REGULAR_ACCOUNTS = 50;
 // #51: numSig 2  => 1M + 2O
 // #52: numSig 5  => 3M + 3O
 // #53: numSig 64 => 64M
-const multiSigs = [{
-	numberOfSignatures: 3,
-	numberOfMandatoryKeys: 3,
-	numberOfOptionalKeys: 0,
-},{
-	numberOfSignatures: 2,
-	numberOfMandatoryKeys: 1,
-	numberOfOptionalKeys: 2,
-},{
-	numberOfSignatures: 5,
-	numberOfMandatoryKeys: 3,
-	numberOfOptionalKeys: 3,
-},{
-	numberOfSignatures: 64,
-	numberOfMandatoryKeys: 64,
-	numberOfOptionalKeys: 0,
-}]
+const multiSigs = [
+	{
+		numberOfSignatures: 3,
+		numberOfMandatoryKeys: 3,
+		numberOfOptionalKeys: 0,
+	},
+	{
+		numberOfSignatures: 2,
+		numberOfMandatoryKeys: 1,
+		numberOfOptionalKeys: 2,
+	},
+	{
+		numberOfSignatures: 5,
+		numberOfMandatoryKeys: 3,
+		numberOfOptionalKeys: 3,
+	},
+	{
+		numberOfSignatures: 64,
+		numberOfMandatoryKeys: 64,
+		numberOfOptionalKeys: 0,
+	},
+];
 
-const randomBalance = (startAmount: number) : number => Number((startAmount + Math.random()).toFixed(8));
+const randomBalance = (startAmount: number): number =>
+	Number((startAmount + Math.random()).toFixed(8));
 
 const accounts = JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')).keys;
 
@@ -59,10 +65,13 @@ for (const multiSig of multiSigs) {
 		lskAddress: account.address,
 		balance: randomBalance(results.length),
 		numberOfSignatures: multiSig.numberOfSignatures,
-		mandatoryKeys: [... Array(multiSig.numberOfMandatoryKeys).keys()].map((_, index) => accounts[index].publicKey),
-		optionalKeys: [... Array(multiSig.numberOfOptionalKeys).keys()].map((_, index) => accounts[index + multiSig.numberOfMandatoryKeys].publicKey),
+		mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(
+			(_, index) => accounts[index].publicKey,
+		),
+		optionalKeys: [...Array(multiSig.numberOfOptionalKeys).keys()].map(
+			(_, index) => accounts[index + multiSig.numberOfMandatoryKeys].publicKey,
+		),
 	});
 }
-
 
 fs.writeFileSync('./data/example/balances.json', JSON.stringify(results), 'utf-8');

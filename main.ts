@@ -4,13 +4,20 @@ import * as fs from 'fs';
 import { toBuffer } from 'ethereumjs-util';
 import MerkleTree from './src/merkle-tree';
 
-const data = JSON.parse(fs.readFileSync('./data/example/balances.json', 'utf-8'));
-
 const LSK_MULTIPLIER = 10 ** 8;
-
-const isExample = process.argv[2] === "--example";
-
+const isExample = process.argv[2] === '--example';
 const path = isExample ? './data/example' : './data/mainnet';
+
+let data;
+try {
+	data = JSON.parse(fs.readFileSync(`${path}/balances.json`, 'utf-8'));
+} catch (err) {
+	console.log(`Error occurred reading ${path}/balances.json`);
+	if (err instanceof Error) {
+		console.log(err.message);
+	}
+	process.exit(1);
+}
 
 const nodes: {
 	lskAddress: string;
@@ -25,6 +32,8 @@ const nodes: {
 	proof?: string[];
 }[] = [];
 
+console.log(`Running at ${isExample ? '** EXAMPLE **' : '** MAINNET **'}`);
+console.log(`${data.length} Accounts to generate:`);
 for (const account of data) {
 	const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
 	const balanceBeddows = Math.floor(account.balance * LSK_MULTIPLIER);
@@ -41,13 +50,20 @@ for (const account of data) {
 		  )
 		: solidityPacked(['bytes20', 'uint64', 'uint256'], [address, balanceBeddows, 0]);
 
+	console.log(
+		`${account.lskAddress}: ${account.balance} LSK (Multisig=${
+			account.numberOfSignatures > 0 ? 'Y' : 'N'
+		})`,
+	);
 	nodes.push({
 		lskAddress: account.lskAddress,
 		address: '0x' + address.toString('hex'),
 		balance: account.balance,
 		balanceBeddows,
 		numberOfSignatures: account.numberOfSignatures ?? 0,
-		mandatoryKeys: account.mandatoryKeys ? account.mandatoryKeys.map((key: string) => '0x' + key) : [],
+		mandatoryKeys: account.mandatoryKeys
+			? account.mandatoryKeys.map((key: string) => '0x' + key)
+			: [],
 		optionalKeys: account.optionalKeys ? account.optionalKeys.map((key: string) => '0x' + key) : [],
 		payload,
 		hash: keccak256(payload),
@@ -70,6 +86,7 @@ fs.writeFileSync(
 	}),
 	'utf-8',
 );
+console.log(`Result outputted to: ${path}/merkle-tree-result.json`);
 
 if (isExample) {
 	// Create an extra file for Foundry Testing
@@ -83,10 +100,9 @@ if (isExample) {
 				mandatoryKeys: result.mandatoryKeys ?? [],
 				numberOfSignatures: result.numberOfSignatures ?? 0,
 				optionalKeys: result.optionalKeys ?? [],
-				proof: result.proof
+				proof: result.proof,
 			})),
 		}),
 		'utf-8',
 	);
-
 }
