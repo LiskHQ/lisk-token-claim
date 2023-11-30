@@ -1,8 +1,6 @@
-# Lisk Merkle Tree Builder
+# Lisk Token Claim
 
 This library builds Merkle Tree and build Merkle Root
-
-Unit Tests from `L2Claim.t.sol` also uses this library for testing
 
 ## Installation
 
