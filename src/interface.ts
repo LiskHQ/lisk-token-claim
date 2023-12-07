@@ -1,6 +1,7 @@
 export interface Balance {
 	lskAddress: string;
 	balance: number;
+	balanceBeddows: number;
 	numberOfSignatures: number;
 	mandatoryKeys: string[];
 	optionalKeys: string[];

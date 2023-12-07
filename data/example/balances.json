@@ -1,207 +1,258 @@
 [
   {
     "lskAddress": "lskzvhwee3nnhvy7geg3oz4xq96nyv6kgaccc3q5j",
-    "balance": 0.86511774
+    "balance": 0.89293526,
+    "balanceBeddows": 89293526
   },
   {
     "lskAddress": "lskz52hcrkwuuc8v2zyewbuhva5eaqkvytapf2onp",
-    "balance": 1.78679269
+    "balance": 1.08859278,
+    "balanceBeddows": 108859278
   },
   {
     "lskAddress": "lskzywsccmv23tfusps3xo5nq49oxyd3xkw36c7ou",
-    "balance": 2.55573387
+    "balance": 2.5253964,
+    "balanceBeddows": 252539640
   },
   {
     "lskAddress": "lskzjzeam6szx4a65sxgavr98m9h4kctcx85nvy7h",
-    "balance": 3.1694315
+    "balance": 3.92674392,
+    "balanceBeddows": 392674392
   },
   {
     "lskAddress": "lskx39wdmverzp3zw4q9mbehu3j64qp3qbcv3pwfe",
-    "balance": 4.50280871
+    "balance": 4.01710682,
+    "balanceBeddows": 401710682
   },
   {
     "lskAddress": "lskx4vowq56ysv4j7tvc3dmbq5234st66aqoset4o",
-    "balance": 5.91868332
+    "balance": 5.53334586,
+    "balanceBeddows": 553334586
   },
   {
     "lskAddress": "lskxegmh4rf8xmeeov24xafmuexmcoufpcm5xt572",
-    "balance": 6.63345954
+    "balance": 6.9524042,
+    "balanceBeddows": 695240420
   },
   {
     "lskAddress": "lskvm4wepmdrjshubuchy2f5cdqzx49xs5kzcnjmx",
-    "balance": 7.36566437
+    "balance": 7.26288131,
+    "balanceBeddows": 726288131
   },
   {
     "lskAddress": "lskvndxpnmx8nbyt3jh5bjcqebd5atrahcqb29554",
-    "balance": 8.48511142
+    "balance": 8.43994996,
+    "balanceBeddows": 843994996
   },
   {
     "lskAddress": "lskv8a48szvtjcr5s5x9y5o7dtpxo2zej58z6gb9j",
-    "balance": 9.45174793
+    "balance": 9.77071392,
+    "balanceBeddows": 977071392
   },
   {
     "lskAddress": "lskvevcyjy6ej4habnqk7jqs9xefj7eymagg5k96c",
-    "balance": 10.50305039
+    "balance": 10.96035078,
+    "balanceBeddows": 1096035078
   },
   {
     "lskAddress": "lskcrtfvn694m282jh2pbaa9soq4bnffot74b33bv",
-    "balance": 11.0891261
+    "balance": 11.81926523,
+    "balanceBeddows": 1181926523
   },
   {
     "lskAddress": "lskp4r2hvwj5hr5wvoxqutgtkzfygd36zw9hzgre4",
-    "balance": 12.22283503
+    "balance": 12.77148686,
+    "balanceBeddows": 1277148686
   },
   {
     "lskAddress": "lskprz8d6kw5jd93tpf4pcpsj3rah89w3y76egjc2",
-    "balance": 13.52074393
+    "balance": 13.09503282,
+    "balanceBeddows": 1309503282
   },
   {
     "lskAddress": "lskpd2dn7n5mbgpeax3shn8q3yjnecger5bwbswd6",
-    "balance": 14.49766454
+    "balance": 14.85904098,
+    "balanceBeddows": 1485904098
   },
   {
     "lskAddress": "lskm8cs6unjkg4zbx8am4t3f3ezrft8vvmhx446er",
-    "balance": 15.81826892
+    "balance": 15.84096087,
+    "balanceBeddows": 1584096087
   },
   {
     "lskAddress": "lskmd77w3hmuzhfv3by7as4efzt72ouw9oe7oqopa",
-    "balance": 16.63540328
+    "balance": 16.01543487,
+    "balanceBeddows": 1601543487
   },
   {
     "lskAddress": "lskmj4q4rb6ngpsewxnzp7xn5bq5w2xc7qqehqdb9",
-    "balance": 17.47382939
+    "balance": 17.87015546,
+    "balanceBeddows": 1787015546
   },
   {
     "lskAddress": "lskmgsxxq353zfwpxn44vj6obkzb7b678pun3krue",
-    "balance": 18.66528493
+    "balance": 18.07901654,
+    "balanceBeddows": 1807901654
   },
   {
     "lskAddress": "lskbv6dn4srjztbpkrfqwjs24z22n34fg97xhov5j",
-    "balance": 19.6611306
+    "balance": 19.2385621,
+    "balanceBeddows": 1923856210
   },
   {
     "lskAddress": "lskb53m7cgv45ajr8mmzva6et3323o9ugwjgdfauw",
-    "balance": 20.42153614
+    "balance": 20.8986176,
+    "balanceBeddows": 2089861760
   },
   {
     "lskAddress": "lsknzb4uosnmo7sevks6jny4hhja8x8cza7czx33y",
-    "balance": 21.1646937
+    "balance": 21.29178149,
+    "balanceBeddows": 2129178149
   },
   {
     "lskAddress": "lsknpcrmryyakd7yt5kfx7qrsabu9npvyjtf9wqco",
-    "balance": 22.76097912
+    "balance": 22.39737639,
+    "balanceBeddows": 2239737639
   },
   {
     "lskAddress": "lsknnzuabt5nzdrukwt6o2ge3tfcxwbqet4kka76n",
-    "balance": 23.40116353
+    "balance": 23.63156123,
+    "balanceBeddows": 2363156123
   },
   {
     "lskAddress": "lsknyoks654rxwgp5mynsqduvccpn8bvuzwqvbctg",
-    "balance": 24.80209451
+    "balance": 24.31949324,
+    "balanceBeddows": 2431949324
   },
   {
     "lskAddress": "lsk3nmpwync4aktkunx3kxu787yv6jc2vbmr4khjo",
-    "balance": 25.91325048
+    "balance": 25.99079598,
+    "balanceBeddows": 2599079598
   },
   {
     "lskAddress": "lsk357c5e3gq5egctz5vveqko2rw8gdczuxsaomwy",
-    "balance": 26.79797863
+    "balance": 26.06617555,
+    "balanceBeddows": 2606617555
   },
   {
     "lskAddress": "lsk3togavztfhhaetwghy2c9dcwj73fdx74r9mz3s",
-    "balance": 27.51228102
+    "balance": 27.67267647,
+    "balanceBeddows": 2767267647
   },
   {
     "lskAddress": "lsk4em65mmx2432dhuaqcv64ghe5yhp7d2uozwcs8",
-    "balance": 28.61494432
+    "balance": 28.84251671,
+    "balanceBeddows": 2884251671
   },
   {
     "lskAddress": "lsk4e9uo3gcamtjtfbtedo2bn75x3x8wv87ufoo4y",
-    "balance": 29.32462779
+    "balance": 29.95002097,
+    "balanceBeddows": 2995002097
   },
   {
     "lskAddress": "lsk6x4n6jfdxo683yp9tekxh7ypux2822gw54rhyt",
-    "balance": 30.91083123
+    "balance": 30.9378321,
+    "balanceBeddows": 3093783210
   },
   {
     "lskAddress": "lsk69qd3pjqgz9smysrrvmmsjndox8tahrw97pz5h",
-    "balance": 31.69646979
+    "balance": 31.49733776,
+    "balanceBeddows": 3149733776
   },
   {
     "lskAddress": "lsk6tad5joxqb24hog9zq9q52h3yg5yb2gbwseod9",
-    "balance": 32.7537287
+    "balance": 32.91434388,
+    "balanceBeddows": 3291434387
   },
   {
     "lskAddress": "lsk6sgf39jr4voff65zqtefo5y8ga4kwvcquz64ug",
-    "balance": 33.04675334
+    "balance": 33.04235823,
+    "balanceBeddows": 3304235823
   },
   {
     "lskAddress": "lsk6h2gactgfmqcbfknwxnd59e7tdk6ru9j5oqj5h",
-    "balance": 34.54676059
+    "balance": 34.59532672,
+    "balanceBeddows": 3459532672
   },
   {
     "lskAddress": "lsk5fyvdmxypajyxvw42pe4o3rb7dsoamay9jtkdr",
-    "balance": 35.63493385
+    "balance": 35.98619931,
+    "balanceBeddows": 3598619931
   },
   {
     "lskAddress": "lsk5ffzteqgu5y37a7qncyvms33oth7moct8wgbca",
-    "balance": 36.74775464
+    "balance": 36.45638038,
+    "balanceBeddows": 3645638038
   },
   {
     "lskAddress": "lsko3ysum3etk9nfo7hzougmvrnfp7a2ewqj2n482",
-    "balance": 37.25130729
+    "balance": 37.46242213,
+    "balanceBeddows": 3746242213
   },
   {
     "lskAddress": "lsko8j9mrnxxze54dt9pdfs4voqmjdfscuy65esdz",
-    "balance": 38.48342604
+    "balance": 38.22242287,
+    "balanceBeddows": 3822242287
   },
   {
     "lskAddress": "lskoybcqa9otgsvamvb7h6usht2emevdw9cobnem4",
-    "balance": 39.23929823
+    "balance": 39.26791013,
+    "balanceBeddows": 3926791012
   },
   {
     "lskAddress": "lsk952ztknjoa3h58es4vgu5ovnoscv3amo7zg4zz",
-    "balance": 40.91744336
+    "balance": 40.02639562,
+    "balanceBeddows": 4002639562
   },
   {
     "lskAddress": "lsk9ugncv9sehbsxue8fbcnec5zo6arcrf9hmpkj6",
-    "balance": 41.18663823
+    "balance": 41.01333574,
+    "balanceBeddows": 4101333574
   },
   {
     "lskAddress": "lsk9r4udjy3exoneeddmv5rwfy3js4sfrem95s3kc",
-    "balance": 42.45694061
+    "balance": 42.36104409,
+    "balanceBeddows": 4236104409
   },
   {
     "lskAddress": "lsk7zn95gvqnfn8uocs5x7d4q3k5sk4ccvme6gpnw",
-    "balance": 43.21913926
+    "balance": 43.60949633,
+    "balanceBeddows": 4360949633
   },
   {
     "lskAddress": "lsk7mjmo5pf6t4qomcrtrgjwostrz4xorhpx7sy8f",
-    "balance": 44.54353628
+    "balance": 44.54783276,
+    "balanceBeddows": 4454783276
   },
   {
     "lskAddress": "lsk7342zor495kzdbr6wws94a6xeuzyn2bfp4t4ff",
-    "balance": 45.74927605
+    "balance": 45.12502458,
+    "balanceBeddows": 4512502458
   },
   {
     "lskAddress": "lsk74wa3f3rsxk5768a9q57tzvjgpjdnps39x7m4o",
-    "balance": 46.02364697
+    "balance": 46.5365267,
+    "balanceBeddows": 4653652670
   },
   {
     "lskAddress": "lsk76wc3ajf4oyae64w5sfrqvc7cez7u6wc8qnb54",
-    "balance": 47.56602098
+    "balance": 47.56717243,
+    "balanceBeddows": 4756717243
   },
   {
     "lskAddress": "lsk7ewwccf4xrzpdjb7zba2rp7kn2gsfefokogmaq",
-    "balance": 48.34336898
+    "balance": 48.15004101,
+    "balanceBeddows": 4815004101
   },
   {
     "lskAddress": "lsk7fqjmwookkxxs7j7rntcfqd5cavz7abrktkmx7",
-    "balance": 49.15507196
+    "balance": 49.3590871,
+    "balanceBeddows": 4935908710
   },
   {
     "lskAddress": "lsk7gfpd6rhvx6b4rk6an8msfqjb8tmwpgq3mm2jh",
-    "balance": 50.25585439,
+    "balance": 50.97292465,
+    "balanceBeddows": 5097292465,
     "numberOfSignatures": 3,
     "mandatoryKeys": [
       "d5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",
@@ -212,7 +263,8 @@
   },
   {
     "lskAddress": "lsk83ec33f2b3wnh53wc8mnqoaohbsyuvnbjfzkmj",
-    "balance": 51.69521163,
+    "balance": 51.06545194,
+    "balanceBeddows": 5106545194,
     "numberOfSignatures": 2,
     "mandatoryKeys": [
       "d5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b"
@@ -224,7 +276,8 @@
   },
   {
     "lskAddress": "lsk89bsw63j2j8u4zsoct2pxkvrau4gd88b6xyg9c",
-    "balance": 52.76586702,
+    "balance": 52.61024981,
+    "balanceBeddows": 5261024981,
     "numberOfSignatures": 5,
     "mandatoryKeys": [
       "d5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",
@@ -239,7 +292,8 @@
   },
   {
     "lskAddress": "lsk8kdktcgn5pgsgpf9gmk3gz755yt3pvk5may72o",
-    "balance": 53.79030427,
+    "balance": 53.96029526,
+    "balanceBeddows": 5396029526,
     "numberOfSignatures": 64,
     "mandatoryKeys": [
       "d5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",

@@ -2,6 +2,9 @@ import { cryptography } from 'lisk-sdk';
 import * as fs from 'fs';
 import { DevValidator } from '../../src/interface';
 
+// 1 LSK = 10^8 Beddows
+const LSK_MULTIPLIER = 10 ** 8;
+
 // Create Balances
 // [#0 - #49] First 50 addresses are regular addresses
 const NUM_OF_REGULAR_ACCOUNTS = 50;
@@ -54,6 +57,7 @@ const sortedAccounts = [...accounts].sort((key1, key2) =>
 const results: {
 	lskAddress: string;
 	balance: number;
+	balanceBeddows: number;
 	numberOfSignatures?: number;
 	mandatoryKeys?: string[];
 	optionalKeys?: string[];
@@ -63,18 +67,24 @@ const results: {
 for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
 	const account = sortedAccounts[index];
 	const balance = randomBalance(index);
+	const balanceBeddows = Math.floor(balance * LSK_MULTIPLIER);
 
 	results.push({
 		lskAddress: account.address,
 		balance,
+		balanceBeddows,
 	});
 }
 
 for (const multiSig of multiSigs) {
-	let account = sortedAccounts[results.length];
+	const account = sortedAccounts[results.length];
+	const balance = randomBalance(results.length);
+	const balanceBeddows = Math.floor(balance * LSK_MULTIPLIER);
+
 	results.push({
 		lskAddress: account.address,
-		balance: randomBalance(results.length),
+		balance,
+		balanceBeddows,
 		numberOfSignatures: multiSig.numberOfSignatures,
 		mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(
 			(_, index) => accounts[index].publicKey,

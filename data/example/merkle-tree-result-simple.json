@@ -1,749 +1,752 @@
 {
-  "merkleRoot": "0xdc571e661d62e03d332fa54e48971c20bd0b4f394006262b0d5931a6ba1e1979",
+  "merkleRoot": "0xda3765f67855a56fda078ba93a0d538930cec2f90007375b12cd163bd8a4563b",
   "leaves": [
     {
       "b32Address": "0x00bb7b59073f45177edf430090d5aa3c44aa7f23",
-      "balanceBeddows": 86511774,
+      "balanceBeddows": 89293526,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x9ca797d905e78f38685b61f62521632ef486bc6ce3e707d2af41b7fe146303c1",
-        "0x68b19fe3cb4ae3cd09faa5223373d2cc907c438d3b587c0d47034e848d4707e8",
-        "0xa10202c7b3db94d566f0d5e198ad0b5de39e983e95cf80afec25836851759d00",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xe9e7699d8ef9238750bb0c929bbae3cc62594fc47a8eeed17f2a8b1754272a90",
+        "0xaa8bf38ec995b9c16cb399040ce9d019e532d34adfd6c557f6eb5e3db5933f39",
+        "0xfcf8bf070944add3b9858298b9266e18729dc39bd81aefe5bcc79254c16dd0bb",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x02f1d1ca978406f16011b5cd0e8b2bb66b414679",
-      "balanceBeddows": 178679269,
+      "balanceBeddows": 108859278,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xbdb1b86184a2fe618d42fd2ad274b4f60b029ce53c731df2d8f89de41bb3e937",
-        "0x21008543d1626b6f84ecdc2f1511d05d894bfde5c5546957e332cb32e3783475",
-        "0xde8c97c3e1f3bda9fc8f134edda203976ccfb3717c62b7a8cce62d0848423f4e",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x36d74bd62a748555bbb92ea8919b433ed9b0e4019768ba771703b9a50f0eb018",
+        "0xd7d05cbb60a91c18ff10be3757e5e9fec08b558f93f1ad957c7d2eec5f4f5fa6",
+        "0x415e0df87b3d3bd5ac91ca9566d9ddfabfbccc4a16e61c35001d29c34584634f",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x046fb18ca2c227e86c9b4058b3d52d6063a40697",
-      "balanceBeddows": 255573387,
+      "balanceBeddows": 252539640,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x42d0091291cbe0634179e4bb79dbd17a67d5a80c552b529ec935fa9d020b074b",
-        "0xe202d7eadd0242339166479d1285326bb3354445e92a769ad29a410322677d81",
-        "0x21981ef591cc07f05f21022370f18c7e5d7267bfa3790f347009e7f183e7aa68",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xae00f71361a4b27f9470c5c7917f74913f3a6f2a0c745f3015892dee0aa20dd3",
+        "0x49bab1b663df9ee2caaed3d2069ace4ca916717dea849f35bb66e107d9d115d6",
+        "0x4d18e379150f2ca5734f138d0de32de520752c3ee98947c14ffb179432570294",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x07016c955b0053952f61fe4526bcadea68398c2f",
-      "balanceBeddows": 316943150,
+      "balanceBeddows": 392674392,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xa77d2832f94574457bd107feaf8d89615adcd491667aa81acfcd838b99ec553f",
-        "0x19d8d184e0703b5e405e59dde8091a0fc50fc1c887000dd99287fd0ba06510ed",
-        "0xbb43b52771c7572fa1770415d7733c3bbc169cbea608648c8d6c65873b1cc215",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x610a26bfaeedbbdfe05b7cff68d96ee28daf9a9e99d7d378b1c68723050c490f",
+        "0x4437fe658f69e21f7b174cf4ea3940082f2de081bb45cecd6f106450f9173a54",
+        "0x1acaf9fcf252a6c5627b91f917b75aaa5b5f0fe0127d332cc3e81617c43d0efb",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x0a1b7d14569008805d35694d6ec11c526a4454c3",
-      "balanceBeddows": 450280871,
+      "balanceBeddows": 401710682,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x21179c12c77b8739ff663b5fe9684a2a4ba6ebed38297100bd65e349ed854bdf",
-        "0x00db94153e251a051d266dc79015ea9863c1885c3241d4116b23a57e2adf5059",
-        "0xa3ca3a9408f4b6a5af41a2513dbb0302c0c073a514f018bfe123f8dc32dcb9cf",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x4058bc62a6aa950364e5c7e8f3f447650cddebe2015daef801d8ac53a19e6059",
+        "0x62f5fe7c3d9a73286644ff5edbc619b3603e89ebd3821bca42421edb1dcd0175",
+        "0x6aa810ac589a38a37385899e9a13fad39dafb10579d0e5bafb3b02750e47a981",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x0a44cbd56a8ec49e3a621a345355784277352b35",
-      "balanceBeddows": 591868332,
+      "balanceBeddows": 553334586,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x878748092cb067180016af5b024699a4457acf4434fa0642c658d3a22e03226b",
-        "0x0060470a7a0d9e4600df7452953d4e85975bd8319499741d45e2a5d2809edf1a",
-        "0xde7b6127fb5c3ec359bfaea4a13cb0b5bee445a040d58d0810c572142fd60ea6",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x162964c5fe5c7fd14ce6b484d67c5fc612cc623bfc00830facc5b3d3878425d8",
+        "0x187cb68dbf1c9b0ceb5800baa8596694889cc48aec4ce8a5be5de90e09683437",
+        "0x0ee9c713b5ef574b9ab9c47a799ba39fbb3f315bb9c2cdab78edcfa782064638",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x0dbe5ea65e784b6b30584873e2c2c128d90f1065",
-      "balanceBeddows": 663345954,
+      "balanceBeddows": 695240420,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x8c876ff6f77cc33eddf64096f66cf38777347ca34bae444e85ed8ec4f25217a1",
-        "0x0060470a7a0d9e4600df7452953d4e85975bd8319499741d45e2a5d2809edf1a",
-        "0xde7b6127fb5c3ec359bfaea4a13cb0b5bee445a040d58d0810c572142fd60ea6",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xd8ea3557367797931fc14eb8e93eb53f68053db97e81fffaaaa007cc6df14d5a",
+        "0x4e38a3b36648f087f00f62ba64057197a0de122bd6536d20fd384c09e73ceff1",
+        "0x57755110151204b2ed898730d345d23961649188fccf98e6f427d867acc1d0bc",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x11537b10ba9737d81a03ec71e58f550052d0ed74",
-      "balanceBeddows": 736566437,
+      "balanceBeddows": 726288131,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x697bd964e53403f3e6e850df018ec8044f532c93f25bfe59f8cbb862b36009de",
-        "0x6e5597060a492a40f4d4ae8f15bee6012a735d556c5fa8a6a416d4d5468e41f5",
-        "0x92b9cb0790d39204e17461acef96e376130a8c3310ccb363c6b5e069cfbcf680",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xdbd9bdf59f4bd19819a1c27bbeb4024bf18584ba1fa27cbc026e9e5414dea864",
+        "0x367641090497aa542221a62aa97c0f0e822ff44d0b60a9bf6e53c65e18886f06",
+        "0x8cffb1571c3a5e2bbb035fa4e8194d3fd9824165fe39c9bb99f9a0d3f22c253c",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x11f4121ca179cd19a39d59b83ad8da5e672cf475",
-      "balanceBeddows": 848511142,
+      "balanceBeddows": 843994996,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x9d38fc5e532be3ef098bb0b0624a9a0e85f47daecd18f0fcf1d2b3e9fd7de700",
-        "0x6fa927a2508095376a6be37e7867058539ae4bb6e65e198d308a4aa7d313fea4",
-        "0xbb43b52771c7572fa1770415d7733c3bbc169cbea608648c8d6c65873b1cc215",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xd00e3571a9d6323155a5009265c7fc3b7898303ec84cf4ed04c809b8c1488bfe",
+        "0x34c750901f7dc04621ec76fac25c07fc9d5dbb66a76cc0c9b1fefdb6865bca20",
+        "0x57755110151204b2ed898730d345d23961649188fccf98e6f427d867acc1d0bc",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x13f297ec029f0725ed616c56c76a640b300b716f",
-      "balanceBeddows": 945174793,
+      "balanceBeddows": 977071392,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xd03dfab57ff22edb3f8dcc60f98b8e7cb51a0ebd504086c03ab59cb84f07f8cf",
-        "0xfd3038e2496547b083e9a537d0b3a91afc87b69f4c4f309d0136f1f9944fa9c7",
-        "0x5960edb1dfcdd82b306b42f29f5ac079b2726bc14030debeaa2c2b35ccda8b1d",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x67afd98f8d67f827d6a7d18db14c5532b38a68e14019d0e47da390c4e502a9db",
+        "0xc8a8ad4251ea2adca8f03de4e69cf6a7647140985fcbf524ed06b5f11e500fbd",
+        "0x9c56e19015d22a2f7314fb313d3ca68b4052ba2ab5efa5f76a1fdcbb6b2523c9",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x158438f22ab713dc98f5a3b95db436f71d68973f",
-      "balanceBeddows": 1050305039,
+      "balanceBeddows": 1096035078,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x6fe18590db05d48eb6042776c9852ef02a224988b629eaaf234207f72c2edd3c",
-        "0x50feb41423feafeed8ff92fc70ab89abe79d8024312c475681e1100b1cccf0d2",
-        "0x4bd719ed44be2b1bbce6f0c02b6b55330a03c786d0a818f95468bd5da6b1da6a",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x723dbbc84f659552314b3aa35fa0b7857cde058b60d9d27f5951f0664161bd08",
+        "0xbae559f9a8732a4afa9dac3ccb56ab604fc317d1455ca33ba9845d50da4c04b1",
+        "0x9c56e19015d22a2f7314fb313d3ca68b4052ba2ab5efa5f76a1fdcbb6b2523c9",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x1ca7e11d4d4970fc73b821b396ed95498fef326e",
-      "balanceBeddows": 1108912610,
+      "balanceBeddows": 1181926523,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xd24319f6787f9aa8866a932478db886eb7110e93b1520464daf9a90ce9cf0b15",
-        "0x8c24c4fe51a08c07a2eb435782041085d530c8de825b11902622949b799ccbe5",
-        "0x5960edb1dfcdd82b306b42f29f5ac079b2726bc14030debeaa2c2b35ccda8b1d",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x94017717b85957c156f6df21219cf6a8d9657a3f79f3e5d366f0cb66488d6537",
+        "0x83f8e43e2886292b245fcf161945cff655e4d6313243f2f097eba57aeaa0d689",
+        "0x4ca8cb1d77b801dca7f860baffdb4af23af2be01110c8d178300e31d21f802ff",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x22658e8afc5f64bb8981ac27f9d01e8ff48502ed",
-      "balanceBeddows": 1222283503,
+      "balanceBeddows": 1277148686,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x054ea6b296ee2515c886cb6b77a4ee2f9faa68a26d3abf9efe4def8832fb87b7",
-        "0xe2bfa4b130420c0f4b5370cf1f43cc9c44fc4bd9ec85f3ce07507646537a734e",
-        "0xa3ca3a9408f4b6a5af41a2513dbb0302c0c073a514f018bfe123f8dc32dcb9cf",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x5d535aede1438b6b279ebac443512233134cdf8fdb14d1aa9939d95917df8a9f",
+        "0x4437fe658f69e21f7b174cf4ea3940082f2de081bb45cecd6f106450f9173a54",
+        "0x1acaf9fcf252a6c5627b91f917b75aaa5b5f0fe0127d332cc3e81617c43d0efb",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x2480fd2a975f34d44c9e49064df112cf5edba22e",
-      "balanceBeddows": 1352074393,
+      "balanceBeddows": 1309503282,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xeff033e9ad34398fa14d4c06d1b7494faf24e2d7717f554f219e332fc5ed309a",
-        "0xc70ee1124bddb9e72876b42b5cde72e4509c376bd6e77f9967437d807ba3de20",
-        "0x5c6039a4b7dce3d6ee659b5fb7f68f3a6a4d1a85e45e0cd85fb53213cf730745",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x000f1084c71bec0cadd58ab5bc2278bbff256c9f10c8fcb23c5f3be0206bd983",
+        "0x6d15c2dbc69cdbdee488de4cee10b6ece547a017ae6de74fdd9bf1c7436ef1e4",
+        "0x2b86491f5933940be46b3f7d3deeeb731fb10293e07e952afbbb160fab6ebf60",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x26b1a3b8eb29be4b6428df4efaa23c3d87fb4966",
-      "balanceBeddows": 1449766454,
+      "balanceBeddows": 1485904098,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x75417663a1fd8fcce5376dd6c1db52116ea39a8661e0a328d9783d898960f363",
-        "0xb101adb8454ffb7038f04707dd921b3b88821ba1eb2758e4b249c9492ad2dbde",
-        "0x4bd719ed44be2b1bbce6f0c02b6b55330a03c786d0a818f95468bd5da6b1da6a",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xd8de0c0409788101c881840fce457faa2b92932d0ac7d7cc1f308d1947b3f271",
+        "0x4e38a3b36648f087f00f62ba64057197a0de122bd6536d20fd384c09e73ceff1",
+        "0x57755110151204b2ed898730d345d23961649188fccf98e6f427d867acc1d0bc",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x2bc7b540fca7d20305f92a668f22c097a6f108bd",
-      "balanceBeddows": 1581826892,
+      "balanceBeddows": 1584096087,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xd18cbd4bd1d12cd141184a57e8b005592c13bceb885030145882e68a68f13683",
-        "0xfd3038e2496547b083e9a537d0b3a91afc87b69f4c4f309d0136f1f9944fa9c7",
-        "0x5960edb1dfcdd82b306b42f29f5ac079b2726bc14030debeaa2c2b35ccda8b1d",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xd08829d26e4f4b7ec746f5afaf7c84b607fdf47ec6929de38b3d8b560c463c9e",
+        "0x34c750901f7dc04621ec76fac25c07fc9d5dbb66a76cc0c9b1fefdb6865bca20",
+        "0x57755110151204b2ed898730d345d23961649188fccf98e6f427d867acc1d0bc",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x2e9ceba3a5803be120d176769b781376190bb596",
-      "balanceBeddows": 1663540327,
+      "balanceBeddows": 1601543487,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x23399cf409c4307811f71cd4bd68caae7917cbe46a43d6a659bb8a738010b508",
-        "0xc861e7a2aab4917ee0336524605e8b05e6b9b6b32ba0c5214faa4f6e0ab08a18",
-        "0xc0812ddc5cb174ed64ce85df86ac2f4d2a34c7c3b3f91efd8a7ccace3b39e7fc",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xea78ba4793107e36b92cdd76ac6963a262ec8e8c45c0bf87a4a1daffa875c5c1",
+        "0xaa8bf38ec995b9c16cb399040ce9d019e532d34adfd6c557f6eb5e3db5933f39",
+        "0xfcf8bf070944add3b9858298b9266e18729dc39bd81aefe5bcc79254c16dd0bb",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x2f1354c8ca3fc9bb5c27011c13acd55df011bab5",
-      "balanceBeddows": 1747382938,
+      "balanceBeddows": 1787015546,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x236d4896eac8d68e177cd49acfa612b87f1cbf1351b9798a410a2026013caff3",
-        "0x911984e187890b7cd2942d8775886d09182036196d5390a50e09a466ab05fd09",
-        "0x72a1e0eca1c4a9f31e17927bed57954681d7a7103acc1336841aa256fff5a064",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xdf72c1485b505b7ae3f4641a22f61d295f715c0e2365fa394c0c7a4a5b6a32c9",
+        "0x550c8079180548d23bcd0fbb7001ab8ac6fd254fc2057d60132b3ba31c70eadc",
+        "0x8cffb1571c3a5e2bbb035fa4e8194d3fd9824165fe39c9bb99f9a0d3f22c253c",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x2ff610d50b403d7204e948b8a61a80338ca73c90",
-      "balanceBeddows": 1866528492,
+      "balanceBeddows": 1807901654,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x5bc36781ecb291f44a2575d8d0831afdb88f45d8a25ab82b1d266d74c6767e85",
-        "0x2baa6ac9001efb94736c69c7794a1ae4059c21f7ea89edec776810a9df8023ae",
-        "0x92b9cb0790d39204e17461acef96e376130a8c3310ccb363c6b5e069cfbcf680",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xa470aefac7a849b246a906040a27ea4f429672452d60d5cdd5016f02feb76fb5",
+        "0x262de21ccd84bef8d965ef9e58db7ce6da499f8d2c139174aa2095950cf55e69",
+        "0x0bd9078029619650b629c5e5361fc8aa1b66a0b6b5234756c6ea3e78b633c896",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x3095a3a772e02662525eadf9bc2418c1d09f7dae",
-      "balanceBeddows": 1966113060,
+      "balanceBeddows": 1923856210,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xe7c4df1bc3320c0f1d7d397935b18f5e07204953c1c24b98a475708b64c528e2",
-        "0x36c375b0cddaa2763c4c783147b96469fa27df5783cbee02d902a85f7074d487",
-        "0x7c14d29f2acc4b4999889d28ab8b20df6a7cb6fadae3ba5588513b23ecc89941",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xdeb7c13b349048a45560b745fad94d9e3aedaf63c26819b9e19ddaaf778a486b",
+        "0x550c8079180548d23bcd0fbb7001ab8ac6fd254fc2057d60132b3ba31c70eadc",
+        "0x8cffb1571c3a5e2bbb035fa4e8194d3fd9824165fe39c9bb99f9a0d3f22c253c",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x32d0570fe24af3c93ca500b2ab4d08c218d87efc",
-      "balanceBeddows": 2042153614,
+      "balanceBeddows": 2089861760,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x2a80ba143c52b5cf845307eb08abcc0554128ffb0beef0e99892e1747ea27755",
-        "0x911984e187890b7cd2942d8775886d09182036196d5390a50e09a466ab05fd09",
-        "0x72a1e0eca1c4a9f31e17927bed57954681d7a7103acc1336841aa256fff5a064",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x10358f2bae3721efd7d7771497e58c1e1dded47d51e50f7f34c472340ecd404d",
+        "0x187cb68dbf1c9b0ceb5800baa8596694889cc48aec4ce8a5be5de90e09683437",
+        "0x0ee9c713b5ef574b9ab9c47a799ba39fbb3f315bb9c2cdab78edcfa782064638",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x380c9833672b1dbb0a9b570f14f7bccbc2f1832e",
-      "balanceBeddows": 2116469370,
+      "balanceBeddows": 2129178149,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x8fbb23f324801f892701735ee51aa27e4de928fc4db83d6ba52c3cea7eb25bfb",
-        "0x3c28aaa922b215b6ba0a5806a206bea4ff322f66735a9aaa5508b63ecc09a9ba",
-        "0xde7b6127fb5c3ec359bfaea4a13cb0b5bee445a040d58d0810c572142fd60ea6",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xa6eee22daade4deb261eda2d5c4f97075ff41af319e434f8bb6edbf1be6ae15a",
+        "0x262de21ccd84bef8d965ef9e58db7ce6da499f8d2c139174aa2095950cf55e69",
+        "0x0bd9078029619650b629c5e5361fc8aa1b66a0b6b5234756c6ea3e78b633c896",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x390722ca31cd34e8cd74f05d596f26834e414793",
-      "balanceBeddows": 2276097912,
+      "balanceBeddows": 2239737639,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xe623bc35d765cb120f8d5a87f4e95d21657e0d13aa1d5a3040203c78911de9dd",
-        "0x36c375b0cddaa2763c4c783147b96469fa27df5783cbee02d902a85f7074d487",
-        "0x7c14d29f2acc4b4999889d28ab8b20df6a7cb6fadae3ba5588513b23ecc89941",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x720793a62f45872a00f9fa63d0804be790fe9bcef42d1e1807b45c76ad3a6c5f",
+        "0xbae559f9a8732a4afa9dac3ccb56ab604fc317d1455ca33ba9845d50da4c04b1",
+        "0x9c56e19015d22a2f7314fb313d3ca68b4052ba2ab5efa5f76a1fdcbb6b2523c9",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x39c10c9a6b38352852f35331fb227e186e6ada69",
-      "balanceBeddows": 2340116353,
+      "balanceBeddows": 2363156123,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x77a981f34be825db66582afb58e85d4dc7818fbbfb50a9c186a82a5099eceffa",
-        "0xb101adb8454ffb7038f04707dd921b3b88821ba1eb2758e4b249c9492ad2dbde",
-        "0x4bd719ed44be2b1bbce6f0c02b6b55330a03c786d0a818f95468bd5da6b1da6a",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x090fd741d141acacff835d5900fc269850b1a62ecf43902a1a6a7634830961d1",
+        "0xd67e3859c06e3dad4ab172709d05cfd0a2bc41da045af543a64f2f717dd4726b",
+        "0x2b86491f5933940be46b3f7d3deeeb731fb10293e07e952afbbb160fab6ebf60",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x3c594da969906ff22cb13eeba8086321de614017",
-      "balanceBeddows": 2480209451,
+      "balanceBeddows": 2431949324,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x220ef7f35dfdde37714e23fe60b851d688ba38bb140d524918ee2ffef150407b",
-        "0xa5f49e01a98c3c3c82bff32552d218d1fe22a89471fdfb41c3725db791932331",
-        "0xc0812ddc5cb174ed64ce85df86ac2f4d2a34c7c3b3f91efd8a7ccace3b39e7fc",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xdcd4c3d36dde4ea6dd111e73ded742e3cf18abf38d86976d6fe9b2e821ded65d",
+        "0x367641090497aa542221a62aa97c0f0e822ff44d0b60a9bf6e53c65e18886f06",
+        "0x8cffb1571c3a5e2bbb035fa4e8194d3fd9824165fe39c9bb99f9a0d3f22c253c",
+        "0x059c28ba7d07e08f5ddcdc81097619eddd5771ad944eef2d1b6f8c2defcf5253",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x41ca4bc4e34e693a40e14503073dd112b83c08c5",
-      "balanceBeddows": 2591325048,
+      "balanceBeddows": 2599079598,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xf47109cca4e203d1dc304009f20d86253c19e1232a35a4f0ac9180d94a556c7a",
-        "0xde50aabc4bf2cc38377047ec9d782e2cd01b734b455c3ce25491d04b6fef9a78",
-        "0x5c6039a4b7dce3d6ee659b5fb7f68f3a6a4d1a85e45e0cd85fb53213cf730745",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x8eed61aa149bdc8bee7d80b3eea15d5975a81215df34c9718edb59de85d107d3",
+        "0x83f8e43e2886292b245fcf161945cff655e4d6313243f2f097eba57aeaa0d689",
+        "0x4ca8cb1d77b801dca7f860baffdb4af23af2be01110c8d178300e31d21f802ff",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x42dc35d91faaedf1cc0b10ad5a3312bbffa18201",
-      "balanceBeddows": 2679797863,
+      "balanceBeddows": 2606617555,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xfb053cf7737b211c41ace8bdc11980400fc05c46a5d7ec42bc06b9cec874f49c",
-        "0x981ecc3c1d73a413fbddb6545f6eb1dfd8424d8aba6d818b7cb0ce51e91d8cab",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x22e16292b0c49be136cbd190acd4bc6557c503bc865e079989343b286381db99",
+        "0x71787766e1dce2828569aac4a76ce06ed9add29883c87f68e5f906bcdb2773e7",
+        "0x0ee9c713b5ef574b9ab9c47a799ba39fbb3f315bb9c2cdab78edcfa782064638",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x44d9fc8813f77b9b4effec7036e877e391ed05c9",
-      "balanceBeddows": 2751228102,
+      "balanceBeddows": 2767267647,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x711446538fc3d01cc39f425771615a5b98ab30fe80cbc14fa63723a6f55503c7",
-        "0x50feb41423feafeed8ff92fc70ab89abe79d8024312c475681e1100b1cccf0d2",
-        "0x4bd719ed44be2b1bbce6f0c02b6b55330a03c786d0a818f95468bd5da6b1da6a",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xeba3875c6147f0d0bb135066e2bd43140fd6d921af46d2d5d28440ea8bf16e56",
+        "0x4f77c3a3cbae6804c433540b21be2dedf2b49e75deab5eacdaacd47f23bc5a48",
+        "0x67b6c06a707ac1ef2f7884e6e29b26c368a6700f80a00f5963deb5bed85e1158",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x4d8aa594a1c2518d7619a8c4a4ffb65c7a476b10",
-      "balanceBeddows": 2861494432,
+      "balanceBeddows": 2884251671,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x032297292d2d794129bf265ab712630d4c03686a6ea1696c05d2bcd80706133a",
-        "0xe2bfa4b130420c0f4b5370cf1f43cc9c44fc4bd9ec85f3ce07507646537a734e",
-        "0xa3ca3a9408f4b6a5af41a2513dbb0302c0c073a514f018bfe123f8dc32dcb9cf",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x6161e14d45d318ed277f271a23c0f77694e3d2a4df69141064dbf1e555e65a1a",
+        "0xc8a8ad4251ea2adca8f03de4e69cf6a7647140985fcbf524ed06b5f11e500fbd",
+        "0x9c56e19015d22a2f7314fb313d3ca68b4052ba2ab5efa5f76a1fdcbb6b2523c9",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x4d9b0623e3c967c9f8d3b699831dcb0a02fb89ee",
-      "balanceBeddows": 2932462779,
+      "balanceBeddows": 2995002097,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xe05a9546c19413c4678467a058fdcb02c322c4a7631eb919377e070ab2989772",
-        "0x6fd160f6b3f00b7eb14da8c68dca4b9570d3d409897441ca0820e359fded629a",
-        "0x7c14d29f2acc4b4999889d28ab8b20df6a7cb6fadae3ba5588513b23ecc89941",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x46bfabb19a72c495d7133f7e4a6a723c3e5fbbd672cc6e1c2fcdafbd29094a50",
+        "0xf0ad368bb942333d47294044e0160817589616991618149ab3c3e84376678703",
+        "0x6aa810ac589a38a37385899e9a13fad39dafb10579d0e5bafb3b02750e47a981",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x50527573da0b14f4448d9da81eba248070fc63f7",
-      "balanceBeddows": 3091083123,
+      "balanceBeddows": 3093783210,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xa2d613690bd4d5774827579cf3bca82c40335885644643ba36ea520b59ea6fed",
-        "0x6fa927a2508095376a6be37e7867058539ae4bb6e65e198d308a4aa7d313fea4",
-        "0xbb43b52771c7572fa1770415d7733c3bbc169cbea608648c8d6c65873b1cc215",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xccbf527a38478b874ff8049e40b67817622707177a21ffe3c29ff43c57581e97",
+        "0x5c05bb66635acc5e75b2b7f0218aafc801c7d6c7201e824138c554331a095577",
+        "0x4d18e379150f2ca5734f138d0de32de520752c3ee98947c14ffb179432570294",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x536ba41395f81bb2c772908a5df0fa605f3cf657",
-      "balanceBeddows": 3169646979,
+      "balanceBeddows": 3149733776,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x5b2caa9ce899a7ef73a9ff957d13c39c76f53ea74b46540509b16f82943998f4",
-        "0xc7619baaea86a19a69a6226be3bd923630c50386b38193be84176e0d9fdcad7a",
-        "0x21981ef591cc07f05f21022370f18c7e5d7267bfa3790f347009e7f183e7aa68",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xed7d94b772e5e42a148469d3d9937c3d20cef085adafddfdc7c6433a4646741f",
+        "0x569fd38f45b30cb155bba791be6ee649d6de00402148178b5b91364d69ab6123",
+        "0x67b6c06a707ac1ef2f7884e6e29b26c368a6700f80a00f5963deb5bed85e1158",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x54f3a5f181a9b09eb3ed055b55e3a88fd71363e6",
-      "balanceBeddows": 3275372870,
+      "balanceBeddows": 3291434387,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x9441df934d8902ab0b3ebd37123f1f0f3b3a645a6a0429f530fae6f6117fd76d",
-        "0x44fced33b5a9d76fe2e937111f2e388b98a0db38f627e116fc114d2fd935b3dd",
-        "0xa10202c7b3db94d566f0d5e198ad0b5de39e983e95cf80afec25836851759d00",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x7b96474300423782357afb7ddaef7b0203e5650d5607a479f1969b1a56a173d6",
+        "0xb925c5b1d18f28939f78aaf3c43c00faa009895e45fe1e1371149944f00d17b8",
+        "0x4ca8cb1d77b801dca7f860baffdb4af23af2be01110c8d178300e31d21f802ff",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x56ffe437924899ef2960acede62e2ffe534b8875",
-      "balanceBeddows": 3304675334,
+      "balanceBeddows": 3304235823,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x4995c8d84c21875f1fa030eedcfab0fbb3a9143984d02937a64a42e6d2ddc13a",
-        "0xe202d7eadd0242339166479d1285326bb3354445e92a769ad29a410322677d81",
-        "0x21981ef591cc07f05f21022370f18c7e5d7267bfa3790f347009e7f183e7aa68",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x9c8d6be0766c7e44e7d7592424491ce67735343b3a6f5b3e30267a07920ef0a4",
+        "0x8d1a0c1c78fd27a1732bc8cc10a160010bb28b61e2559de3cfa20c5229ea10d7",
+        "0x0bd9078029619650b629c5e5361fc8aa1b66a0b6b5234756c6ea3e78b633c896",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x5771fc8e7ff16a337a87b84fa5b6ce9ea8a941bc",
-      "balanceBeddows": 3454676059,
+      "balanceBeddows": 3459532672,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xeb14333ac258336acb2ae01d487637c90cfedbc5e62b51ac378eb24fd32d614f",
-        "0xc70ee1124bddb9e72876b42b5cde72e4509c376bd6e77f9967437d807ba3de20",
-        "0x5c6039a4b7dce3d6ee659b5fb7f68f3a6a4d1a85e45e0cd85fb53213cf730745",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x03e91ac97d14da5b11f601f82bbf12b82ba5e9bbd286a2cc258dfe8247ea58b4",
+        "0x6d15c2dbc69cdbdee488de4cee10b6ece547a017ae6de74fdd9bf1c7436ef1e4",
+        "0x2b86491f5933940be46b3f7d3deeeb731fb10293e07e952afbbb160fab6ebf60",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x5fa22d14312679108ae9c12c96224676b6cc9731",
-      "balanceBeddows": 3563493385,
+      "balanceBeddows": 3598619931,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xdd237118138d9991c839c81cf057dda86c75d7664c5ea496c19ef8eedadf680d",
-        "0x8c24c4fe51a08c07a2eb435782041085d530c8de825b11902622949b799ccbe5",
-        "0x5960edb1dfcdd82b306b42f29f5ac079b2726bc14030debeaa2c2b35ccda8b1d",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x5b275935e590015383c8f87598c5dfc01435c58395d19bd93019eb674ef128c4",
+        "0x4f0efcb952dfc2dcd16056d546e6c5fa03237d0e9fc91dad5e17e0b0b0571cad",
+        "0x1acaf9fcf252a6c5627b91f917b75aaa5b5f0fe0127d332cc3e81617c43d0efb",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x5fbc09dabf82e28765d538e222ed0864fae2b073",
-      "balanceBeddows": 3674775463,
+      "balanceBeddows": 3645638038,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x232cdb8c6a63f09c0863168046752ffef9944d7b408846aacc80e208eebc4cb3",
-        "0xc861e7a2aab4917ee0336524605e8b05e6b9b6b32ba0c5214faa4f6e0ab08a18",
-        "0xc0812ddc5cb174ed64ce85df86ac2f4d2a34c7c3b3f91efd8a7ccace3b39e7fc",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x052dbd3fd715c219fa03146fc0229e18f122037ca06d1c0fdc787cdc7c9ea225",
+        "0xd67e3859c06e3dad4ab172709d05cfd0a2bc41da045af543a64f2f717dd4726b",
+        "0x2b86491f5933940be46b3f7d3deeeb731fb10293e07e952afbbb160fab6ebf60",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x6223b815169d1a7f31dd0321f28a47f11d9c5af5",
-      "balanceBeddows": 3725130729,
+      "balanceBeddows": 3746242213,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x920676e84f3aee080e15638b782c94d043d4618ca956b62244928c6c303e2943",
-        "0x3c28aaa922b215b6ba0a5806a206bea4ff322f66735a9aaa5508b63ecc09a9ba",
-        "0xde7b6127fb5c3ec359bfaea4a13cb0b5bee445a040d58d0810c572142fd60ea6",
-        "0x12e2d4f7f42087438facd394b440085328780f0bd0b761483c5356d70cb5524d",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x40153b7200ff92bd602f499fcbf421672d87daf29c7f1abc710c5e98f336ebf7",
+        "0x4e9a0f6a9d20d2e520c49d7760d3a2d544c7d4ca66ab40b9d0a07d1a79a729bf",
+        "0x415e0df87b3d3bd5ac91ca9566d9ddfabfbccc4a16e61c35001d29c34584634f",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x63f8d2c8e1082cb4ea6d26bdb489952f35ed8e11",
-      "balanceBeddows": 3848342604,
+      "balanceBeddows": 3822242287,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xb37e25f7a02ca02690d1e4db0e024c50c3f501f6883fb497380e2ecfcb62ba2d",
-        "0x21008543d1626b6f84ecdc2f1511d05d894bfde5c5546957e332cb32e3783475",
-        "0xde8c97c3e1f3bda9fc8f134edda203976ccfb3717c62b7a8cce62d0848423f4e",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x4fe280d46775621810c0e83997cb2a0cd82134af08a4bcde6db812bf72943e55",
+        "0x4f0efcb952dfc2dcd16056d546e6c5fa03237d0e9fc91dad5e17e0b0b0571cad",
+        "0x1acaf9fcf252a6c5627b91f917b75aaa5b5f0fe0127d332cc3e81617c43d0efb",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x644c3ae5ac9ff62c944677550df678b16c2d5da3",
-      "balanceBeddows": 3923929823,
+      "balanceBeddows": 3926791012,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x3c6d7168004ccbb78103fd6e9a64405545b4f420274717f23e0f7c099d5eaaa9",
-        "0x08cfd7f6cff9944273a0f2d02aa62c23e4689c60c790d3891e227cc20be0e3d7",
-        "0x72a1e0eca1c4a9f31e17927bed57954681d7a7103acc1336841aa256fff5a064",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xf7bae147087d1546da2acef2d4f3e0a94adcf1584c6887ffa37b7ce835f97505",
+        "0x4bee46e1ae9baf72f771756c5c6ffd041f021acf099cabd753b67cf338cad861",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x6af009d0fc6651d5bedb48bf05b04766c62464ac",
-      "balanceBeddows": 4091744336,
+      "balanceBeddows": 4002639562,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x3659fec0f8c08417dd648a9aa1b0890f93ea94f9d34522066bceaeb078de1ada",
-        "0x08cfd7f6cff9944273a0f2d02aa62c23e4689c60c790d3891e227cc20be0e3d7",
-        "0x72a1e0eca1c4a9f31e17927bed57954681d7a7103acc1336841aa256fff5a064",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x4517d71f47bff2f367645fc0a68d6c0e9c6735d6a2e0778236039a97c0278f45",
+        "0x62f5fe7c3d9a73286644ff5edbc619b3603e89ebd3821bca42421edb1dcd0175",
+        "0x6aa810ac589a38a37385899e9a13fad39dafb10579d0e5bafb3b02750e47a981",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x6c3e7189bbb74db0c2cff1867b0d6062b321cbcd",
-      "balanceBeddows": 4118663823,
+      "balanceBeddows": 4101333574,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x9b7534f22813c934bf9273c671e88218185aac97c2e858bb90095c7d83d03af4",
-        "0x68b19fe3cb4ae3cd09faa5223373d2cc907c438d3b587c0d47034e848d4707e8",
-        "0xa10202c7b3db94d566f0d5e198ad0b5de39e983e95cf80afec25836851759d00",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x8cc03a293df93d3a14207384658472e67853a67a882b40a97373c360ab4bada5",
+        "0xb925c5b1d18f28939f78aaf3c43c00faa009895e45fe1e1371149944f00d17b8",
+        "0x4ca8cb1d77b801dca7f860baffdb4af23af2be01110c8d178300e31d21f802ff",
+        "0x458ccd573be41abfba7a77442180b06462c0b6259971a00d63d8779f42c8ffdf",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x6c930d7228b0587b5b5a28972bfa28e6d3bf4ac5",
-      "balanceBeddows": 4245694060,
+      "balanceBeddows": 4236104409,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x6e7ce72222c73336be6e07862d3d9e53e1ffb4923a88457b7a0547335706ffca",
-        "0x6e5597060a492a40f4d4ae8f15bee6012a735d556c5fa8a6a416d4d5468e41f5",
-        "0x92b9cb0790d39204e17461acef96e376130a8c3310ccb363c6b5e069cfbcf680",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x2a1671bb9e59382ce52c99a86b941a888e0c4a388d5676c1efcb9a19642f36a2",
+        "0x71787766e1dce2828569aac4a76ce06ed9add29883c87f68e5f906bcdb2773e7",
+        "0x0ee9c713b5ef574b9ab9c47a799ba39fbb3f315bb9c2cdab78edcfa782064638",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x700ed5fc553f8ef8307b585da4d5145ee8918c45",
-      "balanceBeddows": 4321913926,
+      "balanceBeddows": 4360949633,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xd025395ef3be5dac9b804c9586b8a4cc4f6dd4b3d4a1cb57cf1c2650043a1735",
-        "0x5460e3e9579d669491223c27dc14ae60b8455d21e97a78041e0f3a4870297c5f",
-        "0xde8c97c3e1f3bda9fc8f134edda203976ccfb3717c62b7a8cce62d0848423f4e",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xe74d83123c3672b1b603d0a0c64dedc9ed761242e563126e4c776dc6b82fc9fe",
+        "0x320d0e8fb89f5ba8695ad6fc21cd89ad69d1947ee616b369db6c26d5db492bda",
+        "0xfcf8bf070944add3b9858298b9266e18729dc39bd81aefe5bcc79254c16dd0bb",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x7178562c9e54d35614729cbfcbb3739012164ba4",
-      "balanceBeddows": 4454353628,
+      "balanceBeddows": 4454783276,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0x21d595155c2bd1b68eafac1c7d9eeb782e5e8759267fe27156e00d0464be7c58",
-        "0xa5f49e01a98c3c3c82bff32552d218d1fe22a89471fdfb41c3725db791932331",
-        "0xc0812ddc5cb174ed64ce85df86ac2f4d2a34c7c3b3f91efd8a7ccace3b39e7fc",
-        "0xdc6c0990f20a6df6d8bed45382105b4e54c344761bbe0e774d9828a29b4ed46c",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x481c850ef818d9090cb90e2137dea46f23db58505ac43c5eb33266c02601fe72",
+        "0xf0ad368bb942333d47294044e0160817589616991618149ab3c3e84376678703",
+        "0x6aa810ac589a38a37385899e9a13fad39dafb10579d0e5bafb3b02750e47a981",
+        "0xd0bf05d36ff92f2cf66b2d78195e1c40c032075aa5a248d5147690808a84a19a",
+        "0xb163a242fc478b719516732ecfce5d56b03a6d7b1cf3026f5a409bf5dba28745",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x72138032496ae80d1a4abdf6d4e541b40113e0de",
-      "balanceBeddows": 4574927605,
+      "balanceBeddows": 4512502458,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xb35fe078628293dd4426dda2846fdca3a6fb2651ee15d9a3a70e545fd23eaf83",
-        "0x19d8d184e0703b5e405e59dde8091a0fc50fc1c887000dd99287fd0ba06510ed",
-        "0xbb43b52771c7572fa1770415d7733c3bbc169cbea608648c8d6c65873b1cc215",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x9a3491d84a0ec1491baa7a8256a2dcbec23bb3789c17095cbc6d2e894a69a00a",
+        "0x8d1a0c1c78fd27a1732bc8cc10a160010bb28b61e2559de3cfa20c5229ea10d7",
+        "0x0bd9078029619650b629c5e5361fc8aa1b66a0b6b5234756c6ea3e78b633c896",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x726f947912d868b729f96d56e9805cf939a39368",
-      "balanceBeddows": 4602364697,
+      "balanceBeddows": 4653652670,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xfd62d1931f160bb7ce66896e8b18e96e9d6cd5369519ec26af0a7a5b970e43e1",
-        "0x981ecc3c1d73a413fbddb6545f6eb1dfd8424d8aba6d818b7cb0ce51e91d8cab",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xf229d699810e26c5f8dc15071a110800c1fac8a373eefc7fe2c91759f5849e83",
+        "0x569fd38f45b30cb155bba791be6ee649d6de00402148178b5b91364d69ab6123",
+        "0x67b6c06a707ac1ef2f7884e6e29b26c368a6700f80a00f5963deb5bed85e1158",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x72ae34679e4b239b29375efd2a886e1d80e82ae3",
-      "balanceBeddows": 4756602098,
+      "balanceBeddows": 4756717243,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xe344c39888f781eac29d69fd382c6a9a1e967d98a99807db6d143a89b484252d",
-        "0x6fd160f6b3f00b7eb14da8c68dca4b9570d3d409897441ca0820e359fded629a",
-        "0x7c14d29f2acc4b4999889d28ab8b20df6a7cb6fadae3ba5588513b23ecc89941",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xba7a8a9b1241b3fad56d2d2c2f179398a684ebb444bb7478ce92b3daff7987c9",
+        "0x5c05bb66635acc5e75b2b7f0218aafc801c7d6c7201e824138c554331a095577",
+        "0x4d18e379150f2ca5734f138d0de32de520752c3ee98947c14ffb179432570294",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x75af718fc90c804d70ce01b38911d43e3fbf5bcc",
-      "balanceBeddows": 4834336898,
+      "balanceBeddows": 4815004101,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xcb9479fbd340cb0fd98e82e8fab2c62c81e4494cf08ce8c4d7a891dd030b680f",
-        "0x5460e3e9579d669491223c27dc14ae60b8455d21e97a78041e0f3a4870297c5f",
-        "0xde8c97c3e1f3bda9fc8f134edda203976ccfb3717c62b7a8cce62d0848423f4e",
-        "0x65b328cbb0a1135931f59127dfa16c84b8472258e155d26c612ce063acac4a1d",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0x3bbd024aaa2d326d183060cf36389afd5d0d3786e956a3d047c5d1890c63d628",
+        "0x4e9a0f6a9d20d2e520c49d7760d3a2d544c7d4ca66ab40b9d0a07d1a79a729bf",
+        "0x415e0df87b3d3bd5ac91ca9566d9ddfabfbccc4a16e61c35001d29c34584634f",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x77abc2dd8ca5021dbb8e91e63f574b1e440764d2",
-      "balanceBeddows": 4915507196,
+      "balanceBeddows": 4935908710,
       "mandatoryKeys": [],
       "numberOfSignatures": 0,
       "optionalKeys": [],
       "proof": [
-        "0xf90c3db9f834e9a33086969313a1f5aa2288933e69a065cb829ab7524f113340",
-        "0xde50aabc4bf2cc38377047ec9d782e2cd01b734b455c3ce25491d04b6fef9a78",
-        "0x5c6039a4b7dce3d6ee659b5fb7f68f3a6a4d1a85e45e0cd85fb53213cf730745",
-        "0x670133dd4a82f56a113153314a77d1e68d117fb2cc72c0ee70b00988fe76c0bb",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0xb4c675bf8acb5ce7305951cbd2c47cf7ebe38b13333f4f216670a3186af7240d",
+        "0x49bab1b663df9ee2caaed3d2069ace4ca916717dea849f35bb66e107d9d115d6",
+        "0x4d18e379150f2ca5734f138d0de32de520752c3ee98947c14ffb179432570294",
+        "0x212ae49965f798a82776b3d3f0ad4de3248452a253f5a8f30d7a2c493f629bd6",
+        "0xe78f0237750cf4f57916e8d79ed802578a125f86eb60c9a306d8cbf19199c2ad",
+        "0x335ec8dd16e50d0f89e2e06fe5f751ee09071a39b1696656fd9633e8526b4a1d"
       ]
     },
     {
       "b32Address": "0x77fc4d2a5d105464ca8ac9de5dfabc33e65b93f5",
-      "balanceBeddows": 5025585439,
+      "balanceBeddows": 5097292465,
       "mandatoryKeys": [
         "0xd5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",
         "0x46b160b7a24b8813318eb753ef5be4c0a31fe1a3a2789d9253df1617ed4ae829",
@@ -752,17 +755,16 @@
       "numberOfSignatures": 3,
       "optionalKeys": [],
       "proof": [
-        "0x64678156332cfe4e5df792ba70aacb319e93ee99eb1cff6b37f6c26cfe808224",
-        "0x2baa6ac9001efb94736c69c7794a1ae4059c21f7ea89edec776810a9df8023ae",
-        "0x92b9cb0790d39204e17461acef96e376130a8c3310ccb363c6b5e069cfbcf680",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xeaeb7f8f545f7639f5b3090fc6599b329ea0d42081f466ab666eeeafbc0dc087",
+        "0x4f77c3a3cbae6804c433540b21be2dedf2b49e75deab5eacdaacd47f23bc5a48",
+        "0x67b6c06a707ac1ef2f7884e6e29b26c368a6700f80a00f5963deb5bed85e1158",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x7a2c3423d8322e7ead171bca7ab32ce9b71808e6",
-      "balanceBeddows": 5169521163,
+      "balanceBeddows": 5106545194,
       "mandatoryKeys": [
         "0xd5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b"
       ],
@@ -772,17 +774,16 @@
         "0x3a2e676e768c2bcd3e6419ef1b624cc56347c2a4e73d6d456ca13a5193735902"
       ],
       "proof": [
-        "0x950f20402ee8f33671c866fa105f185bd4f09293f00bf60cc4208677034cfd3f",
-        "0x44fced33b5a9d76fe2e937111f2e388b98a0db38f627e116fc114d2fd935b3dd",
-        "0xa10202c7b3db94d566f0d5e198ad0b5de39e983e95cf80afec25836851759d00",
-        "0x5ac0e1f56c2bbf81c101d84d50c2bcb5b45ec8852feb202c692a0f19f109b2d6",
-        "0x151bced47affdef60d90d68349af1228c9341fb900956f30dd5ebfc5cddf89ef",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xe9769862bb21e6ea1f42092416c9adb1ce164143732c10fd9f353bd3e3d54581",
+        "0x320d0e8fb89f5ba8695ad6fc21cd89ad69d1947ee616b369db6c26d5db492bda",
+        "0xfcf8bf070944add3b9858298b9266e18729dc39bd81aefe5bcc79254c16dd0bb",
+        "0x22e85ac0e94377a1b33437a976f7f88630a606c36ecc2f0413d99c0b10455799",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x7b4dbba91cc71f04836c1cf040d052cc13fd3de6",
-      "balanceBeddows": 5276586702,
+      "balanceBeddows": 5261024981,
       "mandatoryKeys": [
         "0xd5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",
         "0x46b160b7a24b8813318eb753ef5be4c0a31fe1a3a2789d9253df1617ed4ae829",
@@ -795,17 +796,16 @@
         "0x085c8d1185ff50ae3662173f6ccfe6d950ba4bd9dbf3cde283e7321606489350"
       ],
       "proof": [
-        "0x57f050b8d077849a475c79ba217f3732fa1358f711cfe627c521982f1feaa296",
-        "0xc7619baaea86a19a69a6226be3bd923630c50386b38193be84176e0d9fdcad7a",
-        "0x21981ef591cc07f05f21022370f18c7e5d7267bfa3790f347009e7f183e7aa68",
-        "0xf0cf1ee4d76aaa173f194d72ace6a2029780d25492817b92777ac4eb0decc080",
-        "0x51b30db4df1a5d5518de30617a931e4ce29f049aae8ed62c899d8b6f7530b4dc",
-        "0x6f3f752b8381917128bc5145128af0d83e3d7547c83a2d28b20bb04b8952f4a6"
+        "0xfb59bab8ab6ce8bb946baf6f76d00aafe556cb5d0d4f6837cba5abba277255ec",
+        "0x4bee46e1ae9baf72f771756c5c6ffd041f021acf099cabd753b67cf338cad861",
+        "0x17e8fbb1b8e9d826e959e8c178c77c7a554ab23a199cee7343e8516ddb25cc88",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     },
     {
       "b32Address": "0x7d35498fe7593fbf93cdf9688f81cb5c66820a8b",
-      "balanceBeddows": 5379030427,
+      "balanceBeddows": 5396029526,
       "mandatoryKeys": [
         "0xd5f39b2a9bdc13aacbbb7c89181853d1808e0417d7f42bcdeaef1e82e232315b",
         "0x46b160b7a24b8813318eb753ef5be4c0a31fe1a3a2789d9253df1617ed4ae829",
@@ -875,12 +875,12 @@
       "numberOfSignatures": 64,
       "optionalKeys": [],
       "proof": [
-        "0x14c15e4afe49e034e90fc324022e27f1f7707a61787ba9dd0b0ba560d0f5eb2f",
-        "0x00db94153e251a051d266dc79015ea9863c1885c3241d4116b23a57e2adf5059",
-        "0xa3ca3a9408f4b6a5af41a2513dbb0302c0c073a514f018bfe123f8dc32dcb9cf",
-        "0x941f575199cc16fb57e8c8a64a29b1833ec0e661029f880f81e14231d6aeae20",
-        "0x08fbc359368c4af6a652ee6d36b856eb9cfb81a2915e7648fba9eb464ea07800",
-        "0x629779421eb7409cb867a7d8ee45aadc89a8b86f24423b737e1430832a78f026"
+        "0x2a5aa94b9f05cf7d35c0832decb3cecdac8d8bcb08d58584e8b794e03a02b401",
+        "0xd7d05cbb60a91c18ff10be3757e5e9fec08b558f93f1ad957c7d2eec5f4f5fa6",
+        "0x415e0df87b3d3bd5ac91ca9566d9ddfabfbccc4a16e61c35001d29c34584634f",
+        "0x1a036df79004b45920e877add773a4b803697608b32a5d5979a36b6cb0ee74ce",
+        "0xa54a3ea04083d979c6fc0bf88d9168e55a74c16c75bcc91c00033ba5eeae3bc8",
+        "0x818f7f1bafbec0621f942fb82a0b47a2f01ffe7cee4d6fced8cbb051dbcdd3f3"
       ]
     }
   ]

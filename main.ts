@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Balance, Leaf } from './src/interface';
 
-const LSK_MULTIPLIER = 10 ** 8;
 const isExample = process.argv[2] === '--example';
 const path = isExample ? './data/example' : './data/mainnet';
 
@@ -26,10 +25,9 @@ console.log(`${data.length} Accounts to generate:`);
 const tree = StandardMerkleTree.of(
 	data.map(account => {
 		const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
-		const balanceBeddows = Math.floor(account.balance * LSK_MULTIPLIER);
 		return [
 			address,
-			balanceBeddows,
+			account.balanceBeddows,
 			account.numberOfSignatures ?? 0,
 			account.mandatoryKeys ? account.mandatoryKeys.map(key => '0x' + key) : [],
 			account.optionalKeys ? account.optionalKeys.map(key => '0x' + key) : [],
@@ -40,10 +38,9 @@ const tree = StandardMerkleTree.of(
 
 for (const account of data) {
 	const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
-	const balanceBeddows = Math.floor(account.balance * LSK_MULTIPLIER);
 	const payload = [
 		address,
-		balanceBeddows,
+		account.balanceBeddows,
 		account.numberOfSignatures ?? 0,
 		account.mandatoryKeys ? account.mandatoryKeys.map(key => '0x' + key) : [],
 		account.optionalKeys ? account.optionalKeys.map(key => '0x' + key) : [],
@@ -59,7 +56,7 @@ for (const account of data) {
 		lskAddress: account.lskAddress,
 		address: '0x' + address.toString('hex'),
 		balance: account.balance,
-		balanceBeddows,
+		balanceBeddows: account.balanceBeddows,
 		numberOfSignatures: account.numberOfSignatures ?? 0,
 		mandatoryKeys: account.mandatoryKeys
 			? account.mandatoryKeys.map((key: string) => '0x' + key)
