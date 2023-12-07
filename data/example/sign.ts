@@ -1,61 +1,7 @@
 import * as fs from 'fs';
-import { solidityPackedKeccak256 } from 'ethers';
+import { AbiCoder, keccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
-
-interface Key {
-	address: string;
-	keyPath: string;
-	publicKey: string;
-	privateKey: string;
-	plain: {
-		generatorKeyPath: string;
-		generatorKey: string;
-		generatorPrivateKey: string;
-		blsKeyPath: string;
-		blsKey: string;
-		blsProofOfPossession: string;
-		blsPrivateKey: string;
-	};
-	encrypted: {};
-}
-interface DevValidator {
-	keys: Key[];
-}
-
-interface Balances {
-	merkleRoot: string;
-	nodes: {
-		lskAddress: string;
-		address: string;
-		balance: number;
-		balanceBeddows: number;
-		numberOfSignatures: number;
-		mandatoryKeys: Array<string>;
-		optionalKeys: Array<string>;
-		payload: string;
-		hash: string;
-		proof: Array<string>;
-	}[];
-}
-
-const keys = (
-	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
-).keys;
-const balances = JSON.parse(
-	fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8'),
-) as Balances;
-
-const signMessage = (message: string, key: Key): string => {
-	return Buffer.from(
-		tweetnacl.sign.detached(
-			Buffer.from(message.substring(2), 'hex'),
-			Buffer.from(key.privateKey, 'hex'),
-		),
-	).toString('hex');
-};
-
-const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
-const BYTES_9 = '000000000000000000';
+import { Balances, DevValidator, DevValidatorKey } from '../../src/interface';
 
 interface SigPair {
 	pubKey: string;
@@ -68,17 +14,38 @@ interface Signature {
 	sigs: SigPair[];
 }
 
+const abiCoder = new AbiCoder();
+
+const keys = (
+	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
+).keys;
+const balances = JSON.parse(
+	fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8'),
+) as Balances;
+
+const signMessage = (message: string, key: DevValidatorKey): string => {
+	return Buffer.from(
+		tweetnacl.sign.detached(
+			Buffer.from(message.substring(2), 'hex'),
+			Buffer.from(key.privateKey, 'hex'),
+		),
+	).toString('hex');
+};
+
+const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
+const BYTES_9 = '000000000000000000';
+
 const signatures: Signature[] = [];
 
-for (const [index, account] of balances.nodes.entries()) {
+for (const leaf of balances.leaves) {
 	const message =
-		solidityPackedKeccak256(['bytes32', 'address'], [account.hash, recipient]) + BYTES_9;
+		keccak256(abiCoder.encode(['bytes32', 'address'], [leaf.hash, recipient])) + BYTES_9;
 
 	const sigs: SigPair[] = [];
 
 	// Regular Account
-	if (account.numberOfSignatures === 0) {
-		const key = keys[index];
+	if (leaf.numberOfSignatures === 0) {
+		const key = keys.find(key => key.address === leaf.lskAddress)!;
 		const signature = signMessage(message, key);
 
 		sigs.push({
@@ -89,7 +56,7 @@ for (const [index, account] of balances.nodes.entries()) {
 	} else {
 		// Multisig Account
 		// Signing all keys regardless of required amount
-		for (const pubKey of account.mandatoryKeys.concat(account.optionalKeys)) {
+		for (const pubKey of leaf.mandatoryKeys.concat(leaf.optionalKeys)) {
 			const key = keys.find(key => '0x' + key.publicKey === pubKey)!;
 			const signature = signMessage(message, key);
 

@@ -1,4 +1,6 @@
+import { cryptography } from 'lisk-sdk';
 import * as fs from 'fs';
+import { DevValidator } from '../../src/interface';
 
 // Create Balances
 // [#0 - #49] First 50 addresses are regular addresses
@@ -8,10 +10,10 @@ const NUM_OF_REGULAR_ACCOUNTS = 50;
 // For each account it will use the address of the index as account holder,
 // while the "keys" are used from #0 onwards
 
-// #50: numSig 3  => 3M
-// #51: numSig 2  => 1M + 2O
-// #52: numSig 5  => 3M + 3O
-// #53: numSig 64 => 64M
+// #50: numSig 3  => 3m
+// #51: numSig 2  => 1m + 2o
+// #52: numSig 5  => 3m + 3o
+// #53: numSig 64 => 64m
 const multiSigs = [
 	{
 		numberOfSignatures: 3,
@@ -38,7 +40,16 @@ const multiSigs = [
 const randomBalance = (startAmount: number): number =>
 	Number((startAmount + Math.random()).toFixed(8));
 
-const accounts = JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')).keys;
+const accounts = (
+	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
+).keys;
+
+// to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.
+const sortedAccounts = [...accounts].sort((key1, key2) =>
+	cryptography.address
+		.getAddressFromLisk32Address(key1.address)
+		.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
+);
 
 const results: {
 	lskAddress: string;
@@ -50,7 +61,7 @@ const results: {
 
 // Regular Accounts
 for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
-	const account = accounts[index];
+	const account = sortedAccounts[index];
 	const balance = randomBalance(index);
 
 	results.push({
@@ -60,7 +71,7 @@ for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
 }
 
 for (const multiSig of multiSigs) {
-	let account = accounts[results.length];
+	let account = sortedAccounts[results.length];
 	results.push({
 		lskAddress: account.address,
 		balance: randomBalance(results.length),

@@ -23,7 +23,9 @@ $ yarn generate-merkle-tree-testing     # Using ./data/example
 | `/data/<network>/merkle-tree-result.json` | Stores MerkleRoot, and node for each account        | `$ yarn generate-merkle-tree` |
 
 ## Merkle Node
+
 Each node will be encoded as:
+
 ```
 <LSK_ADDRESS_IN_HEX><BALANCE_IN_BEDDOWS><NUMBER_OF_SIGNATURES><MANDATORY_KEYS><OPTIONAL_KEYS>
 P.S. If the address is not a multisig address, NUMBER_OF_SIGNATURES would be 0
