@@ -19,6 +19,11 @@ export interface Leaf {
 	proof?: string[];
 }
 
+export interface MerkleTree {
+	merkleRoot: string;
+	leaves: Leaf[];
+}
+
 export interface Balances {
 	merkleRoot: string;
 	leaves: {

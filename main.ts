@@ -6,9 +6,28 @@ import { Balance, Leaf } from './src/interface';
 const isExample = process.argv[2] === '--example';
 const path = isExample ? './data/example' : './data/mainnet';
 
-let data;
+let balances;
 try {
-	data = JSON.parse(fs.readFileSync(`${path}/balances.json`, 'utf-8')) as Balance[];
+	balances = JSON.parse(fs.readFileSync(`${path}/balances.json`, 'utf-8')) as Balance[];
+
+	// Check that addresses are sorted
+	for (const [index, balance] of balances.entries()) {
+		// Last address, skip
+		if (index === balances.length - 1) {
+			continue;
+		}
+		if (
+			cryptography.address
+				.getAddressFromLisk32Address(balance.lskAddress)
+				.compare(
+					cryptography.address.getAddressFromLisk32Address(balances[index + 1].lskAddress),
+				) === 1
+		) {
+			throw new Error(
+				'Address not sorted! Please sort your addresses in balances.json before continue',
+			);
+		}
+	}
 } catch (err) {
 	console.log(`Error occurred reading ${path}/balances.json`);
 	if (err instanceof Error) {
@@ -20,10 +39,10 @@ try {
 const leaves: Leaf[] = [];
 
 console.log(`Running at ${isExample ? '** EXAMPLE **' : '** MAINNET **'}`);
-console.log(`${data.length} Accounts to generate:`);
+console.log(`${balances.length} Accounts to generate:`);
 
 const tree = StandardMerkleTree.of(
-	data.map(account => {
+	balances.map(account => {
 		const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
 		return [
 			address,
@@ -36,7 +55,7 @@ const tree = StandardMerkleTree.of(
 	['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes32[]'],
 );
 
-for (const account of data) {
+for (const account of balances) {
 	const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
 	const payload = [
 		address,
