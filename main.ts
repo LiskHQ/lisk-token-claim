@@ -97,21 +97,20 @@ fs.writeFileSync(
 
 console.log(`Result outputted to: ${path}/merkle-tree-result.json`);
 
-if (isExample) {
-	// Create an extra file for Foundry Testing
-	fs.writeFileSync(
-		`${path}/merkle-tree-result-simple.json`,
-		JSON.stringify({
-			merkleRoot: tree.root,
-			leaves: leaves.map(leaf => ({
-				b32Address: leaf.address,
-				balanceBeddows: leaf.balanceBeddows,
-				mandatoryKeys: leaf.mandatoryKeys ?? [],
-				numberOfSignatures: leaf.numberOfSignatures ?? 0,
-				optionalKeys: leaf.optionalKeys ?? [],
-				proof: leaf.proof,
-			})),
-		}),
-		'utf-8',
-	);
-}
+fs.writeFileSync(
+	`${path}/merkle-tree-result-simple.json`,
+	JSON.stringify({
+		merkleRoot: tree.root,
+		leaves: leaves.map(leaf => ({
+			b32Address: leaf.address,
+			balanceBeddows: leaf.balanceBeddows,
+			mandatoryKeys: leaf.mandatoryKeys ?? [],
+			numberOfSignatures: leaf.numberOfSignatures ?? 0,
+			optionalKeys: leaf.optionalKeys ?? [],
+			proof: leaf.proof,
+		})),
+	}),
+	'utf-8',
+);
+
+console.log(`Lightweight result outputted to: ${path}/merkle-tree-result-simple.json`);
