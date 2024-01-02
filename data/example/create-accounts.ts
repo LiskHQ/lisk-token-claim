@@ -9,6 +9,9 @@ const LSK_MULTIPLIER = 10 ** 8;
 // [#0 - #49] First 50 addresses are regular addresses
 const NUM_OF_REGULAR_ACCOUNTS = 50;
 
+// Balances are random between 0 - <RANDOM_RANGE>
+const RANDOM_RANGE = 10000;
+
 // Multisig Accounts
 // For each account it will use the address of the index as account holder,
 // while the "keys" are used from #0 onwards
@@ -40,8 +43,7 @@ const multiSigs = [
 	},
 ];
 
-const randomBalance = (startAmount: number): number =>
-	Number((startAmount + Math.random()).toFixed(8));
+const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
 const accounts = (
 	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
@@ -66,8 +68,8 @@ const results: {
 // Regular Accounts
 for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
 	const account = sortedAccounts[index];
-	const balance = randomBalance(index);
-	const balanceBeddows = Math.floor(balance * LSK_MULTIPLIER);
+	const balance = randomBalance(RANDOM_RANGE);
+	const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
 
 	results.push({
 		lskAddress: account.address,
@@ -78,8 +80,8 @@ for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
 
 for (const multiSig of multiSigs) {
 	const account = sortedAccounts[results.length];
-	const balance = randomBalance(results.length);
-	const balanceBeddows = Math.floor(balance * LSK_MULTIPLIER);
+	const balance = randomBalance(RANDOM_RANGE);
+	const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
 
 	results.push({
 		lskAddress: account.address,
@@ -95,4 +97,4 @@ for (const multiSig of multiSigs) {
 	});
 }
 
-fs.writeFileSync('./data/example/balances.json', JSON.stringify(results), 'utf-8');
+fs.writeFileSync('./data/example/accounts.json', JSON.stringify(results), 'utf-8');

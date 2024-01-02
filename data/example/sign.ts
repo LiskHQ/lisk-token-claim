@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
-import { Balances, DevValidator, DevValidatorKey } from '../../src/interface';
+import { MerkleTree, DevValidator, DevValidatorKey } from '../../src/interface';
 
 interface SigPair {
 	pubKey: string;
@@ -19,9 +19,9 @@ const abiCoder = new AbiCoder();
 const keys = (
 	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
 ).keys;
-const balances = JSON.parse(
+const merkleTree = JSON.parse(
 	fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8'),
-) as Balances;
+) as MerkleTree;
 
 const signMessage = (message: string, key: DevValidatorKey): string => {
 	return Buffer.from(
@@ -37,7 +37,7 @@ const BYTES_9 = '000000000000000000';
 
 const signatures: Signature[] = [];
 
-for (const leaf of balances.leaves) {
+for (const leaf of merkleTree.leaves) {
 	const message =
 		keccak256(abiCoder.encode(['bytes32', 'address'], [leaf.hash, recipient])) + BYTES_9;
 

@@ -5,11 +5,14 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "jest",
-		"prettier": "./node_modules/.bin/prettier --write \"**/*\"",
-		"create-balances:example": "ts-node data/example/create-balances.ts",
-		"generate-merkle-tree:example": "ts-node main.ts --example",
+		"format": "./node_modules/.bin/prettier --write \"**/*\"",
+
+		"create-accounts:example": "ts-node data/example/create-accounts.ts",
+		"generate-merkle-tree:example": "ts-node main.ts",
 		"sign:example": "ts-node data/example/sign.ts",
-		"generate-merkle-tree": "ts-node main.ts"
+
+		"generate-merkle-tree:testnet": "ts-node main.ts --testnet",
+		"generate-merkle-tree:mainnet": "ts-node main.ts --mainnet"
 	},
 	"devDependencies": {
 		"@types/node": "^20.9.1",

@@ -1,10 +1,11 @@
-export interface Balance {
+export type Network = 'mainnet' | 'testnet' | 'example';
+export interface Account {
 	lskAddress: string;
 	balance: number;
 	balanceBeddows: number;
-	numberOfSignatures: number;
-	mandatoryKeys: string[];
-	optionalKeys: string[];
+	numberOfSignatures?: number;
+	mandatoryKeys?: string[];
+	optionalKeys?: string[];
 }
 
 export interface Leaf {
@@ -22,22 +23,6 @@ export interface Leaf {
 export interface MerkleTree {
 	merkleRoot: string;
 	leaves: Leaf[];
-}
-
-export interface Balances {
-	merkleRoot: string;
-	leaves: {
-		lskAddress: string;
-		address: string;
-		balance: number;
-		balanceBeddows: number;
-		numberOfSignatures: number;
-		mandatoryKeys: Array<string>;
-		optionalKeys: Array<string>;
-		payload: string;
-		hash: string;
-		proof: Array<string>;
-	}[];
 }
 
 /*
