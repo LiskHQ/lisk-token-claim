@@ -2,9 +2,10 @@
 
 This library builds Merkle Tree from a snapshot and computes Merkle Root.
 
-## Installation
+## Setup and Installation
 
 ```
+$ git clone git@github.com:LiskHQ/lisk-token-claim.git && cd lisk-token-claim
 $ yarn
 ```
 
