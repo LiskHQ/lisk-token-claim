@@ -15,19 +15,23 @@ export const buildTreeJSON = (path: string) => {
 	}
 
 	const { tree, leaves } = buildTree(accounts);
+
+	console.log("===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====")
+
+	const merkleTreeResultDetailedJSONPath = `${path}/merkle-tree-result-detailed.json`;
 	fs.writeFileSync(
-		`${path}/merkle-tree-result.json`,
+		merkleTreeResultDetailedJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,
 			leaves,
 		}),
 		'utf-8',
 	);
+	console.log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
 
-	console.log(`Result outputted to: ${path}/merkle-tree-result.json`);
-
+	const merkleTreeResultJSONPath = `${path}/merkle-tree-result.json`;
 	fs.writeFileSync(
-		`${path}/merkle-tree-result-simple.json`,
+		merkleTreeResultJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,
 			leaves: leaves.map(leaf => ({
@@ -41,6 +45,15 @@ export const buildTreeJSON = (path: string) => {
 		}),
 		'utf-8',
 	);
+	console.log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
 
-	console.log(`Lightweight result outputted to: ${path}/merkle-tree-result-simple.json`);
+	const merkleRootJSONPath = `${path}/merkle-root.json`;
+	fs.writeFileSync(
+		merkleRootJSONPath,
+		JSON.stringify({
+			merkleRoot: tree.root
+		}),
+		'utf-8'
+	);
+	console.log(`MerkleRoot outputted to: ${merkleRootJSONPath}`);
 };

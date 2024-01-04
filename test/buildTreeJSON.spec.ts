@@ -13,11 +13,11 @@ describe('buildTreeJSON', () => {
 		try {
 			// Backing-up existing, ensure both files are newly built during testing
 			fs.renameSync(
-				`${path}/merkle-tree-result.json`,
+				`${path}/merkle-tree-result-detailed.json`,
 				`${path}/merkle-tree-result-${timestamp}.json`,
 			);
 			fs.renameSync(
-				`${path}/merkle-tree-result-simple.json`,
+				`${path}/merkle-tree-result.json`,
 				`${path}/merkle-tree-result-simple-${timestamp}.json`,
 			);
 			backedUp = true;
@@ -31,11 +31,11 @@ describe('buildTreeJSON', () => {
 			// Revert backed up
 			fs.renameSync(
 				`${path}/merkle-tree-result-${timestamp}.json`,
-				`${path}/merkle-tree-result.json`,
+				`${path}/merkle-tree-result-detailed.json`,
 			);
 			fs.renameSync(
 				`${path}/merkle-tree-result-simple-${timestamp}.json`,
-				`${path}/merkle-tree-result-simple.json`,
+				`${path}/merkle-tree-result.json`,
 			);
 		}
 	});
@@ -45,9 +45,9 @@ describe('buildTreeJSON', () => {
 		const merkleTree = buildTree(accounts);
 		buildTreeJSON(path);
 
-		// Verify merkle-tree-result.json
+		// Verify merkle-tree-result-detailed.json
 		const merkleTreeResultJSON = JSON.parse(
-			fs.readFileSync(`${path}/merkle-tree-result.json`, 'utf-8'),
+			fs.readFileSync(`${path}/merkle-tree-result-detailed.json`, 'utf-8'),
 		);
 		expect(merkleTreeResultJSON.merkleRoot).toBe(merkleTree.tree.root);
 		expect(merkleTreeResultJSON.leaves.length).toBe(merkleTree.leaves.length);
@@ -66,9 +66,9 @@ describe('buildTreeJSON', () => {
 			expect(jsonLeaf.proof).toEqual(merkleTreeLeaf.proof);
 		}
 
-		// Verify merkle-tree-result-simple.json
+		// Verify merkle-tree-result.json
 		const merkleTreeResultSimpleJSON = JSON.parse(
-			fs.readFileSync(`${path}/merkle-tree-result-simple.json`, 'utf-8'),
+			fs.readFileSync(`${path}/merkle-tree-result.json`, 'utf-8'),
 		);
 		expect(merkleTreeResultSimpleJSON.merkleRoot).toBe(merkleTree.tree.root);
 		expect(merkleTreeResultSimpleJSON.leaves.length).toBe(merkleTree.leaves.length);

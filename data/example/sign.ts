@@ -20,7 +20,7 @@ const keys = (
 	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
 ).keys;
 const merkleTree = JSON.parse(
-	fs.readFileSync('./data/example/merkle-tree-result.json', 'utf-8'),
+	fs.readFileSync('./data/example/merkle-tree-result-detailed.json', 'utf-8'),
 ) as MerkleTree;
 
 const signMessage = (message: string, key: DevValidatorKey): string => {
