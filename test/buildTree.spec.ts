@@ -3,9 +3,8 @@ import { AbiCoder, keccak256 } from 'ethers';
 import { cryptography } from 'lisk-sdk';
 import { Account, DevValidator } from '../src/interface';
 import { createPayload, buildTree } from '../src/buildTree';
-
-// 1 LSK = 10^8 Beddows
-const LSK_MULTIPLIER = 10 ** 8;
+import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { LEAF_ENCODING, LSK_MULTIPLIER } from '../src/constants';
 
 describe('buildTree', () => {
 	const abiCoder = new AbiCoder();
@@ -29,7 +28,9 @@ describe('buildTree', () => {
 			balanceBeddows: Math.floor(balance * LSK_MULTIPLIER),
 			numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
 			mandatoryKeys: devValidatorSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
-			optionalKeys: devValidatorSorted.slice(numberOfMandatoryKeys, numberOfMandatoryKeys + numberOfOptionalKeys).map(key => key.publicKey)
+			optionalKeys: devValidatorSorted
+				.slice(numberOfMandatoryKeys, numberOfMandatoryKeys + numberOfOptionalKeys)
+				.map(key => key.publicKey),
 		};
 	}) as Account[];
 
@@ -49,16 +50,23 @@ describe('buildTree', () => {
 		for (const leaf of merkleTree.leaves) {
 			const accountOfLeaf = accounts.find(account => account.lskAddress === leaf.lskAddress)!;
 
-			const encodedMessage = abiCoder.encode(
-				['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes32[]'],
-				createPayload(accountOfLeaf),
-			);
+			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));
 
 			// Verify Encoding
 			expect(leaf.hash).toEqual(keccak256(keccak256(encodedMessage)));
 
-			// Verify Proof
+			// Verify Proof exists in MerkleTree
 			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).toEqual(leaf.proof);
+
+			// Verify Proof is part of MerkleRoot
+			expect(
+				StandardMerkleTree.verify(
+					merkleTree.tree.root,
+					LEAF_ENCODING,
+					createPayload(accountOfLeaf),
+					leaf.proof,
+				),
+			).toBe(true);
 		}
 	});
 });

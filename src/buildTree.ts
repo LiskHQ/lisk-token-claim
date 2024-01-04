@@ -1,6 +1,7 @@
 import { cryptography } from 'lisk-sdk';
 import { Account, Leaf } from './interface';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { LEAF_ENCODING } from './constants';
 
 export const createPayload = (account: Account) => {
 	return [
@@ -19,14 +20,14 @@ export const buildTree = (
 	leaves: Leaf[];
 } => {
 	// Check that addresses are sorted
-	for (const [index, balance] of accounts.entries()) {
+	for (const [index, account] of accounts.entries()) {
 		// Last address, skip
 		if (index === accounts.length - 1) {
 			continue;
 		}
 		if (
 			cryptography.address
-				.getAddressFromLisk32Address(balance.lskAddress)
+				.getAddressFromLisk32Address(account.lskAddress)
 				.compare(
 					cryptography.address.getAddressFromLisk32Address(accounts[index + 1].lskAddress),
 				) === 1
@@ -40,10 +41,9 @@ export const buildTree = (
 	const leaves: Leaf[] = [];
 	const tree = StandardMerkleTree.of(
 		accounts.map(account => {
-			const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
 			return createPayload(account);
 		}),
-		['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes32[]'],
+		LEAF_ENCODING,
 	);
 
 	for (const account of accounts) {

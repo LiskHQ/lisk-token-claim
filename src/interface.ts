@@ -17,7 +17,7 @@ export interface Leaf {
 	mandatoryKeys: string[];
 	optionalKeys: string[];
 	hash: string;
-	proof?: string[];
+	proof: string[];
 }
 
 export interface MerkleTree {

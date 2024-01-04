@@ -1,5 +1,5 @@
 import { Network } from './src/interface';
-import {buildTreeJSON} from "./src/buildTreeJSON";
+import { buildTreeJSON } from './src/buildTreeJSON';
 
 let network: Network;
 

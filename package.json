@@ -6,11 +6,9 @@
 	"scripts": {
 		"test": "jest",
 		"format": "./node_modules/.bin/prettier --write \"**/*\"",
-
 		"create-accounts:example": "ts-node data/example/create-accounts.ts",
 		"generate-merkle-tree:example": "ts-node main.ts",
 		"sign:example": "ts-node data/example/sign.ts",
-
 		"generate-merkle-tree:testnet": "ts-node main.ts --testnet",
 		"generate-merkle-tree:mainnet": "ts-node main.ts --mainnet"
 	},

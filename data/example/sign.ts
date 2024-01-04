@@ -55,7 +55,7 @@ for (const leaf of merkleTree.leaves) {
 		});
 	} else {
 		// Multisig Account
-		// Signing all keys regardless of required amount
+		// Signing all keys regardless of required amount of numberOfSignatures
 		for (const pubKey of leaf.mandatoryKeys.concat(leaf.optionalKeys)) {
 			const key = keys.find(key => '0x' + key.publicKey === pubKey)!;
 			const signature = signMessage(message, key);
