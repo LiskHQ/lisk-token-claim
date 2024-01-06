@@ -1,0 +1,45 @@
+{
+	"name": "lisk-token-claim",
+	"private": true,
+	"version": "0.1.0",
+	"description": "Packages for token claim process",
+	"author": "Lisk Foundation <admin@lisk.com>, lightcurve GmbH <admin@lightcurve.io>",
+	"license": "Apache-2.0",
+	"keywords": [
+		"lisk",
+		"blockchain"
+	],
+	"homepage": "https://github.com/LiskHQ/lisk-token-claim#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LiskHQ/lisk-token-claim.git"
+	},
+	"bugs": {
+		"url": "https://github.com/LiskHQ/lisk-token-claim/issues"
+	},
+	"engines": {
+		"node": ">=18.0.0",
+		"npm": ">=8.1.0"
+	},
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"prepare": "husky install",
+		"postinstall": "husky install",
+		"lint": "eslint . --ext .ts",
+		"format": "prettier --write '**/*'",
+		"build": "yarn workspaces run build",
+		"test": "yarn workspaces run test"
+	},
+	"devDependencies": {
+		"husky": "8.0.2",
+		"lint-staged": "13.0.3",
+		"prettier": "^3.1.1",
+		"yarn": "^1.22.19",
+		"eslint": "^8.56.0",
+		"eslint-config-oclif": "^5",
+		"eslint-config-oclif-typescript": "^3",
+		"eslint-config-prettier": "^9.1.0"
+	}
+}

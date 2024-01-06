@@ -1,0 +1,39 @@
+{
+	"name": "@liskhq/claim-backend",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Server to provide proof of the claim",
+	"author": "Lisk Foundation <admin@lisk.com>, lightcurve GmbH <admin@lightcurve.io>",
+	"license": "Apache-2.0",
+	"keywords": [
+		"blockchain",
+		"lisk"
+	],
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LiskHQ/lisk-token-claim.git"
+	},
+	"bugs": {
+		"url": "https://github.com/LiskHQ/lisk-token-claim/issues"
+	},
+	"homepage": "https://github.com/LiskHQ/lisk-token-claim#readme",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"build": "shx rm -rf dist && tsc -b",
+		"test": "mocha --forbid-only \"test/**/*.test.ts\""
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/chai": "^4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "^18",
+		"chai": "^4",
+		"mocha": "^10",
+		"shx": "^0.3.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5"
+	}
+}

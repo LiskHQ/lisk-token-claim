@@ -1,0 +1,66 @@
+{
+	"name": "@liskhq/tree-builder",
+	"version": "0.1.0",
+	"private": true,
+	"description": "CLI to build merkle tree for token claim process",
+	"author": "Lisk Foundation <admin@lisk.com>, lightcurve GmbH <admin@lightcurve.io>",
+	"license": "Apache-2.0",
+	"keywords": [
+		"blockchain",
+		"lisk"
+	],
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LiskHQ/lisk-token-claim.git"
+	},
+	"bugs": {
+		"url": "https://github.com/LiskHQ/lisk-token-claim/issues"
+	},
+	"homepage": "https://github.com/LiskHQ/lisk-token-claim#readme",
+	"bin": {
+		"tree-builder": "./bin/run"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"build": "shx rm -rf dist && tsc -b",
+		"postpack": "shx rm -f oclif.manifest.json",
+		"prepack": "yarn build && oclif manifest && oclif readme",
+		"prepare": "yarn build",
+		"test": "mocha --forbid-only \"test/**/*.test.ts\"",
+		"version": "oclif readme && git add README.md"
+	},
+	"oclif": {
+		"bin": "tree-builder",
+		"dirname": "tree-builder",
+		"commands": "./dist/commands",
+		"plugins": [
+			"@oclif/plugin-help"
+		],
+		"topicSeparator": " ",
+		"topics": {
+			"hello": {
+				"description": "Say hello to the world and others"
+			}
+		}
+	},
+	"dependencies": {
+		"@oclif/core": "^3",
+		"@oclif/plugin-help": "^6"
+	},
+	"devDependencies": {
+		"@oclif/prettier-config": "^0.2.1",
+		"@oclif/test": "^3.1.8",
+		"@types/chai": "^4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "^18",
+		"chai": "^4",
+		"mocha": "^10",
+		"oclif": "^3.17.2",
+		"shx": "^0.3.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5"
+	}
+}
