@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import { cryptography } from 'lisk-sdk';
@@ -48,10 +48,12 @@ describe('buildTree', () => {
 
 	it('should return valid tree with proof', () => {
 		const merkleTree = buildTree(accounts);
-		for (const leaf of merkleTree.leaves) {
+		for (const [i, leaf] of merkleTree.leaves.entries()) {
 			const accountOfLeaf = accounts.find(account => account.lskAddress === leaf.lskAddress)!;
-
 			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));
+
+			// Verify Leaf is in correct order
+			expect(leaf.lskAddress).equal(accounts[i].lskAddress);
 
 			// Verify Encoding
 			expect(leaf.hash).equal(keccak256(keccak256(encodedMessage)));
@@ -59,7 +61,7 @@ describe('buildTree', () => {
 			// Verify Proof exists in MerkleTree
 			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).deep.equal(leaf.proof);
 
-			// Verify Proof is part of MerkleRoot
+			// Verify Proof is valid with respect to MerkleRoot
 			expect(
 				StandardMerkleTree.verify(
 					merkleTree.tree.root,

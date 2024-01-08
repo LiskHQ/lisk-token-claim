@@ -1,11 +1,7 @@
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
-import {
-	MerkleTree,
-	DevValidator,
-	DevValidatorKey,
-} from '../../interface';
+import { MerkleTree, DevValidator, DevValidatorKey } from '../../interface';
 
 interface SigPair {
 	pubKey: string;
@@ -36,7 +32,7 @@ const signMessage = (message: string, key: DevValidatorKey): string => {
 const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
 const BYTES_9 = '000000000000000000';
 
-export function signAccounts () {
+export function signAccounts() {
 	const merkleTree = JSON.parse(
 		fs.readFileSync('../../data/example/merkle-tree-result-detailed.json', 'utf-8'),
 	) as MerkleTree;
@@ -60,7 +56,7 @@ export function signAccounts () {
 			});
 		} else {
 			// Multisig Account
-			// Signing all keys regardless of required amount of numberOfSignatures
+			// Signing with all keys regardless of the required amount of number of signatures
 			for (const pubKey of leaf.mandatoryKeys.concat(leaf.optionalKeys)) {
 				const key = keys.find(key => '0x' + key.publicKey === pubKey)!;
 				const signature = signMessage(message, key);

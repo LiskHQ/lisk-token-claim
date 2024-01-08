@@ -3,7 +3,7 @@ import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, Leaf } from '../interface';
 import { LEAF_ENCODING } from '../constants';
 
-export function createPayload (account: Account)  {
+export function createPayload(account: Account) {
 	return [
 		cryptography.address.getAddressFromLisk32Address(account.lskAddress),
 		account.balanceBeddows,
@@ -13,12 +13,10 @@ export function createPayload (account: Account)  {
 	];
 }
 
-export const buildTree = (
-	accounts: Account[],
-): {
+export function buildTree(accounts: Account[]): {
 	tree: StandardMerkleTree<(number | Buffer | string[])[]>;
 	leaves: Leaf[];
-} => {
+} {
 	// Check that addresses are sorted
 	for (const [index, account] of accounts.entries()) {
 		// Last address, skip
@@ -77,4 +75,4 @@ export const buildTree = (
 		tree,
 		leaves,
 	};
-};
+}

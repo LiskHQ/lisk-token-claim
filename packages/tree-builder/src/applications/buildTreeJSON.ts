@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { Account } from '../interface';
 import { buildTree } from './buildTree';
 
-export const buildTreeJSON = (path: string) => {
+export function buildTreeJSON(path: string) {
 	let accounts: Account[];
 	try {
 		accounts = JSON.parse(fs.readFileSync(`${path}/accounts.json`, 'utf-8')) as Account[];
@@ -56,4 +56,4 @@ export const buildTreeJSON = (path: string) => {
 		'utf-8',
 	);
 	console.log(`MerkleRoot outputted to: ${merkleRootJSONPath}`);
-};
+}

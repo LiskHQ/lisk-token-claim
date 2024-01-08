@@ -56,7 +56,7 @@ const sortedAccounts = [...accounts].sort((key1, key2) =>
 		.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
 );
 
-export function createAccounts () {
+export function createAccounts() {
 	const results: {
 		lskAddress: string;
 		balance: number;
@@ -66,7 +66,7 @@ export function createAccounts () {
 		optionalKeys?: string[];
 	}[] = [];
 
-// Regular Accounts
+	// Regular Accounts
 	for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
 		const account = sortedAccounts[index];
 		const balance = randomBalance(RANDOM_RANGE);

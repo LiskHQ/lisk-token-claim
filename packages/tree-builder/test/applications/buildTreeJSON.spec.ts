@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as fs from 'fs';
 import { buildTreeJSON } from '../../src/applications/buildTreeJSON';
 import { buildTree } from '../../src/applications/buildTree';
@@ -18,13 +18,13 @@ describe('buildTreeJSON', () => {
 		buildTreeJSON(path);
 
 		// Verify merkle-tree-result-detailed.json
-		const merkleTreeResultJSON = JSON.parse(
+		const merkleTreeResultDetailedJSON = JSON.parse(
 			fs.readFileSync(`${path}/merkle-tree-result-detailed.json`, 'utf-8'),
 		);
-		expect(merkleTreeResultJSON.merkleRoot).equal(merkleTree.tree.root);
-		expect(merkleTreeResultJSON.leaves.length).equal(merkleTree.leaves.length);
+		expect(merkleTreeResultDetailedJSON.merkleRoot).equal(merkleTree.tree.root);
+		expect(merkleTreeResultDetailedJSON.leaves.length).equal(merkleTree.leaves.length);
 		for (let i = 0; i < merkleTree.leaves.length; i++) {
-			const jsonLeaf = merkleTreeResultJSON.leaves[i];
+			const jsonLeaf = merkleTreeResultDetailedJSON.leaves[i];
 			const merkleTreeLeaf = merkleTree.leaves[i];
 
 			expect(jsonLeaf.address).equal(merkleTreeLeaf.address);
@@ -39,13 +39,13 @@ describe('buildTreeJSON', () => {
 		}
 
 		// Verify merkle-tree-result.json
-		const merkleTreeResultSimpleJSON = JSON.parse(
+		const merkleTreeResultJSON = JSON.parse(
 			fs.readFileSync(`${path}/merkle-tree-result.json`, 'utf-8'),
 		);
-		expect(merkleTreeResultSimpleJSON.merkleRoot).equal(merkleTree.tree.root);
-		expect(merkleTreeResultSimpleJSON.leaves.length).equal(merkleTree.leaves.length);
+		expect(merkleTreeResultJSON.merkleRoot).equal(merkleTree.tree.root);
+		expect(merkleTreeResultJSON.leaves.length).equal(merkleTree.leaves.length);
 		for (let i = 0; i < merkleTree.leaves.length; i++) {
-			const jsonLeaf = merkleTreeResultSimpleJSON.leaves[i];
+			const jsonLeaf = merkleTreeResultJSON.leaves[i];
 			const merkleTreeLeaf = merkleTree.leaves[i];
 
 			expect(jsonLeaf.b32Address).equal(merkleTreeLeaf.address);
@@ -55,5 +55,9 @@ describe('buildTreeJSON', () => {
 			expect(jsonLeaf.optionalKeys).deep.equal(merkleTreeLeaf.optionalKeys);
 			expect(jsonLeaf.proof).deep.equal(merkleTreeLeaf.proof);
 		}
+
+		// Verify merkle-root.json
+		const merkleRootJSON = JSON.parse(fs.readFileSync(`${path}/merkle-root.json`, 'utf-8'));
+		expect(merkleRootJSON.merkleRoot).equal(merkleTree.tree.root);
 	});
 });
