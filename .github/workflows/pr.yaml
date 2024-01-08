@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-and-test:
     runs-on: self-hosted
     timeout-minutes: 15
     steps:
