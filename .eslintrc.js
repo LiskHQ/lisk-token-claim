@@ -1,12 +1,27 @@
+/* eslint-env node */
 module.exports = {
-	root: true,
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended-type-checked',
+	],
+	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		project: './tsconfig.json',
 		tsconfigRootDir: __dirname,
+		project: [
+			'./tsconfig.eslint.json',
+			'./packages/*/tsconfig.json',
+			'./packages/*/test/tsconfig.json',
+		],
 	},
-	extends: ['lisk-base/ts'],
+	plugins: ['@typescript-eslint'],
+	root: true,
 	rules: {
-		'@typescript-eslint/member-ordering': 'off',
-		'@typescript-eslint/no-unsafe-argument': ['warn'],
+		'@typescript-eslint/require-await': 'off',
+		'@typescript-eslint/no-unsafe-assignment': 'off',
+		'@typescript-eslint/no-unsafe-return': 'off',
+		"@typescript-eslint/no-unsafe-member-access": 'off',
+		'@typescript-eslint/no-unsafe-call': 'off',
+		'@typescript-eslint/no-unsafe-argument': 'off'
 	},
 };

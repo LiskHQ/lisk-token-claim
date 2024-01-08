@@ -42,7 +42,7 @@ export interface DevValidatorKey {
 		blsProofOfPossession: string;
 		blsPrivateKey: string;
 	};
-	encrypted: {};
+	encrypted: unknown;
 }
 
 /*

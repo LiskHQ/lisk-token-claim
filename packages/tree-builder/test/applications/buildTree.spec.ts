@@ -1,16 +1,17 @@
+import {expect} from 'chai';
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import { cryptography } from 'lisk-sdk';
-import { Account, DevValidator } from '../src/interface';
-import { createPayload, buildTree } from '../src/buildTree';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
-import { LEAF_ENCODING, LSK_MULTIPLIER } from '../src/constants';
+import { Account, DevValidator } from '../../src/interface';
+import { createPayload, buildTree } from '../../src/applications/buildTree';
+import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
 
 describe('buildTree', () => {
 	const abiCoder = new AbiCoder();
 
 	const devValidatorSorted = (
-		JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
+		JSON.parse(fs.readFileSync('../../data/example/dev-validators.json', 'utf-8')) as DevValidator
 	).keys.sort((key1, key2) =>
 		cryptography.address
 			.getAddressFromLisk32Address(key1.address)
@@ -40,7 +41,7 @@ describe('buildTree', () => {
 			...accounts.slice(1, accounts.length - 1),
 			accounts[0],
 		];
-		expect(() => buildTree(unsortedAccounts)).toThrow(
+		expect(() => buildTree(unsortedAccounts)).throw(
 			'Address not sorted! Please sort your addresses before continue',
 		);
 	});
@@ -53,10 +54,10 @@ describe('buildTree', () => {
 			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));
 
 			// Verify Encoding
-			expect(leaf.hash).toEqual(keccak256(keccak256(encodedMessage)));
+			expect(leaf.hash).equal(keccak256(keccak256(encodedMessage)));
 
 			// Verify Proof exists in MerkleTree
-			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).toEqual(leaf.proof);
+			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).deep.equal(leaf.proof);
 
 			// Verify Proof is part of MerkleRoot
 			expect(
@@ -66,7 +67,7 @@ describe('buildTree', () => {
 					createPayload(accountOfLeaf),
 					leaf.proof,
 				),
-			).toBe(true);
+			).deep.equal(true);
 		}
 	});
 });

@@ -1,0 +1,59 @@
+import {expect} from 'chai';
+import * as fs from 'fs';
+import { buildTreeJSON } from '../../src/applications/buildTreeJSON';
+import { buildTree } from '../../src/applications/buildTree';
+
+describe('buildTreeJSON', () => {
+	// Playing around with `example` network
+	const path = '../../data/example';
+
+	before(() => {
+		// Generate accounts.json
+		buildTreeJSON(path);
+	});
+
+	it('should build JSON files with correct params', () => {
+		const accounts = JSON.parse(fs.readFileSync(`${path}/accounts.json`, 'utf-8'));
+		const merkleTree = buildTree(accounts);
+		buildTreeJSON(path);
+
+		// Verify merkle-tree-result-detailed.json
+		const merkleTreeResultJSON = JSON.parse(
+			fs.readFileSync(`${path}/merkle-tree-result-detailed.json`, 'utf-8'),
+		);
+		expect(merkleTreeResultJSON.merkleRoot).equal(merkleTree.tree.root);
+		expect(merkleTreeResultJSON.leaves.length).equal(merkleTree.leaves.length);
+		for (let i = 0; i < merkleTree.leaves.length; i++) {
+			const jsonLeaf = merkleTreeResultJSON.leaves[i];
+			const merkleTreeLeaf = merkleTree.leaves[i];
+
+			expect(jsonLeaf.address).equal(merkleTreeLeaf.address);
+			expect(jsonLeaf.lskAddress).equal(merkleTreeLeaf.lskAddress);
+			expect(jsonLeaf.balance).equal(merkleTreeLeaf.balance);
+			expect(jsonLeaf.balanceBeddows).equal(merkleTreeLeaf.balanceBeddows);
+			expect(jsonLeaf.numberOfSignatures).equal(merkleTreeLeaf.numberOfSignatures);
+			expect(jsonLeaf.mandatoryKeys).deep.equal(merkleTreeLeaf.mandatoryKeys);
+			expect(jsonLeaf.optionalKeys).deep.equal(merkleTreeLeaf.optionalKeys);
+			expect(jsonLeaf.hash).equal(merkleTreeLeaf.hash);
+			expect(jsonLeaf.proof).deep.equal(merkleTreeLeaf.proof);
+		}
+
+		// Verify merkle-tree-result.json
+		const merkleTreeResultSimpleJSON = JSON.parse(
+			fs.readFileSync(`${path}/merkle-tree-result.json`, 'utf-8'),
+		);
+		expect(merkleTreeResultSimpleJSON.merkleRoot).equal(merkleTree.tree.root);
+		expect(merkleTreeResultSimpleJSON.leaves.length).equal(merkleTree.leaves.length);
+		for (let i = 0; i < merkleTree.leaves.length; i++) {
+			const jsonLeaf = merkleTreeResultSimpleJSON.leaves[i];
+			const merkleTreeLeaf = merkleTree.leaves[i];
+
+			expect(jsonLeaf.b32Address).equal(merkleTreeLeaf.address);
+			expect(jsonLeaf.balanceBeddows).equal(merkleTreeLeaf.balanceBeddows);
+			expect(jsonLeaf.numberOfSignatures).equal(merkleTreeLeaf.numberOfSignatures);
+			expect(jsonLeaf.mandatoryKeys).deep.equal(merkleTreeLeaf.mandatoryKeys);
+			expect(jsonLeaf.optionalKeys).deep.equal(merkleTreeLeaf.optionalKeys);
+			expect(jsonLeaf.proof).deep.equal(merkleTreeLeaf.proof);
+		}
+	});
+});

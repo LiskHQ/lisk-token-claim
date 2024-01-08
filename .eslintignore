@@ -1,11 +1,1 @@
-docs/
-lisk/
-templates/
-types/
-examples/
-**/*.d.ts
-jest.config.js
-coverage
-benchmark
-.eslintrc.js
-ecosystem.config.js
+**/dist/**

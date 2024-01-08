@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import { Account } from './interface';
+import { Account } from '../interface';
 import { buildTree } from './buildTree';
 
 export const buildTreeJSON = (path: string) => {
-	let accounts;
+	let accounts: Account[];
 	try {
 		accounts = JSON.parse(fs.readFileSync(`${path}/accounts.json`, 'utf-8')) as Account[];
 	} catch (err) {
@@ -16,7 +16,7 @@ export const buildTreeJSON = (path: string) => {
 
 	const { tree, leaves } = buildTree(accounts);
 
-	console.log("===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====")
+	console.log('===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====');
 
 	const merkleTreeResultDetailedJSONPath = `${path}/merkle-tree-result-detailed.json`;
 	fs.writeFileSync(
@@ -51,9 +51,9 @@ export const buildTreeJSON = (path: string) => {
 	fs.writeFileSync(
 		merkleRootJSONPath,
 		JSON.stringify({
-			merkleRoot: tree.root
+			merkleRoot: tree.root,
 		}),
-		'utf-8'
+		'utf-8',
 	);
 	console.log(`MerkleRoot outputted to: ${merkleRootJSONPath}`);
 };

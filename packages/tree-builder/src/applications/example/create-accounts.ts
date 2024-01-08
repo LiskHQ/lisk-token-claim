@@ -1,6 +1,6 @@
 import { cryptography } from 'lisk-sdk';
 import * as fs from 'fs';
-import { DevValidator } from '../../src/interface';
+import { DevValidator } from '../../interface';
 
 // 1 LSK = 10^8 Beddows
 const LSK_MULTIPLIER = 10 ** 8;
@@ -46,7 +46,7 @@ const multiSigs = [
 const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
 const accounts = (
-	JSON.parse(fs.readFileSync('./data/example/dev-validators.json', 'utf-8')) as DevValidator
+	JSON.parse(fs.readFileSync('../../data/example/dev-validators.json', 'utf-8')) as DevValidator
 ).keys;
 
 // to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.
@@ -56,45 +56,47 @@ const sortedAccounts = [...accounts].sort((key1, key2) =>
 		.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
 );
 
-const results: {
-	lskAddress: string;
-	balance: number;
-	balanceBeddows: number;
-	numberOfSignatures?: number;
-	mandatoryKeys?: string[];
-	optionalKeys?: string[];
-}[] = [];
+export function createAccounts () {
+	const results: {
+		lskAddress: string;
+		balance: number;
+		balanceBeddows: number;
+		numberOfSignatures?: number;
+		mandatoryKeys?: string[];
+		optionalKeys?: string[];
+	}[] = [];
 
 // Regular Accounts
-for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
-	const account = sortedAccounts[index];
-	const balance = randomBalance(RANDOM_RANGE);
-	const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
+	for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
+		const account = sortedAccounts[index];
+		const balance = randomBalance(RANDOM_RANGE);
+		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
 
-	results.push({
-		lskAddress: account.address,
-		balance,
-		balanceBeddows,
-	});
+		results.push({
+			lskAddress: account.address,
+			balance,
+			balanceBeddows,
+		});
+	}
+
+	for (const multiSig of multiSigs) {
+		const account = sortedAccounts[results.length];
+		const balance = randomBalance(RANDOM_RANGE);
+		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
+
+		results.push({
+			lskAddress: account.address,
+			balance,
+			balanceBeddows,
+			numberOfSignatures: multiSig.numberOfSignatures,
+			mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(
+				(_, index) => accounts[index].publicKey,
+			),
+			optionalKeys: [...Array(multiSig.numberOfOptionalKeys).keys()].map(
+				(_, index) => accounts[index + multiSig.numberOfMandatoryKeys].publicKey,
+			),
+		});
+	}
+
+	fs.writeFileSync('../../data/example/accounts.json', JSON.stringify(results), 'utf-8');
 }
-
-for (const multiSig of multiSigs) {
-	const account = sortedAccounts[results.length];
-	const balance = randomBalance(RANDOM_RANGE);
-	const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
-
-	results.push({
-		lskAddress: account.address,
-		balance,
-		balanceBeddows,
-		numberOfSignatures: multiSig.numberOfSignatures,
-		mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(
-			(_, index) => accounts[index].publicKey,
-		),
-		optionalKeys: [...Array(multiSig.numberOfOptionalKeys).keys()].map(
-			(_, index) => accounts[index + multiSig.numberOfMandatoryKeys].publicKey,
-		),
-	});
-}
-
-fs.writeFileSync('./data/example/accounts.json', JSON.stringify(results), 'utf-8');

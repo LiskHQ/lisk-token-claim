@@ -1,9 +1,9 @@
 import { cryptography } from 'lisk-sdk';
-import { Account, Leaf } from './interface';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
-import { LEAF_ENCODING } from './constants';
+import { Account, Leaf } from '../interface';
+import { LEAF_ENCODING } from '../constants';
 
-export const createPayload = (account: Account) => {
+export function createPayload (account: Account)  {
 	return [
 		cryptography.address.getAddressFromLisk32Address(account.lskAddress),
 		account.balanceBeddows,
@@ -11,12 +11,12 @@ export const createPayload = (account: Account) => {
 		account.mandatoryKeys ? account.mandatoryKeys.map(key => '0x' + key) : [],
 		account.optionalKeys ? account.optionalKeys.map(key => '0x' + key) : [],
 	];
-};
+}
 
 export const buildTree = (
 	accounts: Account[],
 ): {
-	tree: StandardMerkleTree<any>;
+	tree: StandardMerkleTree<(number | Buffer | string[])[]>;
 	leaves: Leaf[];
 } => {
 	// Check that addresses are sorted
