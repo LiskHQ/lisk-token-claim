@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import * as fs from 'fs';
 import { buildTreeJSON } from '../../src/applications/buildTreeJSON';
 import { buildTree } from '../../src/applications/buildTree';
+import {createAccounts} from "../../src/applications/example/create-accounts";
 
 describe('buildTreeJSON', () => {
 	// Playing around with `example` network
@@ -9,7 +10,7 @@ describe('buildTreeJSON', () => {
 
 	before(() => {
 		// Generate accounts.json
-		buildTreeJSON(path);
+		createAccounts();
 	});
 
 	it('should build JSON files with correct params', () => {
