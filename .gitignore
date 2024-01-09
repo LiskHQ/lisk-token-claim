@@ -74,6 +74,7 @@ dist
 
 # Example Accounts and MerkleTree are not committed
 data/example/accounts.json
+data/example/keyPairs.json
 data/example/merkle-root.json
 data/example/merkle-tree-result.json
 data/example/merkle-tree-result-detailed.json

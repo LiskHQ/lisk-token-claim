@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
-import { MerkleTree, DevValidator, DevValidatorKey } from '../../interface';
+import { MerkleTree, ExampleKey } from '../../interface';
 
 interface SigPair {
 	pubKey: string;
@@ -15,12 +15,7 @@ interface Signature {
 }
 
 const abiCoder = new AbiCoder();
-
-const keys = (
-	JSON.parse(fs.readFileSync('../../data/example/dev-validators.json', 'utf-8')) as DevValidator
-).keys;
-
-const signMessage = (message: string, key: DevValidatorKey): string => {
+const signMessage = (message: string, key: ExampleKey): string => {
 	return Buffer.from(
 		tweetnacl.sign.detached(
 			Buffer.from(message.substring(2), 'hex'),
@@ -33,6 +28,10 @@ const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
 const BYTES_9 = '000000000000000000';
 
 export function signAccounts() {
+	const keys = JSON.parse(
+		fs.readFileSync('../../data/example/keyPairs.json', 'utf-8'),
+	) as ExampleKey[];
+
 	const merkleTree = JSON.parse(
 		fs.readFileSync('../../data/example/merkle-tree-result-detailed.json', 'utf-8'),
 	) as MerkleTree;

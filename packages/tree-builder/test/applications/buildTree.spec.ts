@@ -3,38 +3,42 @@ import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import { cryptography } from 'lisk-sdk';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
-import { Account, DevValidator } from '../../src/interface';
+import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/buildTree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
+import { createKeyPairs } from '../../src/applications/example/create-key-pairs';
 
 describe('buildTree', () => {
 	const abiCoder = new AbiCoder();
 
-	const devValidatorSorted = (
-		JSON.parse(fs.readFileSync('../../data/example/dev-validators.json', 'utf-8')) as DevValidator
-	).keys.sort((key1, key2) =>
-		cryptography.address
-			.getAddressFromLisk32Address(key1.address)
-			.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
-	);
+	let accounts: Account[];
+	before(async () => {
+		await createKeyPairs();
+		const keyPairsSorted = (
+			JSON.parse(fs.readFileSync('../../data/example/keyPairs.json', 'utf-8')) as ExampleKey[]
+		).sort((key1, key2) =>
+			cryptography.address
+				.getAddressFromLisk32Address(key1.address)
+				.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
+		);
 
-	// Create 5 accounts on the fly, they are all Multisig such that all fields are filled
-	const accounts = devValidatorSorted.slice(0, 5).map(key => {
-		const balance = Number((10000 * Math.random()).toFixed(8));
-		const numberOfMandatoryKeys = Math.floor(5 * Math.random()) + 1;
-		const numberOfOptionalKeys = Math.floor(5 * Math.random());
-		return {
-			lskAddress: key.address,
-			balance,
-			balanceBeddows: Math.floor(balance * LSK_MULTIPLIER),
-			numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
-			mandatoryKeys: devValidatorSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
-			optionalKeys: devValidatorSorted
-				.slice(numberOfMandatoryKeys, numberOfMandatoryKeys + numberOfOptionalKeys)
-				.map(key => key.publicKey),
-		};
-	}) as Account[];
-
+		// Create 5 accounts on the fly, they are all Multisig such that all fields are filled
+		accounts = keyPairsSorted.slice(0, 5).map(key => {
+			const balance = Number((10000 * Math.random()).toFixed(8));
+			const numberOfMandatoryKeys = Math.floor(5 * Math.random()) + 1;
+			const numberOfOptionalKeys = Math.floor(5 * Math.random());
+			return {
+				lskAddress: key.address,
+				balance,
+				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER),
+				numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
+				mandatoryKeys: keyPairsSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
+				optionalKeys: keyPairsSorted
+					.slice(numberOfMandatoryKeys, numberOfMandatoryKeys + numberOfOptionalKeys)
+					.map(key => key.publicKey),
+			};
+		}) as Account[];
+	});
 	it('should reject unsorted array of accounts', () => {
 		const unsortedAccounts = [
 			accounts[accounts.length - 1],

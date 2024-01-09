@@ -27,27 +27,9 @@ export interface MerkleTree {
 
 /*
  *** Not used in Mainnet ***
- */
-export interface DevValidatorKey {
+ */ export interface ExampleKey {
 	address: string;
 	keyPath: string;
 	publicKey: string;
 	privateKey: string;
-	plain: {
-		generatorKeyPath: string;
-		generatorKey: string;
-		generatorPrivateKey: string;
-		blsKeyPath: string;
-		blsKey: string;
-		blsProofOfPossession: string;
-		blsPrivateKey: string;
-	};
-	encrypted: unknown;
-}
-
-/*
- *** Not used in Mainnet ***
- */
-export interface DevValidator {
-	keys: DevValidatorKey[];
 }

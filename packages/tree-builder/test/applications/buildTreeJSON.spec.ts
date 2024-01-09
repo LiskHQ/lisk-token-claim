@@ -3,12 +3,15 @@ import * as fs from 'fs';
 import { buildTreeJSON } from '../../src/applications/buildTreeJSON';
 import { buildTree } from '../../src/applications/buildTree';
 import { createAccounts } from '../../src/applications/example/create-accounts';
+import { createKeyPairs } from '../../src/applications/example/create-key-pairs';
 
 describe('buildTreeJSON', () => {
 	// Playing around with `example` network
 	const path = '../../data/example';
 
-	before(() => {
+	before(async () => {
+		// Generate keyPairs.json
+		await createKeyPairs();
 		// Generate accounts.json
 		createAccounts();
 	});

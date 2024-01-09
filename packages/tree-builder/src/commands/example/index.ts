@@ -1,29 +1,35 @@
-import { Args, Command, Flags } from '@oclif/core';
+import { Args, Command } from '@oclif/core';
 import { createAccounts } from '../../applications/example/create-accounts';
 import { signAccounts } from '../../applications/example/sign-accounts';
 import { buildTreeJSON } from '../../applications/buildTreeJSON';
+import { createKeyPairs } from '../../applications/example/create-key-pairs';
 
 export default class Example extends Command {
 	static args = {
-		person: Args.string({ description: 'Person to say hello to', required: true }),
+		amountOfLeaves: Args.integer({
+			description: 'Amount of leaves in the tree',
+			required: false,
+			default: 100,
+		}),
 	};
 
 	static description = 'Generate example data for demo purpose';
 
 	static examples = [`$ oex generate`];
 
-	static flags = {
-		from: Flags.string({ char: 'f', description: 'Who is saying hello', required: true }),
-	};
-
 	async run(): Promise<void> {
-		// Create Accounts using dev-validators.ts with random balances
-		createAccounts();
+		const { args } = await this.parse(Example);
+
+		// Create keyPairs.json
+		await createKeyPairs(args.amountOfLeaves);
+
+		// Create Accounts using keys.ts with random balances
+		createAccounts(args.amountOfLeaves);
 
 		// Build MerkleTree to example
 		buildTreeJSON(`../../data/example`);
 
-		// Sign all leaves using dev-validators.ts again
+		// Sign all leaves using keys.ts again
 		signAccounts();
 
 		this.log('Success running example!');

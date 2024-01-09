@@ -1,13 +1,9 @@
 import { cryptography } from 'lisk-sdk';
 import * as fs from 'fs';
-import { DevValidator } from '../../interface';
+import { ExampleKey } from '../../interface';
 
 // 1 LSK = 10^8 Beddows
 const LSK_MULTIPLIER = 10 ** 8;
-
-// Create Balances
-// [#0 - #49] First 50 addresses are regular addresses
-const NUM_OF_REGULAR_ACCOUNTS = 50;
 
 // Balances are random between 0 - <RANDOM_RANGE>
 const RANDOM_RANGE = 10000;
@@ -16,6 +12,8 @@ const RANDOM_RANGE = 10000;
 // For each account it will use the address of the index as account holder,
 // while the "keys" are used from #0 onwards
 
+// First (numberOfAccounts - multiSigs.length) accounts would be regular accounts
+// For e.g. numberOfAccounts = 54
 // #50: numSig 3  => 3m
 // #51: numSig 2  => 1m + 2o
 // #52: numSig 5  => 3m + 3o
@@ -45,18 +43,18 @@ const multiSigs = [
 
 const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
-const accounts = (
-	JSON.parse(fs.readFileSync('../../data/example/dev-validators.json', 'utf-8')) as DevValidator
-).keys;
+export function createAccounts(numberOfAccounts = 54) {
+	const keyPairs = JSON.parse(
+		fs.readFileSync('../../data/example/keyPairs.json', 'utf-8'),
+	) as ExampleKey[];
 
-// to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.
-const sortedAccounts = [...accounts].sort((key1, key2) =>
-	cryptography.address
-		.getAddressFromLisk32Address(key1.address)
-		.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
-);
+	// to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.
+	const sortedKeyPairs = [...keyPairs].sort((key1, key2) =>
+		cryptography.address
+			.getAddressFromLisk32Address(key1.address)
+			.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
+	);
 
-export function createAccounts() {
 	const results: {
 		lskAddress: string;
 		balance: number;
@@ -67,8 +65,8 @@ export function createAccounts() {
 	}[] = [];
 
 	// Regular Accounts
-	for (let index = 0; index < NUM_OF_REGULAR_ACCOUNTS; index++) {
-		const account = sortedAccounts[index];
+	for (let index = 0; index < numberOfAccounts - multiSigs.length; index++) {
+		const account = sortedKeyPairs[index];
 		const balance = randomBalance(RANDOM_RANGE);
 		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
 
@@ -80,7 +78,7 @@ export function createAccounts() {
 	}
 
 	for (const multiSig of multiSigs) {
-		const account = sortedAccounts[results.length];
+		const account = sortedKeyPairs[results.length];
 		const balance = randomBalance(RANDOM_RANGE);
 		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
 
@@ -90,10 +88,10 @@ export function createAccounts() {
 			balanceBeddows,
 			numberOfSignatures: multiSig.numberOfSignatures,
 			mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(
-				(_, index) => accounts[index].publicKey,
+				(_, index) => keyPairs[index].publicKey,
 			),
 			optionalKeys: [...Array(multiSig.numberOfOptionalKeys).keys()].map(
-				(_, index) => accounts[index + multiSig.numberOfMandatoryKeys].publicKey,
+				(_, index) => keyPairs[index + multiSig.numberOfMandatoryKeys].publicKey,
 			),
 		});
 	}
