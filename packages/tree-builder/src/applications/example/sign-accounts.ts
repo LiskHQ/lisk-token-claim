@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
 import * as tweetnacl from 'tweetnacl';
 import { MerkleTree, ExampleKey } from '../../interface';
+import { append0x } from '../../utils';
 
 interface SigPair {
 	pubKey: string;
@@ -48,21 +49,21 @@ export function signAccounts(recipient: string) {
 			const signature = signMessage(message, key);
 
 			sigs.push({
-				pubKey: '0x' + key.publicKey,
-				r: '0x' + signature.substring(0, 64),
-				s: '0x' + signature.substring(64),
+				pubKey: append0x(key.publicKey),
+				r: append0x(signature.substring(0, 64)),
+				s: append0x(signature.substring(64)),
 			});
 		} else {
 			// Multisig Account
 			// Signing with all keys regardless of the required amount of number of signatures
 			for (const pubKey of leaf.mandatoryKeys.concat(leaf.optionalKeys)) {
-				const key = keys.find(key => '0x' + key.publicKey === pubKey)!;
+				const key = keys.find(key => append0x(key.publicKey) === pubKey)!;
 				const signature = signMessage(message, key);
 
 				sigs.push({
-					pubKey: '0x' + key.publicKey,
-					r: '0x' + signature.substring(0, 64),
-					s: '0x' + signature.substring(64),
+					pubKey: append0x(key.publicKey),
+					r: append0x(signature.substring(0, 64)),
+					s: append0x(signature.substring(64)),
 				});
 			}
 		}

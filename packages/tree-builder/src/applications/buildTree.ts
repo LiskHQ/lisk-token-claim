@@ -1,15 +1,16 @@
-import { cryptography } from 'lisk-sdk';
+import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, Leaf } from '../interface';
 import { LEAF_ENCODING } from '../constants';
+import { append0x } from '../utils';
 
 export function createPayload(account: Account) {
 	return [
-		cryptography.address.getAddressFromLisk32Address(account.lskAddress),
+		address.getAddressFromLisk32Address(account.lskAddress),
 		account.balanceBeddows,
 		account.numberOfSignatures ?? 0,
-		account.mandatoryKeys ? account.mandatoryKeys.map(key => '0x' + key) : [],
-		account.optionalKeys ? account.optionalKeys.map(key => '0x' + key) : [],
+		account.mandatoryKeys ? account.mandatoryKeys.map(key => append0x(key)) : [],
+		account.optionalKeys ? account.optionalKeys.map(key => append0x(key)) : [],
 	];
 }
 
@@ -24,11 +25,9 @@ export function buildTree(accounts: Account[]): {
 			continue;
 		}
 		if (
-			cryptography.address
+			address
 				.getAddressFromLisk32Address(account.lskAddress)
-				.compare(
-					cryptography.address.getAddressFromLisk32Address(accounts[index + 1].lskAddress),
-				) === 1
+				.compare(address.getAddressFromLisk32Address(accounts[index + 1].lskAddress)) === 1
 		) {
 			throw new Error('Address not sorted! Please sort your addresses before continue');
 		}
@@ -45,7 +44,7 @@ export function buildTree(accounts: Account[]): {
 	);
 
 	for (const account of accounts) {
-		const address = cryptography.address.getAddressFromLisk32Address(account.lskAddress);
+		const addressHex = address.getAddressFromLisk32Address(account.lskAddress);
 		const payload = createPayload(account);
 
 		console.log(
@@ -56,15 +55,15 @@ export function buildTree(accounts: Account[]): {
 
 		leaves.push({
 			lskAddress: account.lskAddress,
-			address: '0x' + address.toString('hex'),
+			address: append0x(addressHex.toString('hex')),
 			balance: account.balance,
 			balanceBeddows: account.balanceBeddows,
 			numberOfSignatures: account.numberOfSignatures ?? 0,
 			mandatoryKeys: account.mandatoryKeys
-				? account.mandatoryKeys.map((key: string) => '0x' + key)
+				? account.mandatoryKeys.map((key: string) => append0x(key))
 				: [],
 			optionalKeys: account.optionalKeys
-				? account.optionalKeys.map((key: string) => '0x' + key)
+				? account.optionalKeys.map((key: string) => append0x(key))
 				: [],
 			hash: tree.leafHash(payload),
 			proof: tree.getProof(payload),

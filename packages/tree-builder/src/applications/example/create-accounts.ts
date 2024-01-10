@@ -1,4 +1,4 @@
-import { cryptography } from 'lisk-sdk';
+import { address } from '@liskhq/lisk-cryptography';
 import * as fs from 'fs';
 import { ExampleKey } from '../../interface';
 
@@ -50,9 +50,9 @@ export function createAccounts(numberOfAccounts = 54) {
 
 	// to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.
 	const sortedKeyPairs = [...keyPairs].sort((key1, key2) =>
-		cryptography.address
+		address
 			.getAddressFromLisk32Address(key1.address)
-			.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
+			.compare(address.getAddressFromLisk32Address(key2.address)),
 	);
 
 	const results: {

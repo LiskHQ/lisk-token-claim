@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as fs from 'fs';
 import { AbiCoder, keccak256 } from 'ethers';
-import { cryptography } from 'lisk-sdk';
+import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/buildTree';
@@ -17,9 +17,9 @@ describe('buildTree', () => {
 		const keyPairsSorted = (
 			JSON.parse(fs.readFileSync('../../data/example/keyPairs.json', 'utf-8')) as ExampleKey[]
 		).sort((key1, key2) =>
-			cryptography.address
+			address
 				.getAddressFromLisk32Address(key1.address)
-				.compare(cryptography.address.getAddressFromLisk32Address(key2.address)),
+				.compare(address.getAddressFromLisk32Address(key2.address)),
 		);
 
 		// Create 5 accounts on the fly, they are all Multisig such that all fields are filled
