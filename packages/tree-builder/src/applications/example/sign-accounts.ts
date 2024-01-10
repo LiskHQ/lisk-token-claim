@@ -24,10 +24,9 @@ const signMessage = (message: string, key: ExampleKey): string => {
 	).toString('hex');
 };
 
-const recipient = '0x34A1D3fff3958843C43aD80F30b94c510645C316';
 const BYTES_9 = '000000000000000000';
 
-export function signAccounts() {
+export function signAccounts(recipient: string) {
 	const keys = JSON.parse(
 		fs.readFileSync('../../data/example/keyPairs.json', 'utf-8'),
 	) as ExampleKey[];
