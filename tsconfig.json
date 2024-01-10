@@ -16,6 +16,7 @@
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"strict": true,
-		"composite": true
+		"composite": true,
+		"esModuleInterop": true
 	}
 }
