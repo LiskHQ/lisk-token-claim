@@ -25,9 +25,7 @@
 		"build": "shx rm -rf dist && tsc -b",
 		"test": "mocha --forbid-only \"test/**/*.test.ts\""
 	},
-	"dependencies": {
-		"express": "^4.18.2"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@types/chai": "^4",
 		"@types/mocha": "^9.0.0",
