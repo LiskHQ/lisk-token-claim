@@ -102,6 +102,7 @@ $ ./bin/run example
 
 By running the command above, it will, at `data/example` folder:
 
-1. Create `accounts.json` using addresses in `dev-validators.json`, with random LSK balance.
-2. Create `merkle-root.json`, `merkle-tree-result.json`, `merkle-tree-result-detailed.json` using the accounts above (Equivalent to `./bin/run.js generate-merkle-tree --network=example`).
-3. Sign every leaf using the private keys in `dev-validators.json` and output to `signatures.json`.
+1. Create `key-pairs.json`, which stores public-private key pairs, along with the corresponding address and path
+2. Create `accounts.json` using addresses in `key-pairs.json`, with random LSK balance.
+3. Create `merkle-root.json`, `merkle-tree-result.json`, `merkle-tree-result-detailed.json` using the accounts above (Equivalent to `./bin/run.js generate-merkle-tree --network=example`).
+4. Sign every leaf using the private keys in `key-pairs.json` and output to `signatures.json`.

@@ -1,5 +1,6 @@
 import { Command, Flags } from '@oclif/core';
-import { buildTreeJSON } from '../../applications/buildTreeJSON';
+import * as path from 'path';
+import { buildTreeJson } from '../../applications/generate-merkle-tree/build_tree_json';
 
 export default class GenerateMerkleTree extends Command {
 	static description = 'Generate Merkle Tree';
@@ -18,10 +19,10 @@ export default class GenerateMerkleTree extends Command {
 		const { flags } = await this.parse(GenerateMerkleTree);
 		const { network } = flags;
 
-		const path = `../../data/${network}`;
+		const networkPath = path.join('../../data/', network);
 		this.log(`Running at \x1b[42m${network}\x1b[0m`);
 
-		buildTreeJSON(path);
+		buildTreeJson(networkPath);
 
 		this.log(`Success running GenerateMerkleTree (network=${network})!`);
 	}

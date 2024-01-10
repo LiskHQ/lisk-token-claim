@@ -4,9 +4,9 @@ import { AbiCoder, keccak256 } from 'ethers';
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, ExampleKey } from '../../src/interface';
-import { createPayload, buildTree } from '../../src/applications/buildTree';
+import { createPayload, build_tree } from '../../src/applications/generate-merkle-tree/build_tree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
-import { createKeyPairs } from '../../src/applications/example/create-key-pairs';
+import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
 
 describe('buildTree', () => {
 	const abiCoder = new AbiCoder();
@@ -15,7 +15,7 @@ describe('buildTree', () => {
 	before(async () => {
 		await createKeyPairs();
 		const keyPairsSorted = (
-			JSON.parse(fs.readFileSync('../../data/example/keyPairs.json', 'utf-8')) as ExampleKey[]
+			JSON.parse(fs.readFileSync('../../data/example/key-pairs.json', 'utf-8')) as ExampleKey[]
 		).sort((key1, key2) =>
 			address
 				.getAddressFromLisk32Address(key1.address)
@@ -45,13 +45,13 @@ describe('buildTree', () => {
 			...accounts.slice(1, accounts.length - 1),
 			accounts[0],
 		];
-		expect(() => buildTree(unsortedAccounts)).throw(
+		expect(() => build_tree(unsortedAccounts)).throw(
 			'Address not sorted! Please sort your addresses before continue',
 		);
 	});
 
 	it('should return valid tree with proof', () => {
-		const merkleTree = buildTree(accounts);
+		const merkleTree = build_tree(accounts);
 		for (const [i, leaf] of merkleTree.leaves.entries()) {
 			const accountOfLeaf = accounts.find(account => account.lskAddress === leaf.lskAddress)!;
 			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));

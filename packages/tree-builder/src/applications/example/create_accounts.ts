@@ -1,5 +1,6 @@
-import { address } from '@liskhq/lisk-cryptography';
 import * as fs from 'fs';
+import * as path from 'path';
+import { address } from '@liskhq/lisk-cryptography';
 import { ExampleKey } from '../../interface';
 
 // 1 LSK = 10^8 Beddows
@@ -44,8 +45,9 @@ const multiSigs = [
 const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
 export function createAccounts(numberOfAccounts = 54) {
+	console.log(path.join(__dirname, '../../../../../../data/example/accounts.json'));
 	const keyPairs = JSON.parse(
-		fs.readFileSync('../../data/example/keyPairs.json', 'utf-8'),
+		fs.readFileSync('../../data/example/key-pairs.json', 'utf-8'),
 	) as ExampleKey[];
 
 	// to ensure a deterministic tree construction, the accounts array must be sorted in lexicographical order of their addr entries.

@@ -1,8 +1,8 @@
 import { Args, Command } from '@oclif/core';
-import { createAccounts } from '../../applications/example/create-accounts';
-import { signAccounts } from '../../applications/example/sign-accounts';
-import { buildTreeJSON } from '../../applications/buildTreeJSON';
-import { createKeyPairs } from '../../applications/example/create-key-pairs';
+import { createAccounts } from '../../applications/example/create_accounts';
+import { signAccounts } from '../../applications/example/sign_accounts';
+import { buildTreeJson } from '../../applications/generate-merkle-tree/build_tree_json';
+import { createKeyPairs } from '../../applications/example/create_key_pairs';
 
 export default class Example extends Command {
 	static args = {
@@ -26,16 +26,16 @@ export default class Example extends Command {
 	async run(): Promise<void> {
 		const { args } = await this.parse(Example);
 
-		// Create keyPairs.json
+		// Create key-pairs.json
 		await createKeyPairs(args.amountOfLeaves);
 
-		// Create Accounts using keyPairs.json with random balances
+		// Create Accounts using key-pairs.json with random balances
 		createAccounts(args.amountOfLeaves);
 
 		// Build MerkleTree to example
-		buildTreeJSON(`../../data/example`);
+		buildTreeJson(`../../data/example`);
 
-		// Sign all leaves using keyPairs.json
+		// Sign all leaves using key-pairs.json
 		signAccounts(args.recipient);
 
 		this.log('Success running example!');

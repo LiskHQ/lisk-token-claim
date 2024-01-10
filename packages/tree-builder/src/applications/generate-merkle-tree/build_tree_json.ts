@@ -1,24 +1,30 @@
 import * as fs from 'fs';
-import { Account } from '../interface';
-import { buildTree } from './buildTree';
+import * as path from 'path';
+import { Account } from '../../interface';
+import { build_tree } from './build_tree';
 
-export function buildTreeJSON(path: string) {
+export function buildTreeJson(outputPath: string) {
 	let accounts: Account[];
+
+	const accountsPath = path.join(outputPath, 'accounts.json');
 	try {
-		accounts = JSON.parse(fs.readFileSync(`${path}/accounts.json`, 'utf-8')) as Account[];
+		accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf-8')) as Account[];
 	} catch (err) {
-		console.log(`Error occurred reading ${path}/accounts.json`);
+		console.log(`Error occurred reading ${accountsPath}`);
 		if (err instanceof Error) {
 			console.log(err.message);
 		}
 		process.exit(1);
 	}
 
-	const { tree, leaves } = buildTree(accounts);
+	const { tree, leaves } = build_tree(accounts);
 
 	console.log('===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====');
 
-	const merkleTreeResultDetailedJSONPath = `${path}/merkle-tree-result-detailed.json`;
+	const merkleTreeResultDetailedJSONPath = path.join(
+		outputPath,
+		'merkle-tree-result-detailed.json',
+	);
 	fs.writeFileSync(
 		merkleTreeResultDetailedJSONPath,
 		JSON.stringify({
@@ -29,7 +35,7 @@ export function buildTreeJSON(path: string) {
 	);
 	console.log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
 
-	const merkleTreeResultJSONPath = `${path}/merkle-tree-result.json`;
+	const merkleTreeResultJSONPath = path.join(outputPath, 'merkle-tree-result.json');
 	fs.writeFileSync(
 		merkleTreeResultJSONPath,
 		JSON.stringify({
@@ -47,7 +53,7 @@ export function buildTreeJSON(path: string) {
 	);
 	console.log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
 
-	const merkleRootJSONPath = `${path}/merkle-root.json`;
+	const merkleRootJSONPath = path.join(outputPath, 'merkle-root.json');
 	fs.writeFileSync(
 		merkleRootJSONPath,
 		JSON.stringify({

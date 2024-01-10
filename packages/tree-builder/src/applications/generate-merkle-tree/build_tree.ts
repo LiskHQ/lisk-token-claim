@@ -1,8 +1,8 @@
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
-import { Account, Leaf } from '../interface';
-import { LEAF_ENCODING } from '../constants';
-import { append0x } from '../utils';
+import { Account, Leaf } from '../../interface';
+import { LEAF_ENCODING } from '../../constants';
+import { append0x } from '../../utils';
 
 export function createPayload(account: Account) {
 	return [
@@ -14,7 +14,7 @@ export function createPayload(account: Account) {
 	];
 }
 
-export function buildTree(accounts: Account[]): {
+export function build_tree(accounts: Account[]): {
 	tree: StandardMerkleTree<(number | Buffer | string[])[]>;
 	leaves: Leaf[];
 } {

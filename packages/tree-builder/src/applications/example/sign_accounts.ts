@@ -29,7 +29,7 @@ const BYTES_9 = '000000000000000000';
 
 export function signAccounts(recipient: string) {
 	const keys = JSON.parse(
-		fs.readFileSync('../../data/example/keyPairs.json', 'utf-8'),
+		fs.readFileSync('../../data/example/key-pairs.json', 'utf-8'),
 	) as ExampleKey[];
 
 	const merkleTree = JSON.parse(
