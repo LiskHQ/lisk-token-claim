@@ -7,7 +7,7 @@ This library builds Merkle Tree from a snapshot and computes Merkle Root.
 ```
 $ cd packages/tree-builder
 $ ./bin/run.js generate-merkle-tree --network=mainnet # Mainnet
-$ ./bin/run.js generate-merkle-tree --network=mainnet # Testnet
+$ ./bin/run.js generate-merkle-tree --network=testnet # Testnet
 $ ./bin/run.js generate-merkle-tree --network=example # Example, see below
 ```
 

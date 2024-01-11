@@ -53,8 +53,7 @@ describe('buildTree', () => {
 	it('should return valid tree with proof', () => {
 		const merkleTree = build_tree(accounts);
 		for (const [i, leaf] of merkleTree.leaves.entries()) {
-			const accountOfLeaf = accounts.find(account => account.lskAddress === leaf.lskAddress)!;
-			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));
+			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accounts[i]));
 
 			// Verify Leaf is in correct order
 			expect(leaf.lskAddress).equal(accounts[i].lskAddress);
@@ -63,14 +62,14 @@ describe('buildTree', () => {
 			expect(leaf.hash).equal(keccak256(keccak256(encodedMessage)));
 
 			// Verify Proof exists in MerkleTree
-			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).deep.equal(leaf.proof);
+			expect(merkleTree.tree.getProof(createPayload(accounts[i]))).deep.equal(leaf.proof);
 
 			// Verify Proof is valid with respect to MerkleRoot
 			expect(
 				StandardMerkleTree.verify(
 					merkleTree.tree.root,
 					LEAF_ENCODING,
-					createPayload(accountOfLeaf),
+					createPayload(accounts[i]),
 					leaf.proof,
 				),
 			).deep.equal(true);
