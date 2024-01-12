@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import {check} from "./check";
+import { check } from './check';
 
 const app: Express = express();
 
