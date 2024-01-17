@@ -3,6 +3,7 @@ import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, Leaf } from '../../interface';
 import { LEAF_ENCODING } from '../../constants';
 import { append0x } from '../../utils';
+import { debug, log } from 'oclif/lib/log';
 
 export function createPayload(account: Account) {
 	return [
@@ -33,7 +34,7 @@ export function build_tree(accounts: Account[]): {
 		}
 	}
 
-	console.log(`${accounts.length} Accounts to generate:`);
+	log(`${accounts.length} Accounts to generate:`);
 
 	const leaves: Leaf[] = [];
 	const tree = StandardMerkleTree.of(
@@ -47,8 +48,8 @@ export function build_tree(accounts: Account[]): {
 		const addressHex = address.getAddressFromLisk32Address(account.lskAddress);
 		const payload = createPayload(account);
 
-		console.log(
-			`${account.lskAddress}: ${account.balanceBeddows} LSK (Multisig=${
+		debug(
+			`${account.lskAddress}: ${account.balanceBeddows} Beddows (Multisig=${
 				account.numberOfSignatures && account.numberOfSignatures > 0 ? 'Y' : 'N'
 			})`,
 		);
@@ -68,6 +69,8 @@ export function build_tree(accounts: Account[]): {
 			proof: tree.getProof(payload),
 		});
 	}
+
+	debug('===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====');
 
 	return {
 		tree,
