@@ -27,7 +27,8 @@ export interface MerkleTree {
 
 /*
  *** Not used in Mainnet ***
- */ export interface ExampleKey {
+ */
+export interface ExampleKey {
 	address: string;
 	keyPath: string;
 	publicKey: string;
