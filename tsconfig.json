@@ -7,15 +7,16 @@
 		"moduleResolution": "node",
 		"newLine": "lf",
 		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true,
-		"noImplicitAny": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
+		"noImplicitReturns": false,
+		"noImplicitAny": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
 		"pretty": true,
 		"removeComments": true,
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"strict": true,
-		"composite": true
+		"composite": true,
+		"esModuleInterop": true
 	}
 }

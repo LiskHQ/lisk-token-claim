@@ -30,7 +30,8 @@
 		"prepack": "yarn build && oclif manifest && oclif readme",
 		"prepare": "yarn build",
 		"test": "mocha --forbid-only \"test/**/*.ts\"",
-		"version": "oclif readme && git add README.md"
+		"version": "oclif readme && git add README.md",
+		"sandbox": "ts-node ./sandbox1.ts"
 	},
 	"oclif": {
 		"bin": "tree-builder",
@@ -42,12 +43,14 @@
 		"topicSeparator": " "
 	},
 	"dependencies": {
+		"@liskhq/lisk-codec": "^0.5.0",
+		"@liskhq/lisk-cryptography": "4.1.0",
+		"@liskhq/lisk-db": "^0.3.10",
 		"@oclif/core": "^3",
 		"@oclif/plugin-help": "^6",
 		"@openzeppelin/merkle-tree": "^1.0.5",
 		"ethereumjs-util": "^7.1.5",
 		"ethers": "^6.8.1",
-		"@liskhq/lisk-cryptography": "4.1.0",
 		"sinon": "^17.0.1",
 		"tweetnacl": "^1.0.3"
 	},

@@ -7,7 +7,7 @@ import { append0x } from '../../utils';
 export function createPayload(account: Account) {
 	return [
 		address.getAddressFromLisk32Address(account.lskAddress),
-		account.balanceBeddows,
+		Number(account.balanceBeddows),
 		account.numberOfSignatures ?? 0,
 		account.mandatoryKeys ? account.mandatoryKeys.map(key => append0x(key)) : [],
 		account.optionalKeys ? account.optionalKeys.map(key => append0x(key)) : [],
@@ -48,7 +48,7 @@ export function build_tree(accounts: Account[]): {
 		const payload = createPayload(account);
 
 		console.log(
-			`${account.lskAddress}: ${account.balance} LSK (Multisig=${
+			`${account.lskAddress}: ${account.balanceBeddows} LSK (Multisig=${
 				account.numberOfSignatures && account.numberOfSignatures > 0 ? 'Y' : 'N'
 			})`,
 		);
@@ -56,7 +56,6 @@ export function build_tree(accounts: Account[]): {
 		leaves.push({
 			lskAddress: account.lskAddress,
 			address: append0x(addressHex.toString('hex')),
-			balance: account.balance,
 			balanceBeddows: account.balanceBeddows,
 			numberOfSignatures: account.numberOfSignatures ?? 0,
 			mandatoryKeys: account.mandatoryKeys

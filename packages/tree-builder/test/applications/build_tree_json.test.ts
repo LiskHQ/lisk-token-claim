@@ -34,7 +34,6 @@ describe('buildTreeJSON', () => {
 
 			expect(jsonLeaf.address).equal(merkleTreeLeaf.address);
 			expect(jsonLeaf.lskAddress).equal(merkleTreeLeaf.lskAddress);
-			expect(jsonLeaf.balance).equal(merkleTreeLeaf.balance);
 			expect(jsonLeaf.balanceBeddows).equal(merkleTreeLeaf.balanceBeddows);
 			expect(jsonLeaf.numberOfSignatures).equal(merkleTreeLeaf.numberOfSignatures);
 			expect(jsonLeaf.mandatoryKeys).deep.equal(merkleTreeLeaf.mandatoryKeys);

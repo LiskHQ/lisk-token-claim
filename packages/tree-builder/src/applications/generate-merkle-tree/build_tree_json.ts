@@ -3,20 +3,7 @@ import * as path from 'path';
 import { Account } from '../../interface';
 import { build_tree } from './build_tree';
 
-export function buildTreeJson(outputPath: string) {
-	let accounts: Account[];
-
-	const accountsPath = path.join(outputPath, 'accounts.json');
-	try {
-		accounts = JSON.parse(fs.readFileSync(accountsPath, 'utf-8')) as Account[];
-	} catch (err) {
-		console.log(`Error occurred reading ${accountsPath}`);
-		if (err instanceof Error) {
-			console.log(err.message);
-		}
-		process.exit(1);
-	}
-
+export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 	const { tree, leaves } = build_tree(accounts);
 
 	console.log('===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====');

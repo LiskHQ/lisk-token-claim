@@ -1,8 +1,23 @@
 export type Network = 'mainnet' | 'testnet' | 'example';
+
+export interface AuthAccount {
+	nonce: bigint;
+	numberOfSignatures: number;
+	mandatoryKeys: Buffer[];
+	optionalKeys: Buffer[];
+}
+
+export interface UserBalance {
+	availableBalance: bigint;
+	lockedBalances: {
+		module: string;
+		amount: bigint;
+	}[];
+}
+
 export interface Account {
 	lskAddress: string;
-	balance: number;
-	balanceBeddows: number;
+	balanceBeddows: string;
 	numberOfSignatures?: number;
 	mandatoryKeys?: string[];
 	optionalKeys?: string[];
@@ -11,8 +26,7 @@ export interface Account {
 export interface Leaf {
 	lskAddress: string;
 	address: string;
-	balance: number;
-	balanceBeddows: number;
+	balanceBeddows: string;
 	numberOfSignatures: number;
 	mandatoryKeys: string[];
 	optionalKeys: string[];
