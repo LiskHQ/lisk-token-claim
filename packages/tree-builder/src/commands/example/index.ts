@@ -21,7 +21,7 @@ export default class Example extends Command {
 
 	static description = 'Generate example data for demo purpose';
 
-	static examples = [`$ oex generate`];
+	static examples = [`$ oex example`];
 
 	async run(): Promise<void> {
 		const { flags } = await this.parse(Example);
@@ -33,7 +33,7 @@ export default class Example extends Command {
 		createAccounts(flags.amountOfLeaves);
 
 		// Build MerkleTree to example
-		buildTreeJson(`../../data/example`);
+		buildTreeJson('../../data/example');
 
 		// Sign all leaves using key-pairs.json
 		signAccounts(flags.recipient);

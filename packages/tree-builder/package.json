@@ -29,7 +29,7 @@
 		"postpack": "shx rm -f oclif.manifest.json",
 		"prepack": "yarn build && oclif manifest && oclif readme",
 		"prepare": "yarn build",
-		"test": "mocha --forbid-only \"test/**/*.ts\"",
+		"test": "mocha --forbid-only \"test/**/*.test.ts\"",
 		"version": "oclif readme && git add README.md"
 	},
 	"oclif": {
@@ -42,12 +42,12 @@
 		"topicSeparator": " "
 	},
 	"dependencies": {
+		"@liskhq/lisk-cryptography": "4.1.0",
 		"@oclif/core": "^3",
 		"@oclif/plugin-help": "^6",
 		"@openzeppelin/merkle-tree": "^1.0.5",
 		"ethereumjs-util": "^7.1.5",
 		"ethers": "^6.8.1",
-		"@liskhq/lisk-cryptography": "4.1.0",
 		"sinon": "^17.0.1",
 		"tweetnacl": "^1.0.3"
 	},

@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import { address } from '@liskhq/lisk-cryptography';
 import { ExampleKey } from '../../interface';
 
@@ -45,7 +44,6 @@ const multiSigs = [
 const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
 export function createAccounts(numberOfAccounts = 54) {
-	console.log(path.join(__dirname, '../../../../../../data/example/accounts.json'));
 	const keyPairs = JSON.parse(
 		fs.readFileSync('../../data/example/key-pairs.json', 'utf-8'),
 	) as ExampleKey[];
