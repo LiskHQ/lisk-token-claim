@@ -1,4 +1,4 @@
-export const getBalanceResponseSchema = {
+export const userBalanceSchema = {
 	$id: '/token/store/user',
 	type: 'object',
 	required: ['availableBalance', 'lockedBalances'],

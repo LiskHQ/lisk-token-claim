@@ -3,8 +3,8 @@ import { createAccounts } from '../../applications/example/create_accounts';
 import { signAccounts } from '../../applications/example/sign_accounts';
 import { buildTreeJson } from '../../applications/generate-merkle-tree/build_tree_json';
 import { createKeyPairs } from '../../applications/example/create_key_pairs';
-import fs from "fs";
-import {Account} from "../../interface";
+import fs from 'fs';
+import { Account } from '../../interface';
 
 export default class Example extends Command {
 	static flags = {
@@ -34,7 +34,10 @@ export default class Example extends Command {
 		// Create Accounts using key-pairs.json with random balances
 		createAccounts(flags.amountOfLeaves);
 
-		const accounts = JSON.parse(fs.readFileSync(`../../data/example`, 'utf-8')) as Account[];
+		const accountPath = '../../data/example/accounts.json';
+		this.log('Sample accounts outputted to:', accountPath);
+
+		const accounts = JSON.parse(fs.readFileSync(accountPath, 'utf-8')) as Account[];
 
 		// Build MerkleTree to example
 		await buildTreeJson('../../data/example', accounts);

@@ -1,5 +1,3 @@
-export type Network = 'mainnet' | 'testnet' | 'example';
-
 export interface AuthAccount {
 	nonce: bigint;
 	numberOfSignatures: number;

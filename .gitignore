@@ -73,9 +73,4 @@ dist
 .vscode-test
 
 # Example Accounts and MerkleTree are not committed
-data/example/accounts.json
-data/example/key-pairs.json
-data/example/merkle-root.json
-data/example/merkle-tree-result.json
-data/example/merkle-tree-result-detailed.json
-data/example/signatures.json
+data/example

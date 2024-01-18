@@ -29,8 +29,7 @@ describe('buildTree', () => {
 			const numberOfOptionalKeys = Math.floor(5 * Math.random());
 			return {
 				lskAddress: key.address,
-				balance,
-				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER),
+				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER).toString(),
 				numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
 				mandatoryKeys: keyPairsSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
 				optionalKeys: keyPairsSorted

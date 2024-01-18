@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { address } from '@liskhq/lisk-cryptography';
-import {Account, ExampleKey} from '../../interface';
+import { Account, ExampleKey } from '../../interface';
 
 // 1 LSK = 10^8 Beddows
 const LSK_MULTIPLIER = 10 ** 8;
