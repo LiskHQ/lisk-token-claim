@@ -4,7 +4,7 @@ import { AbiCoder, keccak256 } from 'ethers';
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, ExampleKey } from '../../src/interface';
-import { createPayload, build_tree } from '../../src/applications/generate-merkle-tree/build_tree';
+import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
 
@@ -44,13 +44,13 @@ describe('buildTree', () => {
 			...accounts.slice(1, accounts.length - 1),
 			accounts[0],
 		];
-		expect(() => build_tree(unsortedAccounts)).throw(
+		expect(() => buildTree(unsortedAccounts)).throw(
 			'Address not sorted! Please sort your addresses before continue',
 		);
 	});
 
 	it('should return valid tree with proof', () => {
-		const merkleTree = build_tree(accounts);
+		const merkleTree = buildTree(accounts);
 		for (const [i, leaf] of merkleTree.leaves.entries()) {
 			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accounts[i]));
 

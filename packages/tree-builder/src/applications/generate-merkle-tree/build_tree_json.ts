@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { ux } from '@oclif/core';
 import { Account } from '../../interface';
-import { build_tree } from './build_tree';
-import { log } from 'oclif/lib/log';
+import { buildTree } from './build_tree';
 
 export async function buildTreeJson(outputPath: string, accounts: Account[]) {
-	const { tree, leaves } = build_tree(accounts);
+	const { tree, leaves } = buildTree(accounts);
 
 	const merkleTreeResultDetailedJSONPath = path.join(
 		outputPath,
@@ -19,7 +19,7 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 		}),
 		'utf-8',
 	);
-	log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
+	ux.log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
 
 	const merkleTreeResultJSONPath = path.join(outputPath, 'merkle-tree-result.json');
 	fs.writeFileSync(
@@ -37,7 +37,7 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 		}),
 		'utf-8',
 	);
-	log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
+	ux.log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
 
 	const merkleRootJSONPath = path.join(outputPath, 'merkle-root.json');
 	fs.writeFileSync(
@@ -47,5 +47,5 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 		}),
 		'utf-8',
 	);
-	log(`MerkleRoot outputted to: ${merkleRootJSONPath}`);
+	ux.log(`MerkleRoot outputted to: ${merkleRootJSONPath}`);
 }

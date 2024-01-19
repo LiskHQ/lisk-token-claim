@@ -51,7 +51,6 @@
 		"@openzeppelin/merkle-tree": "^1.0.5",
 		"ethereumjs-util": "^7.1.5",
 		"ethers": "^6.8.1",
-		"sinon": "^17.0.1",
 		"tweetnacl": "^1.0.3"
 	},
 	"devDependencies": {
@@ -64,6 +63,7 @@
 		"mocha": "^10",
 		"oclif": "^3.17.2",
 		"shx": "^0.3.3",
+		"sinon": "^17.0.1",
 		"ts-node": "^10.9.2",
 		"typescript": "^5"
 	}
