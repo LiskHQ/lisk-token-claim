@@ -1,9 +1,9 @@
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { ux } from '@oclif/core';
 import { Account, Leaf } from '../../interface';
 import { LEAF_ENCODING } from '../../constants';
 import { append0x } from '../../utils';
-import { debug, log } from 'oclif/lib/log';
 
 export function createPayload(account: Account) {
 	return [
@@ -15,7 +15,7 @@ export function createPayload(account: Account) {
 	];
 }
 
-export function build_tree(accounts: Account[]): {
+export function buildTree(accounts: Account[]): {
 	tree: StandardMerkleTree<(number | Buffer | string[])[]>;
 	leaves: Leaf[];
 } {
@@ -34,7 +34,7 @@ export function build_tree(accounts: Account[]): {
 		}
 	}
 
-	log(`${accounts.length} Accounts to generate:`);
+	ux.log(`${accounts.length} Accounts to generate:`);
 
 	const leaves: Leaf[] = [];
 	const tree = StandardMerkleTree.of(
@@ -47,12 +47,6 @@ export function build_tree(accounts: Account[]): {
 	for (const account of accounts) {
 		const addressHex = address.getAddressFromLisk32Address(account.lskAddress);
 		const payload = createPayload(account);
-
-		debug(
-			`${account.lskAddress}: ${account.balance} LSK (Multisig=${
-				account.numberOfSignatures && account.numberOfSignatures > 0 ? 'Y' : 'N'
-			})`,
-		);
 
 		leaves.push({
 			lskAddress: account.lskAddress,
@@ -70,8 +64,6 @@ export function build_tree(accounts: Account[]): {
 			proof: tree.getProof(payload),
 		});
 	}
-
-	debug('===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====');
 
 	return {
 		tree,
