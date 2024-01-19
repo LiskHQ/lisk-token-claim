@@ -1,34 +1,25 @@
-import { expect, test } from '@oclif/test';
-import { Database } from '@liskhq/lisk-db';
 import * as path from 'path';
 import * as fs from 'fs';
-import { TOKEN_PREFIX } from '../../../src/constants';
-import { codec } from '@liskhq/lisk-codec';
-import { userBalanceSchema } from '../../../src/applications/generate-merkle-tree/schema';
+import * as os from 'os';
+import { expect, test } from '@oclif/test';
+import { StateDB } from '@liskhq/lisk-db';
 import { utils } from '@liskhq/lisk-cryptography';
+import { codec } from '@liskhq/lisk-codec';
+import { TOKEN_PREFIX } from '../../../src/constants';
+import { userBalanceSchema } from '../../../src/applications/generate-merkle-tree/schema';
 
 describe('GenerateMerkleTree', () => {
-	const dataPath = './test/data';
+	const dataPath = os.tmpdir();
 	const stateDBPath = path.join(dataPath, 'state.db');
+	const tokenId = Buffer.from('0000000000000000', 'hex');
 
-	before(async () => {
-		// Create DB before each test
-		const db = new Database(stateDBPath);
-		await db.set(
-			Buffer.concat([
-				TOKEN_PREFIX,
-				utils.getRandomBytes(20),
-				Buffer.from([0, 0, 0, 0, 0, 0, 0, 0, 0]),
-			]),
-			codec.encode(userBalanceSchema, {
-				availableBalance: BigInt(Math.floor(Math.random() * 10000)),
-				lockedBalances: [],
-			}),
-		);
+	beforeEach(async () => {
+		// Create Empty DB before each test
+		const db = new StateDB(stateDBPath);
 		db.close();
 	});
 
-	after(() => {
+	afterEach(() => {
 		// Remove DB after each test
 		fs.rmSync(stateDBPath, { recursive: true, force: true });
 	});
@@ -42,15 +33,73 @@ describe('GenerateMerkleTree', () => {
 	test
 		.loadConfig({ root: __dirname })
 		.stdout()
-		.command(['generate-merkle-tree', `--dbPath=${dataPath}`, '--tokenId=0000'])
+		.command([
+			'generate-merkle-tree',
+			`--outputPath=${dataPath}`,
+			`--dbPath=${dataPath}`,
+			'--tokenId=0000',
+		])
 		.catch(err => expect(err.message).to.contain('tokenId length be in 8 bytes'))
 		.it('should reject when tokenId has invalid length');
 
 	test
 		.loadConfig({ root: __dirname })
 		.stdout()
-		.command(['generate-merkle-tree', `--dbPath=${dataPath}`])
+		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--dbPath=${dataPath}`])
 		.it('should warn 0 account for empty DB', ctx => {
 			expect(ctx.stdout).to.contain('DB has 0 accounts, check tokenId or local chain status');
+		});
+
+	test
+		.loadConfig({ root: __dirname })
+		.stdout()
+		.do(async () => {
+			const db = new StateDB(stateDBPath);
+			const writer = db.newReadWriter();
+
+			await writer.set(
+				Buffer.concat([TOKEN_PREFIX, utils.getRandomBytes(20), tokenId]),
+				codec.encode(userBalanceSchema, {
+					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
+					lockedBalances: [],
+				}),
+			);
+
+			await db.commit(writer, 0, Buffer.alloc(0));
+			writer.close();
+			db.close();
+		})
+		.command([
+			'generate-merkle-tree',
+			`--outputPath=${dataPath}`,
+			`--dbPath=${dataPath}`,
+			'--tokenId=0000000000000001',
+		])
+		.it('should warn 0 account for incorrect tokenId', ctx => {
+			expect(ctx.stdout).to.contain('DB has 0 accounts, check tokenId or local chain status');
+		});
+
+	test
+		.loadConfig({ root: __dirname })
+		.stdout()
+		.do(async () => {
+			const db = new StateDB(stateDBPath);
+			const writer = db.newReadWriter();
+
+			await writer.set(
+				Buffer.concat([TOKEN_PREFIX, utils.getRandomBytes(20), tokenId]),
+				codec.encode(userBalanceSchema, {
+					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
+					lockedBalances: [],
+				}),
+			);
+
+			await db.commit(writer, 0, Buffer.alloc(0));
+			writer.close();
+			db.close();
+		})
+		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--dbPath=${dataPath}`])
+		.it('should process 1 account', ctx => {
+			expect(ctx.stdout).to.contain('1 Accounts to generate');
 		});
 });

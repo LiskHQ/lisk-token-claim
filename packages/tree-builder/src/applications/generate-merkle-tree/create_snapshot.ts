@@ -1,4 +1,4 @@
-import { InMemoryDatabase, StateDB } from '@liskhq/lisk-db';
+import { StateDB } from '@liskhq/lisk-db';
 import { codec } from '@liskhq/lisk-codec';
 import { address } from '@liskhq/lisk-cryptography';
 import { authAccountSchema, userBalanceSchema } from './schema';
@@ -31,7 +31,7 @@ function incrementBufferWithOverflow(inputBuffer: Buffer): Buffer {
 }
 
 async function iterate(
-	rdb: StateDB | InMemoryDatabase,
+	rdb: StateDB,
 	prefixBuffer: Buffer,
 	postfixBuffer: Buffer,
 	dataCallbackFn: ({
@@ -77,10 +77,7 @@ async function iterate(
 	} while (lastProcessedAddress);
 }
 
-export async function createSnapshot(
-	db: StateDB | InMemoryDatabase,
-	tokenId: Buffer,
-): Promise<Account[]> {
+export async function createSnapshot(db: StateDB, tokenId: Buffer): Promise<Account[]> {
 	const accountMap: {
 		[address: string]: Account;
 	} = {};

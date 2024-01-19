@@ -15,6 +15,10 @@ export default class GenerateMerkleTree extends Command {
 			description: 'Database path, where your state.db is located',
 			required: true,
 		}),
+		outputPath: Flags.string({
+			description: 'Destination path of the merkle tree',
+			default: path.join(__dirname, '../../../../../data'),
+		}),
 		tokenId: Flags.string({
 			description: 'Token ID, use default for mainnet LSK Token',
 			parse: async (input: string) => {
@@ -29,11 +33,10 @@ export default class GenerateMerkleTree extends Command {
 
 	async run(): Promise<void> {
 		const { flags } = await this.parse(GenerateMerkleTree);
-		const { dbPath, tokenId } = flags;
-
-		this.log('DB Path:', dbPath);
+		const { dbPath, tokenId, outputPath } = flags;
 
 		const stateDbPath = path.join(dbPath, 'state.db');
+		this.log(`Reading: ${stateDbPath} ...`);
 
 		if (!fs.existsSync(stateDbPath)) {
 			throw new Error(`${stateDbPath} does not exist`);
@@ -45,9 +48,9 @@ export default class GenerateMerkleTree extends Command {
 			this.log('DB has 0 accounts, check tokenId or local chain status');
 			return;
 		}
-		await buildTreeJson('../../data/', accounts);
+		await buildTreeJson(outputPath, accounts);
 
-		const accountJSONPath = '../../data/accounts.json';
+		const accountJSONPath = path.join(outputPath, 'accounts.json');
 		fs.writeFileSync(accountJSONPath, JSON.stringify(accounts), 'utf-8');
 		this.log('Account snapshot outputted to:', accountJSONPath);
 

@@ -1,5 +1,8 @@
+import * as os from 'os';
+import * as path from 'path';
+import fs from 'fs';
 import { utils } from '@liskhq/lisk-cryptography';
-import { InMemoryDatabase } from '@liskhq/lisk-db';
+import { StateDB } from '@liskhq/lisk-db';
 import { codec } from '@liskhq/lisk-codec';
 import { expect } from 'chai';
 import { createSnapshot } from '../../src/applications/generate-merkle-tree/create_snapshot';
@@ -13,8 +16,12 @@ import { AUTH_PREFIX, TOKEN_PREFIX } from '../../src/constants';
 const randomBalance = () => BigInt(Math.floor(Math.random() * 10000));
 
 describe('createSnapshot', () => {
+	const dataPath = os.tmpdir();
+	const stateDBPath = path.join(dataPath, 'state.db');
+	const db = new StateDB(stateDBPath);
+	const writer = db.newReadWriter();
+
 	const numOfAccounts = 5;
-	const db = new InMemoryDatabase();
 	const tokenId = Buffer.from([4, 0, 0, 0, 0, 0, 0, 0, 0]);
 
 	const mockAuthAccount = {
@@ -47,14 +54,14 @@ describe('createSnapshot', () => {
 	before(async () => {
 		// Insert LSK balances into DB
 		for (const account of randomAccounts) {
-			await db.set(
+			await writer.set(
 				Buffer.concat([TOKEN_PREFIX, account.address, tokenId]),
 				codec.encode(userBalanceSchema, account.balance),
 			);
 		}
 
 		// Insert balance with non-relevant token into DB
-		await db.set(
+		await writer.set(
 			Buffer.concat([
 				TOKEN_PREFIX,
 				randomAccounts[0].address,
@@ -72,10 +79,20 @@ describe('createSnapshot', () => {
 		);
 
 		// Insert Multisig into one of the account
-		await db.set(
+		await writer.set(
 			Buffer.concat([AUTH_PREFIX, randomAccounts[0].address]),
 			codec.encode(authAccountSchema, mockAuthAccount),
 		);
+
+		// Commit to DB
+		await db.commit(writer, 0, Buffer.alloc(0));
+	});
+
+	after(() => {
+		// Close and remove DB
+		writer.close();
+		db.close();
+		fs.rmSync(stateDBPath, { recursive: true, force: true });
 	});
 
 	it('should create snapshot from DB', async () => {
