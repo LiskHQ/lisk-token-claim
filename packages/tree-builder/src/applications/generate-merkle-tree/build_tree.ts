@@ -1,5 +1,6 @@
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { ux } from '@oclif/core';
 import { Account, Leaf } from '../../interface';
 import { LEAF_ENCODING } from '../../constants';
 import { append0x } from '../../utils';
@@ -7,14 +8,14 @@ import { append0x } from '../../utils';
 export function createPayload(account: Account) {
 	return [
 		address.getAddressFromLisk32Address(account.lskAddress),
-		account.balanceBeddows,
+		Number(account.balanceBeddows),
 		account.numberOfSignatures ?? 0,
 		account.mandatoryKeys ? account.mandatoryKeys.map(key => append0x(key)) : [],
 		account.optionalKeys ? account.optionalKeys.map(key => append0x(key)) : [],
 	];
 }
 
-export function build_tree(accounts: Account[]): {
+export function buildTree(accounts: Account[]): {
 	tree: StandardMerkleTree<(number | Buffer | string[])[]>;
 	leaves: Leaf[];
 } {
@@ -33,7 +34,7 @@ export function build_tree(accounts: Account[]): {
 		}
 	}
 
-	console.log(`${accounts.length} Accounts to generate:`);
+	ux.log(`${accounts.length} Accounts to generate:`);
 
 	const leaves: Leaf[] = [];
 	const tree = StandardMerkleTree.of(
@@ -47,16 +48,9 @@ export function build_tree(accounts: Account[]): {
 		const addressHex = address.getAddressFromLisk32Address(account.lskAddress);
 		const payload = createPayload(account);
 
-		console.log(
-			`${account.lskAddress}: ${account.balance} LSK (Multisig=${
-				account.numberOfSignatures && account.numberOfSignatures > 0 ? 'Y' : 'N'
-			})`,
-		);
-
 		leaves.push({
 			lskAddress: account.lskAddress,
 			address: append0x(addressHex.toString('hex')),
-			balance: account.balance,
 			balanceBeddows: account.balanceBeddows,
 			numberOfSignatures: account.numberOfSignatures ?? 0,
 			mandatoryKeys: account.mandatoryKeys

@@ -1,3 +1,5 @@
+import { computeStorePrefix } from './utils';
+
 // 1 LSK = 10^8 Beddows
 export const LSK_MULTIPLIER = 10 ** 8;
 
@@ -8,3 +10,9 @@ export const LSK_MULTIPLIER = 10 ** 8;
 // MANDATORY_KEYS: bytes32[]
 // OPTIONAL_KEYS: bytes32[]
 export const LEAF_ENCODING = ['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes32[]'];
+
+// moduleName = "token", index = 0
+export const TOKEN_PREFIX = Buffer.concat([computeStorePrefix('token'), Buffer.alloc(2, 0)]);
+
+// moduleName = "auth", index = 0
+export const AUTH_PREFIX = Buffer.concat([computeStorePrefix('auth'), Buffer.alloc(2, 0)]);

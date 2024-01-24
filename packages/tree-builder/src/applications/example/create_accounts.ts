@@ -1,7 +1,6 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import { address } from '@liskhq/lisk-cryptography';
-import { ExampleKey } from '../../interface';
+import { Account, ExampleKey } from '../../interface';
 
 // 1 LSK = 10^8 Beddows
 const LSK_MULTIPLIER = 10 ** 8;
@@ -45,7 +44,6 @@ const multiSigs = [
 const randomBalance = (range: number): number => Number((range * Math.random()).toFixed(8));
 
 export function createAccounts(numberOfAccounts = 54) {
-	console.log(path.join(__dirname, '../../../../../../data/example/accounts.json'));
 	const keyPairs = JSON.parse(
 		fs.readFileSync('../../data/example/key-pairs.json', 'utf-8'),
 	) as ExampleKey[];
@@ -57,14 +55,7 @@ export function createAccounts(numberOfAccounts = 54) {
 			.compare(address.getAddressFromLisk32Address(key2.address)),
 	);
 
-	const results: {
-		lskAddress: string;
-		balance: number;
-		balanceBeddows: number;
-		numberOfSignatures?: number;
-		mandatoryKeys?: string[];
-		optionalKeys?: string[];
-	}[] = [];
+	const results: Account[] = [];
 
 	// Regular Accounts
 	for (let index = 0; index < numberOfAccounts - multiSigs.length; index++) {
@@ -74,19 +65,17 @@ export function createAccounts(numberOfAccounts = 54) {
 
 		results.push({
 			lskAddress: account.address,
-			balance,
-			balanceBeddows,
+			balanceBeddows: balanceBeddows.toString(),
 		});
 	}
 
 	for (const multiSig of multiSigs) {
 		const account = sortedKeyPairs[results.length];
 		const balance = randomBalance(RANDOM_RANGE);
-		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
+		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER).toString();
 
 		results.push({
 			lskAddress: account.address,
-			balance,
 			balanceBeddows,
 			numberOfSignatures: multiSig.numberOfSignatures,
 			mandatoryKeys: [...Array(multiSig.numberOfMandatoryKeys).keys()].map(

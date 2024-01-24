@@ -4,7 +4,7 @@ import { AbiCoder, keccak256 } from 'ethers';
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { Account, ExampleKey } from '../../src/interface';
-import { createPayload, build_tree } from '../../src/applications/generate-merkle-tree/build_tree';
+import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
 
@@ -29,8 +29,7 @@ describe('buildTree', () => {
 			const numberOfOptionalKeys = Math.floor(5 * Math.random());
 			return {
 				lskAddress: key.address,
-				balance,
-				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER),
+				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER).toString(),
 				numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
 				mandatoryKeys: keyPairsSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
 				optionalKeys: keyPairsSorted
@@ -45,16 +44,15 @@ describe('buildTree', () => {
 			...accounts.slice(1, accounts.length - 1),
 			accounts[0],
 		];
-		expect(() => build_tree(unsortedAccounts)).throw(
+		expect(() => buildTree(unsortedAccounts)).throw(
 			'Address not sorted! Please sort your addresses before continue',
 		);
 	});
 
 	it('should return valid tree with proof', () => {
-		const merkleTree = build_tree(accounts);
+		const merkleTree = buildTree(accounts);
 		for (const [i, leaf] of merkleTree.leaves.entries()) {
-			const accountOfLeaf = accounts.find(account => account.lskAddress === leaf.lskAddress)!;
-			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accountOfLeaf));
+			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accounts[i]));
 
 			// Verify Leaf is in correct order
 			expect(leaf.lskAddress).equal(accounts[i].lskAddress);
@@ -63,14 +61,14 @@ describe('buildTree', () => {
 			expect(leaf.hash).equal(keccak256(keccak256(encodedMessage)));
 
 			// Verify Proof exists in MerkleTree
-			expect(merkleTree.tree.getProof(createPayload(accountOfLeaf))).deep.equal(leaf.proof);
+			expect(merkleTree.tree.getProof(createPayload(accounts[i]))).deep.equal(leaf.proof);
 
 			// Verify Proof is valid with respect to MerkleRoot
 			expect(
 				StandardMerkleTree.verify(
 					merkleTree.tree.root,
 					LEAF_ENCODING,
-					createPayload(accountOfLeaf),
+					createPayload(accounts[i]),
 					leaf.proof,
 				),
 			).deep.equal(true);

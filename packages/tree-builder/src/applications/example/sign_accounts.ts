@@ -55,7 +55,7 @@ export function signAccounts(recipient: string) {
 			});
 		} else {
 			// Multisig Account
-			// Signing with all keys regardless of the required amount of number of signatures
+			// Signing with all keys regardless of the required number of signatures
 			for (const pubKey of leaf.mandatoryKeys.concat(leaf.optionalKeys)) {
 				const key = keys.find(key => append0x(key.publicKey) === pubKey)!;
 				const signature = signMessage(message, key);

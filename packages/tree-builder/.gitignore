@@ -1,0 +1,2 @@
+# Example DB Data for unit test is not committed
+test/data/*.db
