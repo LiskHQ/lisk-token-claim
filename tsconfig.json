@@ -16,6 +16,8 @@
 		"sourceMap": true,
 		"strict": true,
 		"composite": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	}
 }

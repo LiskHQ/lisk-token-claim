@@ -10,6 +10,13 @@ export interface Leaf {
 	optionalKeys: string[];
 	hash: string;
 	proof: string[];
+	signatures?: {
+		[destination: string]: {
+			publicKey: string;
+			r: string;
+			s: string;
+		}[];
+	};
 }
 
 export interface MerkleTree {

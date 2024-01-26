@@ -31,3 +31,6 @@ REVISION
 
 # project specific paths
 dist/
+
+# env example files
+*.env.example

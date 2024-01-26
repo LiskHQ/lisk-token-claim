@@ -74,3 +74,6 @@ dist
 
 # Example Accounts and MerkleTree are not committed
 data/example
+
+# DB is not committed
+postgres
