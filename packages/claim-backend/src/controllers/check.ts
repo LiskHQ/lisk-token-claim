@@ -1,42 +1,37 @@
 import { Request, Response } from 'express';
-import { leafMap, multisigMap } from '../utils/leafMap';
+import { getLeafMap, getMultisigMap } from '../utils/leaf-map';
 import { ErrorCode, httpError } from '../utils/error';
-import { address } from '@liskhq/lisk-cryptography';
 import Signature from '../models/Signature.model';
 import { Op } from 'sequelize';
-
-const pubKeyRegex = /^(0x)?[0-9a-zA-Z]{64}$/;
+import { address } from '@liskhq/lisk-cryptography';
 
 export async function check(req: Request, res: Response) {
-	const { publicKey } = req.body;
-	if (!pubKeyRegex.test(publicKey)) {
-		httpError(res, 400, ErrorCode.INVALID_PUBKEY, `'${publicKey}' is not a valid pubKey.`);
+	const { lskAddress } = req.params;
+
+	try {
+		address.validateLisk32Address(lskAddress);
+	} catch (err) {
+		httpError(res, 400, ErrorCode.INVALID_LSK_ADDRESS, `'${lskAddress}' is not a valid address.`);
 		return;
 	}
 
-	const regularAccount =
-		leafMap[
-			address.getLisk32AddressFromPublicKey(Buffer.from(publicKey.replace(/0x/g, ''), 'hex'))
-		];
-	const multisigAccounts = multisigMap[publicKey];
+	const account = getLeafMap(lskAddress);
+	const multisigAccounts = getMultisigMap(lskAddress);
 
-	if (!regularAccount && !multisigAccounts) {
-		httpError(res, 400, ErrorCode.NO_ELIGIBLE_CLAIM, `${publicKey} has no eligible claim.`);
-		return;
-	}
-
-	const signatures = await Signature.findAll({
-		attributes: ['lskAddress', 'destination', 'signer', 'r', 's'],
-		where: {
-			lskAddress: {
-				[Op.in]: multisigAccounts.map(account => account.lskAddress),
-			},
-		},
-		raw: true,
-	});
+	const signatures = multisigAccounts
+		? await Signature.findAll({
+				attributes: ['lskAddress', 'destination', 'signer', 'r', 's'],
+				where: {
+					lskAddress: {
+						[Op.in]: multisigAccounts.map(account => account.lskAddress),
+					},
+				},
+				raw: true,
+			})
+		: [];
 
 	res.json({
-		regularAccount,
+		account,
 		multisigAccounts,
 		signatures,
 	});

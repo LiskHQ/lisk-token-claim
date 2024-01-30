@@ -3,8 +3,7 @@ export type Network = 'mainnet' | 'testnet' | 'example';
 export interface Leaf {
 	lskAddress: string;
 	address: string;
-	balance: number;
-	balanceBeddows: number;
+	balanceBeddows: string;
 	numberOfSignatures: number;
 	mandatoryKeys: string[];
 	optionalKeys: string[];
@@ -22,4 +21,13 @@ export interface Leaf {
 export interface MerkleTree {
 	merkleRoot: string;
 	leaves: Leaf[];
+}
+
+export interface Signature {
+	lskAddress: string;
+	destination: string;
+	signer: string;
+	isOptional: boolean;
+	r: string;
+	s: string;
 }

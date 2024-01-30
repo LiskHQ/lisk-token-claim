@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize-typescript';
-
 import Signature from './models/Signature.model';
 
 class DB {

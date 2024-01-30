@@ -4,7 +4,7 @@ import { AbiCoder, keccak256 } from 'ethers';
 const abiCoder = new AbiCoder();
 const BYTES_9 = '000000000000000000';
 
-export default function verifySignature(
+function verifySignature(
 	hash: string,
 	destination: string,
 	publicKey: string,
@@ -23,3 +23,5 @@ export default function verifySignature(
 		return false;
 	}
 }
+
+export { verifySignature };

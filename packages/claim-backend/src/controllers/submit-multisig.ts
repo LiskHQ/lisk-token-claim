@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { ethers } from 'ethers';
 import Signature from '../models/Signature.model';
-import { leafMap } from '../utils/leafMap';
+import { getLeafMap } from '../utils/leaf-map';
 import { httpError, ErrorCode } from '../utils/error';
-import verifySignature from '../utils/verifySignature';
+import { verifySignature } from '../utils/verify-signature';
 
 export async function submitMultisig(req: Request, res: Response) {
 	const { lskAddress, destination, publicKey, r, s } = req.body;
 
-	const leaf = leafMap[lskAddress];
-	if (!leaf) {
+	const leaf = getLeafMap(lskAddress);
+	if (!leaf || leaf.numberOfSignatures === 0) {
 		httpError(
 			res,
 			400,
@@ -35,7 +35,7 @@ export async function submitMultisig(req: Request, res: Response) {
 			res,
 			400,
 			ErrorCode.PUBLIC_KEY_NOT_PART_OF_MULTISIG_ADDRESS,
-			`'${publicKey}' does not own ${lskAddress}`,
+			`'${publicKey}' does not own '${lskAddress}'`,
 		);
 		return;
 	}
