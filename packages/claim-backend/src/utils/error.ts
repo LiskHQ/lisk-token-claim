@@ -1,5 +1,3 @@
-import { Response } from 'express';
-
 enum ErrorCode {
 	NO_ELIGIBLE_CLAIM = 'NO_ELIGIBLE_CLAIM',
 
@@ -14,11 +12,4 @@ enum ErrorCode {
 	UNKNOWN_ERROR = 'UNKNOWN_ERROR',
 }
 
-function httpError(res: Response, errorCode: 400 | 500, code: ErrorCode, message: string) {
-	res.status(errorCode).json({
-		error: true,
-		code,
-		message,
-	});
-}
-export { ErrorCode, httpError };
+export { ErrorCode };

@@ -1,9 +1,15 @@
-import { Leaf, Signature } from '../src/utils/interface';
+import { Leaf, Signature } from '../src/interface';
 import { address, utils } from '@liskhq/lisk-cryptography';
+import { append0x } from '../src/utils';
+import { ethers } from 'ethers';
 
-export const randomPublicKeyBuffer = () => utils.getRandomBytes(32);
+export const randomBuffer = (length: number) => utils.getRandomBytes(length);
 
-export const randomHash = () => '0x' + randomPublicKeyBuffer().toString('hex');
+export const randomPublicKeyBuffer = () => randomBuffer(32);
+
+export const randomHash = () => append0x(randomBuffer(32));
+
+export const randomEthAddress = () => ethers.getAddress(append0x(randomBuffer(20)));
 
 export const randomLskAddress = () =>
 	address.getLisk32AddressFromPublicKey(randomPublicKeyBuffer());
@@ -26,7 +32,7 @@ export const buildMockSignature = (signature: Partial<Signature>): Signature => 
 	const publicKey = randomPublicKeyBuffer();
 	return {
 		lskAddress: signature.lskAddress ?? address.getLisk32AddressFromPublicKey(publicKey),
-		destination: signature.destination ?? '0x34A1D3fff3958843C43aD80F30b94c510645C316',
+		destination: signature.destination ?? randomEthAddress(),
 		signer: signature.signer ?? publicKey.toString('hex'),
 		isOptional: signature.isOptional ?? false,
 		r: signature.r ?? randomHash(),

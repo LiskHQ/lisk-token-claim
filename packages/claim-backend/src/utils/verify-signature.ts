@@ -24,4 +24,4 @@ function verifySignature(
 	}
 }
 
-export { verifySignature };
+export { BYTES_9, verifySignature };

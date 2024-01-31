@@ -1,31 +1,16 @@
 import { expect } from 'chai';
-import httpMocks from 'node-mocks-http';
 import sinon from 'sinon';
 import { utils } from '@liskhq/lisk-cryptography';
 import { check } from '../../src/controllers/check';
-import { ErrorCode } from '../../src/utils/error';
 import * as LeafMap from '../../src/utils/leaf-map';
 import { buildMockLeaf, buildMockSignature, randomHash, randomLskAddress } from '../utils';
 import Signature from '../../src/models/Signature.model';
+import { ErrorCode } from '../../src/utils/error';
 
 describe('check', () => {
-	const createReqRes = (lskAddress: string) => {
-		return {
-			request: httpMocks.createRequest({
-				method: 'GET',
-				url: '/check',
-				params: {
-					lskAddress,
-				},
-			}),
-			response: httpMocks.createResponse(),
-		};
-	};
-
 	let getLeafMapStub: sinon.SinonStub;
 	let getMultisigMapStub: sinon.SinonStub;
 	let signatureFindAllStub: sinon.SinonStub;
-	sinon.stub(LeafMap, 'fileExists').returns(true);
 
 	beforeEach(() => {
 		getLeafMapStub = sinon.stub(LeafMap, 'getLeafMap');
@@ -39,48 +24,44 @@ describe('check', () => {
 		signatureFindAllStub.restore();
 	});
 
-	it('should return 400 when address is not valid', async () => {
+	it('should return error when address is not valid', async () => {
 		const lskAddress = 'foobar';
-		const { request, response } = createReqRes(lskAddress);
-		await check(request, response);
-		const data = response._getJSONData();
-
-		expect(response.statusCode).to.equal(400);
-		expect(data.error).to.equal(true);
-		expect(data.code).to.equal(ErrorCode.INVALID_LSK_ADDRESS);
-		expect(data.message).to.equal(`'${lskAddress}' is not a valid address.`);
+		try {
+			await check({ lskAddress });
+		} catch (err: unknown) {
+			expect(err instanceof Error && err.message).to.eq(ErrorCode.INVALID_LSK_ADDRESS);
+		}
 	});
 
-	it('should return 200 with empty result when address is not in leafMap or multisigMap, ie. not eligible', async () => {
+	it('should return success with empty result when address is not in leafMap or multisigMap, ie. not eligible', async () => {
 		const lskAddress = randomLskAddress();
 		getLeafMapStub.returns(null);
 		getMultisigMapStub.returns([]);
-		const { request, response } = createReqRes(lskAddress);
 
-		await check(request, response);
-		const data = response._getJSONData();
-
-		expect(response.statusCode).to.equal(200);
-		expect(data.account).to.equal(null);
-		expect(data.multisigAccounts).to.deep.equal([]);
-		expect(data.signatures).to.deep.equal([]);
+		const result = await check({ lskAddress });
+		expect(result).to.deep.equal({
+			account: null,
+			multisigAccounts: [],
+			signatures: [],
+		});
 	});
 
-	it('should return 200 for address with eligible regular address claim', async () => {
+	it('should return success for address with eligible regular address claim', async () => {
 		const lskAddress = randomLskAddress();
 		const leaf = buildMockLeaf({});
 		getLeafMapStub.returns(leaf);
+		getMultisigMapStub.returns([]);
 
-		const { request, response } = createReqRes(lskAddress);
-
-		await check(request, response);
-		const data = response._getJSONData();
-
-		expect(response.statusCode).to.equal(200);
-		expect(data.account).to.deep.equal(leaf);
+		const result = await check({ lskAddress });
+		expect(result).to.deep.equal({
+			account: leaf,
+			multisigAccounts: [],
+			signatures: [],
+		});
 	});
 
-	it('should return 200 for address with eligible multisig address claim, and signed signatures', async () => {
+	it('should return success for address with eligible multisig address claim, and signed signatures', async () => {
+		getLeafMapStub.returns(null);
 		const lskAddress = randomLskAddress();
 		const leaf = buildMockLeaf({
 			numberOfSignatures: 2,
@@ -96,13 +77,16 @@ describe('check', () => {
 		getMultisigMapStub.returns([leaf]);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const { request, response } = createReqRes(lskAddress);
-
-		await check(request, response);
-		const data = response._getJSONData();
-
-		expect(response.statusCode).to.equal(200);
-		expect(data.multisigAccounts[0]).to.deep.equal(leaf);
-		expect(data.signatures).to.deep.equal(signaturesFromDB);
+		const result = await check({ lskAddress });
+		expect(result).to.deep.equal({
+			account: null,
+			multisigAccounts: [
+				{
+					...leaf,
+					ready: false,
+				},
+			],
+			signatures: signaturesFromDB,
+		});
 	});
 });

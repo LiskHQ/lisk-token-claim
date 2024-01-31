@@ -26,20 +26,6 @@ class DB {
 			});
 		}
 	}
-
-	// public async drop() {
-	//   this.logger.info("Dropping all tables.");
-	//   return this.sequelize.drop();
-	// }
-	//
-	// public async test() {
-	//   try {
-	//     await this.sequelize.authenticate();
-	//     this.logger.info("Connection has been established successfully.");
-	//   } catch (error) {
-	//     this.logger.error("Unable to connect to the database:", error);
-	//   }
-	// }
 }
 
 export { DB, Signature };
