@@ -1,12 +1,11 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
+import { address, utils } from '@liskhq/lisk-cryptography';
 import * as LeafMap from '../../src/utils/leaf-map';
 import { submitMultisig } from '../../src/controllers/submit-multisig';
 import { expect } from 'chai';
 import { ErrorCode } from '../../src/utils/error';
-import { address, utils } from '@liskhq/lisk-cryptography';
 import Signature from '../../src/models/Signature.model';
 import * as verifySignature from '../../src/utils/verify-signature';
-import { UniqueConstraintError } from 'sequelize';
 import { buildMockLeaf, randomEthAddress, randomHash, randomLskAddress } from '../utils';
 
 interface SubmitMultisigBody {
@@ -18,7 +17,7 @@ interface SubmitMultisigBody {
 }
 
 describe('submitMultisig', () => {
-	const createRequest = (body: Partial<SubmitMultisigBody>): SubmitMultisigBody => {
+	const createMultisigBody = (body: Partial<SubmitMultisigBody>): SubmitMultisigBody => {
 		const publicKey = utils.getRandomBytes(32);
 		return {
 			lskAddress: body.lskAddress ?? address.getLisk32AddressFromPublicKey(publicKey),
@@ -33,12 +32,16 @@ describe('submitMultisig', () => {
 	let verifySignatureStub: sinon.SinonStub;
 	let signatureCountStub: sinon.SinonStub;
 	let signatureCreateStub: sinon.SinonStub;
+	let signatureFindOneStub: sinon.SinonStub;
+	let signatureUpdateStub: sinon.SinonStub;
 
 	beforeEach(() => {
 		getLeafMapStub = sinon.stub(LeafMap, 'getLeafMap');
 		verifySignatureStub = sinon.stub(verifySignature, 'verifySignature');
 		signatureCountStub = sinon.stub(Signature, 'count');
 		signatureCreateStub = sinon.stub(Signature, 'create');
+		signatureFindOneStub = sinon.stub(Signature, 'findOne');
+		signatureUpdateStub = sinon.stub(Signature, 'update');
 	});
 
 	afterEach(() => {
@@ -46,6 +49,8 @@ describe('submitMultisig', () => {
 		verifySignatureStub.restore();
 		signatureCountStub.restore();
 		signatureCreateStub.restore();
+		signatureFindOneStub.restore();
+		signatureUpdateStub.restore();
 	});
 
 	it('should return error when LSK address is not a multisig address', async () => {
@@ -55,7 +60,7 @@ describe('submitMultisig', () => {
 
 		try {
 			await submitMultisig(
-				createRequest({
+				createMultisigBody({
 					lskAddress,
 				}),
 			);
@@ -77,7 +82,7 @@ describe('submitMultisig', () => {
 		const ethAddress = 'foobar';
 		try {
 			await submitMultisig(
-				createRequest({
+				createMultisigBody({
 					lskAddress,
 					destination: ethAddress,
 				}),
@@ -100,7 +105,7 @@ describe('submitMultisig', () => {
 		);
 
 		try {
-			await submitMultisig(createRequest({}));
+			await submitMultisig(createMultisigBody({}));
 		} catch (err) {
 			expect(err instanceof Error && err.message).to.equal(
 				ErrorCode.PUBLIC_KEY_NOT_PART_OF_MULTISIG_ADDRESS,
@@ -120,7 +125,7 @@ describe('submitMultisig', () => {
 		signatureCountStub.returns(Promise.resolve(1));
 
 		try {
-			await submitMultisig(createRequest({ publicKey }));
+			await submitMultisig(createMultisigBody({ publicKey }));
 		} catch (err) {
 			expect(err instanceof Error && err.message).to.equal(ErrorCode.NUMBER_OF_SIGNATURES_REACHED);
 		}
@@ -138,7 +143,7 @@ describe('submitMultisig', () => {
 		verifySignatureStub.returns(false);
 
 		try {
-			await submitMultisig(createRequest({ publicKey }));
+			await submitMultisig(createMultisigBody({ publicKey }));
 		} catch (err) {
 			expect(err instanceof Error && err.message).to.equal(ErrorCode.INVALID_SIGNATURE);
 		}
@@ -146,6 +151,7 @@ describe('submitMultisig', () => {
 
 	it('should return error when lskAddress-destination-publicKey has been signed before', async () => {
 		const publicKey = utils.getRandomBytes(32).toString('hex');
+		const multisigRequest = createMultisigBody({ publicKey });
 		getLeafMapStub.returns(
 			buildMockLeaf({
 				numberOfSignatures: 2,
@@ -154,10 +160,12 @@ describe('submitMultisig', () => {
 			}),
 		);
 		verifySignatureStub.returns(true);
-		signatureCreateStub.rejects(new UniqueConstraintError({}));
+		signatureFindOneStub.returns({
+			...multisigRequest,
+		});
 
 		try {
-			await submitMultisig(createRequest({ publicKey }));
+			await submitMultisig(multisigRequest);
 		} catch (err) {
 			expect(err instanceof Error && err.message).to.equal(ErrorCode.ALREADY_SIGNED);
 		}
@@ -175,8 +183,40 @@ describe('submitMultisig', () => {
 		verifySignatureStub.returns(true);
 		signatureCreateStub.resolves();
 		signatureCountStub.returns(Promise.resolve(1));
+		signatureFindOneStub.returns(null);
 
-		const result = await submitMultisig(createRequest({ publicKey }));
+		const result = await submitMultisig(createMultisigBody({ publicKey }));
+
+		expect(result).to.deep.equal({
+			ready: false,
+			success: true,
+		});
+	});
+
+	it('should return success and update the db when lskAddress-publicKey with another destination is already in db, and ready = false when number of signatures not reached', async () => {
+		const publicKey = utils.getRandomBytes(32).toString('hex');
+		getLeafMapStub.returns(
+			buildMockLeaf({
+				numberOfSignatures: 2,
+				mandatoryKeys: [publicKey, utils.getRandomBytes(32).toString('hex')],
+				optionalKeys: [],
+			}),
+		);
+		verifySignatureStub.returns(true);
+		signatureCreateStub.resolves();
+		signatureCountStub.returns(Promise.resolve(1));
+		signatureFindOneStub.returns(
+			createMultisigBody({
+				destination: randomEthAddress(),
+				publicKey,
+			}),
+		);
+
+		const result = await submitMultisig(
+			createMultisigBody({
+				publicKey,
+			}),
+		);
 
 		expect(result).to.deep.equal({
 			ready: false,
@@ -196,8 +236,9 @@ describe('submitMultisig', () => {
 		verifySignatureStub.returns(true);
 		signatureCreateStub.resolves();
 		signatureCountStub.returns(Promise.resolve(2));
+		signatureFindOneStub.returns(null);
 
-		const result = await submitMultisig(createRequest({ publicKey }));
+		const result = await submitMultisig(createMultisigBody({ publicKey }));
 
 		expect(result).to.deep.equal({
 			ready: true,

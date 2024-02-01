@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { utils } from '@liskhq/lisk-cryptography';
 import { check } from '../../src/controllers/check';
 import * as LeafMap from '../../src/utils/leaf-map';

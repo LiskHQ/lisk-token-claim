@@ -18,10 +18,6 @@ class Signature extends Model {
 	@Column
 	declare lskAddress: string;
 
-	@Index({
-		name: 'addressDestinationSigner',
-		unique: true,
-	})
 	@AllowNull(false)
 	@Column
 	declare destination: string;

@@ -27,18 +27,28 @@ export async function check({ lskAddress }: { lskAddress: string }) {
 				})
 			: [];
 
-	const multisigAccountsWithReadyFlag = multisigAccounts.map(account => {
-		const numberOfSignatures = signatures.reduce((count, signature) => {
-			if (signature.lskAddress === account.lskAddress) {
-				count += 1;
+	const numberOfSignaturesGroupByLskAddressAndDestination = signatures.reduce(
+		(obj: { [lskAddress: string]: { [destination: string]: number } }, signature) => {
+			if (!obj[signature.lskAddress]) {
+				obj[signature.lskAddress] = {};
 			}
-			return count;
-		}, 0);
-		return {
-			...account,
-			ready: numberOfSignatures === account.numberOfSignatures,
-		};
-	});
+			if (!obj[signature.lskAddress][signature.destination]) {
+				obj[signature.lskAddress][signature.destination] = 0;
+			}
+			obj[signature.lskAddress][signature.destination]++;
+			return obj;
+		},
+		{},
+	);
+
+	const multisigAccountsWithReadyFlag = multisigAccounts.map(account => ({
+		...account,
+		ready: numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]
+			? Math.max(
+					...Object.values(numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]),
+				) === account.numberOfSignatures
+			: false,
+	}));
 
 	return Promise.resolve({
 		account,

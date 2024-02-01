@@ -50,7 +50,33 @@ export async function submitMultisig({
 		return Promise.reject(new Error(ErrorCode.INVALID_SIGNATURE));
 	}
 
-	try {
+	const existingSignature = await Signature.findOne({
+		where: {
+			lskAddress,
+			signer: publicKey,
+		},
+	});
+
+	if (existingSignature) {
+		if (existingSignature.destination === destination) {
+			return Promise.reject(new Error(ErrorCode.ALREADY_SIGNED));
+		}
+
+		await Signature.update(
+			{
+				destination,
+				r,
+				s,
+			},
+			{
+				where: {
+					lskAddress,
+					signer: publicKey,
+				},
+				individualHooks: true,
+			},
+		);
+	} else {
 		await Signature.create({
 			lskAddress,
 			destination,
@@ -59,11 +85,6 @@ export async function submitMultisig({
 			r,
 			s,
 		});
-	} catch (err: unknown) {
-		if (err instanceof Error && err.name === 'SequelizeUniqueConstraintError') {
-			return Promise.reject(new Error(ErrorCode.ALREADY_SIGNED));
-		}
-		return Promise.reject(new Error(ErrorCode.UNKNOWN_ERROR));
 	}
 
 	const numberOfSignatures = await Signature.count({

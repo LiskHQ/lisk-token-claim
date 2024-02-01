@@ -1,5 +1,6 @@
 import * as tweetnacl from 'tweetnacl';
 import { AbiCoder, keccak256 } from 'ethers';
+import { remove0x } from './index';
 
 const abiCoder = new AbiCoder();
 const BYTES_9 = '000000000000000000';
@@ -15,9 +16,9 @@ function verifySignature(
 
 	try {
 		return tweetnacl.sign.detached.verify(
-			Buffer.from(message.substring(2), 'hex'),
-			Buffer.from(r.substring(2).concat(s.substring(2)), 'hex'),
-			Buffer.from(publicKey.substring(2), 'hex'),
+			Buffer.from(remove0x(message), 'hex'),
+			Buffer.from(remove0x(r).concat(remove0x(s)), 'hex'),
+			Buffer.from(remove0x(publicKey), 'hex'),
 		);
 	} catch (err) {
 		return false;
