@@ -25,6 +25,8 @@ export async function submitMultisig({
 	if (!ethers.isAddress(destination)) {
 		return Promise.reject(new Error(ErrorCode.INVALID_DESTINATION_ADDRESS));
 	}
+	destination = ethers.getAddress(destination);
+	publicKey = publicKey.toLowerCase();
 
 	const publicKeyIndex = leaf.mandatoryKeys.concat(leaf.optionalKeys).indexOf(publicKey);
 	if (publicKeyIndex < 0) {
@@ -37,7 +39,7 @@ export async function submitMultisig({
 		const signedOptionalKeyCount = await Signature.count({
 			where: {
 				lskAddress,
-				destination: destination.toLowerCase(),
+				destination,
 				isOptional,
 			},
 		});
@@ -90,7 +92,7 @@ export async function submitMultisig({
 	const numberOfSignatures = await Signature.count({
 		where: {
 			lskAddress,
-			destination: destination.toLowerCase(),
+			destination,
 		},
 	});
 	return Promise.resolve({

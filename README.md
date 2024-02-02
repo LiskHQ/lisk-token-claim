@@ -17,5 +17,3 @@ The database is using PostgreSQL
 ```
 $ yarn && yarn build
 ```
-
-###
