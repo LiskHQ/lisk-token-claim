@@ -1,9 +1,11 @@
 import express, { Express } from 'express';
+import dotenv from 'dotenv';
 import { check } from './controllers/check';
 import { DB } from './db';
 import { submitMultisig } from './controllers/submit-multisig';
 import { loadMerkleTree } from './utils/leaf-map';
 import { JSONRPCServer } from 'json-rpc-2.0';
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const server = new JSONRPCServer();

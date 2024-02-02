@@ -1,9 +1,7 @@
 import { Leaf } from '../interface';
-import dotenv from 'dotenv';
 import { address } from '@liskhq/lisk-cryptography';
 import { remove0x } from './index';
 import { fileExists, readJSON } from './read-json';
-dotenv.config();
 
 const leafMap: {
 	[lskAddress: string]: Leaf;

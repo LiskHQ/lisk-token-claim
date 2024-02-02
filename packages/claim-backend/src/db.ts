@@ -8,12 +8,11 @@ class DB {
 	constructor() {
 		this.models = [Signature];
 		this.sequelize = new Sequelize({
-			database: 'claim-backend',
 			dialect: 'postgres',
-			username: 'claim-backend',
-			password: 'let-me-in',
+			database: process.env.DB_DATABASE || 'claim-backend',
+			username: process.env.DB_USERNAME || 'claim-backend',
+			password: process.env.DB_PASSWORD || 'let-me-in',
 			models: [__dirname + '/models/*.model.ts'],
-			// logging: env.DB_LOGGING,
 			port: Number(process.env.DB_PORT) || 5432,
 		});
 		this.sequelize.addModels(this.models);
