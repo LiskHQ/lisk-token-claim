@@ -37,6 +37,7 @@ describe('buildTree', () => {
 			};
 		}) as Account[];
 	});
+
 	it('should reject unsorted array of accounts', () => {
 		const unsortedAccounts = [
 			accounts[accounts.length - 1],
