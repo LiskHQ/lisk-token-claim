@@ -1,11 +1,18 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { utils } from '@liskhq/lisk-cryptography';
+import { address } from '@liskhq/lisk-cryptography';
 import { check } from '../../src/controllers/check';
 import * as LeafMap from '../../src/utils/leaf-map';
-import { buildMockLeaf, buildMockSignature, randomHash, randomLskAddress } from '../utils';
+import {
+	buildMockLeaf,
+	buildMockSignature,
+	randomEthAddress,
+	randomLskAddress,
+	randomPublicKeyBuffer,
+} from '../utils';
 import Signature from '../../src/models/Signature.model';
 import { ErrorCode } from '../../src/utils/error';
+import { append0x } from '../../src/utils';
 
 describe('check', () => {
 	let getLeafMapStub: sinon.SinonStub;
@@ -13,8 +20,8 @@ describe('check', () => {
 	let signatureFindAllStub: sinon.SinonStub;
 
 	beforeEach(() => {
-		getLeafMapStub = sinon.stub(LeafMap, 'getLeafMap');
-		getMultisigMapStub = sinon.stub(LeafMap, 'getMultisigMap');
+		getLeafMapStub = sinon.stub(LeafMap, 'getLeafMap').returns(null);
+		getMultisigMapStub = sinon.stub(LeafMap, 'getMultisigMap').returns([]);
 		signatureFindAllStub = sinon.stub(Signature, 'findAll').returns(Promise.resolve([]));
 	});
 
@@ -35,8 +42,6 @@ describe('check', () => {
 
 	it('should return success with empty result when address is not in leafMap or multisigMap, ie. not eligible', async () => {
 		const lskAddress = randomLskAddress();
-		getLeafMapStub.returns(null);
-		getMultisigMapStub.returns([]);
 
 		const result = await check({ lskAddress });
 		expect(result).to.deep.equal({
@@ -46,11 +51,10 @@ describe('check', () => {
 		});
 	});
 
-	it('should return success for address with eligible regular address claim', async () => {
+	it('should return success for eligible regular address claim', async () => {
 		const lskAddress = randomLskAddress();
-		const leaf = buildMockLeaf({});
+		const leaf = buildMockLeaf({ lskAddress });
 		getLeafMapStub.returns(leaf);
-		getMultisigMapStub.returns([]);
 
 		const result = await check({ lskAddress });
 		expect(result).to.deep.equal({
@@ -60,30 +64,143 @@ describe('check', () => {
 		});
 	});
 
-	it('should return success for address with eligible multisig address claim, and signed signatures', async () => {
-		getLeafMapStub.returns(null);
+	it('should return success for eligible multisig address claim by submitting multisig address directly, and the claim does NOT have enough signatures', async () => {
 		const lskAddress = randomLskAddress();
+		const publicKey1 = randomPublicKeyBuffer();
+		const publicKey2 = randomPublicKeyBuffer();
 		const leaf = buildMockLeaf({
+			lskAddress,
 			numberOfSignatures: 2,
-			mandatoryKeys: [randomHash()],
-			optionalKeys: [randomHash(), randomHash()],
-			proof: [utils.getRandomBytes(32).toString('hex')],
+			mandatoryKeys: [append0x(publicKey1), append0x(publicKey2)],
+		});
+		// 2 Signers to different destinations
+		const signaturesFromDB = [
+			buildMockSignature({
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey1),
+			}),
+			buildMockSignature({
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey2),
+			}),
+		];
+		getLeafMapStub.returns(leaf);
+		signatureFindAllStub.returns(signaturesFromDB);
+
+		const result = await check({ lskAddress });
+		expect(result).to.deep.equal({
+			account: {
+				...leaf,
+				ready: false,
+			},
+			multisigAccounts: [],
+			signatures: signaturesFromDB,
+		});
+	});
+
+	it('should return success for eligible multisig address claim by submitting multisig address directly, and the claim HAVE enough signatures', async () => {
+		const lskAddress = randomLskAddress();
+		const publicKey1 = randomPublicKeyBuffer();
+		const publicKey2 = randomPublicKeyBuffer();
+		const destination = randomEthAddress();
+		const leaf = buildMockLeaf({
+			lskAddress,
+			numberOfSignatures: 2,
+			mandatoryKeys: [append0x(publicKey1), append0x(publicKey2)],
 		});
 		const signaturesFromDB = [
 			buildMockSignature({
-				signer: lskAddress,
+				destination,
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey1),
+			}),
+			buildMockSignature({
+				destination,
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey2),
+			}),
+		];
+		getLeafMapStub.returns(leaf);
+		signatureFindAllStub.returns(signaturesFromDB);
+
+		const result = await check({ lskAddress });
+		expect(result).to.deep.equal({
+			account: {
+				...leaf,
+				ready: true,
+			},
+			multisigAccounts: [],
+			signatures: signaturesFromDB,
+		});
+	});
+
+	it('should return success for eligible multisig address claim by submitting address who can sign the multisig address, and the claim does NOT have enough signatures', async () => {
+		const lskAddress = randomLskAddress();
+		const publicKey1 = randomPublicKeyBuffer();
+		const publicKey2 = randomPublicKeyBuffer();
+		const leaf = buildMockLeaf({
+			lskAddress,
+			numberOfSignatures: 2,
+			mandatoryKeys: [append0x(publicKey1), append0x(publicKey2)],
+		});
+		const signaturesFromDB = [
+			buildMockSignature({
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey1),
+			}),
+			buildMockSignature({
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey2),
 			}),
 		];
 		getMultisigMapStub.returns([leaf]);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const result = await check({ lskAddress });
+		const result = await check({ lskAddress: address.getLisk32AddressFromPublicKey(publicKey1) });
 		expect(result).to.deep.equal({
 			account: null,
 			multisigAccounts: [
 				{
 					...leaf,
 					ready: false,
+				},
+			],
+			signatures: signaturesFromDB,
+		});
+	});
+
+	it('should return success for eligible multisig address claim by submitting address who can sign the multisig address, and the claim HAVE enough signatures', async () => {
+		const lskAddress = randomLskAddress();
+		const publicKey1 = randomPublicKeyBuffer();
+		const publicKey2 = randomPublicKeyBuffer();
+		const destination = randomEthAddress();
+		const leaf = buildMockLeaf({
+			lskAddress,
+			numberOfSignatures: 2,
+			mandatoryKeys: [append0x(publicKey1), append0x(publicKey2)],
+		});
+		const signaturesFromDB = [
+			buildMockSignature({
+				destination,
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey1),
+			}),
+			buildMockSignature({
+				destination,
+				lskAddress,
+				signer: address.getLisk32AddressFromPublicKey(publicKey2),
+			}),
+		];
+		getMultisigMapStub.returns([leaf]);
+		signatureFindAllStub.returns(signaturesFromDB);
+
+		const result = await check({ lskAddress: address.getLisk32AddressFromPublicKey(publicKey1) });
+		expect(result).to.deep.equal({
+			account: null,
+			multisigAccounts: [
+				{
+					...leaf,
+					ready: true,
 				},
 			],
 			signatures: signaturesFromDB,

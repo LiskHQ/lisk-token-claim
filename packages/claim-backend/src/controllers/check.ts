@@ -15,12 +15,14 @@ export async function check({ lskAddress }: { lskAddress: string }) {
 	const multisigAccounts = getMultisigMap(lskAddress);
 
 	const signatures =
-		multisigAccounts.length > 0
+		multisigAccounts.length > 0 || (account?.numberOfSignatures && account?.numberOfSignatures > 0)
 			? await Signature.findAll({
 					attributes: ['lskAddress', 'destination', 'signer', 'r', 's'],
 					where: {
 						lskAddress: {
-							[Op.in]: multisigAccounts.map(account => account.lskAddress),
+							[Op.in]: multisigAccounts
+								.map(account => account.lskAddress)
+								.concat(account?.lskAddress ? [account.lskAddress] : []),
 						},
 					},
 					raw: true,
@@ -41,6 +43,21 @@ export async function check({ lskAddress }: { lskAddress: string }) {
 		{},
 	);
 
+	const accountWithReadyFlag = account
+		? account.numberOfSignatures > 0
+			? {
+					...account,
+					ready: numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]
+						? Math.max(
+								...Object.values(
+									numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress],
+								),
+							) === account.numberOfSignatures
+						: false,
+				}
+			: account
+		: null;
+
 	const multisigAccountsWithReadyFlag = multisigAccounts.map(account => ({
 		...account,
 		ready: numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]
@@ -51,7 +68,7 @@ export async function check({ lskAddress }: { lskAddress: string }) {
 	}));
 
 	return Promise.resolve({
-		account,
+		account: accountWithReadyFlag,
 		multisigAccounts: multisigAccountsWithReadyFlag,
 		signatures,
 	});
