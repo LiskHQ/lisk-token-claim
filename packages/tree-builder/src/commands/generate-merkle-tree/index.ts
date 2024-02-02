@@ -8,16 +8,16 @@ import { createSnapshot } from '../../applications/generate-merkle-tree/create_s
 export default class GenerateMerkleTree extends Command {
 	static description = 'Generate Merkle Tree from blockchain data';
 
-	static examples = [`$ oex generate-merkle-tree --dbPath=/User/.lisk/lisk-core/data`];
+	static examples = [`$ oex generate-merkle-tree --db-path=/User/.lisk/lisk-core/data`];
 
 	static flags = {
-		dbPath: Flags.string({
+		'db-path': Flags.string({
 			description: 'Database path, where your state.db is located',
 			required: true,
 		}),
-		outputPath: Flags.string({
+		'output-path': Flags.string({
 			description: 'Destination path of the merkle tree',
-			default: path.join(__dirname, '../../../../../data'),
+			default: path.join(process.cwd(), 'data'),
 		}),
 		tokenId: Flags.string({
 			description: 'Token ID, use default for mainnet LSK Token',
@@ -33,7 +33,7 @@ export default class GenerateMerkleTree extends Command {
 
 	async run(): Promise<void> {
 		const { flags } = await this.parse(GenerateMerkleTree);
-		const { dbPath, tokenId, outputPath } = flags;
+		const { 'db-path': dbPath, tokenId, 'output-path': outputPath } = flags;
 
 		const stateDbPath = path.join(dbPath, 'state.db');
 		this.log(`Reading: ${stateDbPath} ...`);
@@ -43,18 +43,24 @@ export default class GenerateMerkleTree extends Command {
 		}
 
 		const rdb = new StateDB(stateDbPath, { readonly: true });
-		const accounts = await createSnapshot(rdb, Buffer.from(tokenId, 'hex'));
-		if (accounts.length === 0) {
-			this.log('DB has 0 accounts, check tokenId or local chain status');
-			return;
+		try {
+			const accounts = await createSnapshot(rdb, Buffer.from(tokenId, 'hex'));
+			if (accounts.length === 0) {
+				this.log('DB has 0 accounts, check tokenId or local chain status');
+				return;
+			}
+			await buildTreeJson(outputPath, accounts);
+
+			const accountJSONPath = path.join(outputPath, 'accounts.json');
+			fs.writeFileSync(accountJSONPath, JSON.stringify(accounts), 'utf-8');
+			this.log('Account snapshot outputted to:', accountJSONPath);
+			this.log(`Success running GenerateMerkleTree`);
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				this.log('Error Generating Merkle Tree:', err.message);
+			}
+		} finally {
+			rdb.close();
 		}
-		await buildTreeJson(outputPath, accounts);
-
-		const accountJSONPath = path.join(outputPath, 'accounts.json');
-		fs.writeFileSync(accountJSONPath, JSON.stringify(accounts), 'utf-8');
-		this.log('Account snapshot outputted to:', accountJSONPath);
-
-		this.log(`Success running GenerateMerkleTree`);
-		rdb.close();
 	}
 }
