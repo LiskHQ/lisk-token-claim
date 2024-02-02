@@ -1,4 +1,4 @@
-import { address } from '@liskhq/lisk-cryptography';
+import { address, utils } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { ux } from '@oclif/core';
 import { Account, Leaf } from '../../interface';
@@ -8,7 +8,7 @@ import { append0x } from '../../utils';
 export function createPayload(account: Account) {
 	return [
 		address.getAddressFromLisk32Address(account.lskAddress),
-		Number(account.balanceBeddows),
+		utils.intToBuffer(account.balanceBeddows, 8),
 		account.numberOfSignatures ?? 0,
 		account.mandatoryKeys ? account.mandatoryKeys.map(key => append0x(key)) : [],
 		account.optionalKeys ? account.optionalKeys.map(key => append0x(key)) : [],

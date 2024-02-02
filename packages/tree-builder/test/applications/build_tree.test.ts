@@ -1,16 +1,15 @@
 import { expect } from 'chai';
 import * as fs from 'fs';
-import { AbiCoder, keccak256 } from 'ethers';
+import { keccak256 } from 'ethers';
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { defaultAbiCoder } from '@ethersproject/abi';
 import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
 
 describe('buildTree', () => {
-	const abiCoder = new AbiCoder();
-
 	let accounts: Account[];
 	before(async () => {
 		await createKeyPairs();
@@ -52,7 +51,7 @@ describe('buildTree', () => {
 	it('should return valid tree with proof', () => {
 		const merkleTree = buildTree(accounts);
 		for (const [i, leaf] of merkleTree.leaves.entries()) {
-			const encodedMessage = abiCoder.encode(LEAF_ENCODING, createPayload(accounts[i]));
+			const encodedMessage = defaultAbiCoder.encode(LEAF_ENCODING, createPayload(accounts[i]));
 
 			// Verify Leaf is in correct order
 			expect(leaf.lskAddress).equal(accounts[i].lskAddress);

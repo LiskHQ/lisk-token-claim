@@ -27,7 +27,7 @@ describe('GenerateMerkleTree', () => {
 	test
 		.loadConfig({ root: __dirname })
 		.command(['generate-merkle-tree'])
-		.catch(err => expect(err.message).to.contain('Missing required flag dbPath'))
+		.catch(err => expect(err.message).to.contain('Missing required flag db-path'))
 		.it('should reject when dbPath not provided');
 
 	test
@@ -36,7 +36,7 @@ describe('GenerateMerkleTree', () => {
 		.command([
 			'generate-merkle-tree',
 			`--outputPath=${dataPath}`,
-			`--dbPath=${dataPath}`,
+			`--db-path=${dataPath}`,
 			'--tokenId=0000',
 		])
 		.catch(err => expect(err.message).to.contain('tokenId length be in 8 bytes'))
@@ -45,7 +45,7 @@ describe('GenerateMerkleTree', () => {
 	test
 		.loadConfig({ root: __dirname })
 		.stdout()
-		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--dbPath=${dataPath}`])
+		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--db-path=${dataPath}`])
 		.it('should warn 0 account for empty DB', ctx => {
 			expect(ctx.stdout).to.contain('DB has 0 accounts, check tokenId or local chain status');
 		});
@@ -72,7 +72,7 @@ describe('GenerateMerkleTree', () => {
 		.command([
 			'generate-merkle-tree',
 			`--outputPath=${dataPath}`,
-			`--dbPath=${dataPath}`,
+			`--db-path=${dataPath}`,
 			'--tokenId=0000000000000001',
 		])
 		.it('should warn 0 account for incorrect tokenId', ctx => {
@@ -98,7 +98,7 @@ describe('GenerateMerkleTree', () => {
 			writer.close();
 			db.close();
 		})
-		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--dbPath=${dataPath}`])
+		.command(['generate-merkle-tree', `--outputPath=${dataPath}`, `--db-path=${dataPath}`])
 		.it('should process 1 account', ctx => {
 			expect(ctx.stdout).to.contain('1 Accounts to generate');
 		});
