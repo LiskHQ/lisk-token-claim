@@ -844,10 +844,10 @@
   dependencies:
     "@octokit/openapi-types" "^12.11.0"
 
-"@openzeppelin/merkle-tree@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/merkle-tree/-/merkle-tree-1.0.5.tgz#4836d377777a7e39f31674f06ec3d6909def7913"
-  integrity sha512-JkwG2ysdHeIphrScNxYagPy6jZeNONgDRyqU6lbFgE8HKCZFSkcP8r6AjZs+3HZk4uRNV0kNBBzuWhKQ3YV7Kw==
+"@openzeppelin/merkle-tree@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/merkle-tree/-/merkle-tree-1.0.6.tgz#e0e104a187876113a15a1e814b79cdadf0fe7b27"
+  integrity sha512-cGWOb2WBWbJhqvupzxjnKAwGLxxAEYPg51sk76yZ5nVe5D03mw7Vx5yo8llaIEqYhP5O39M8QlrNWclgLfKVrA==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     ethereum-cryptography "^1.1.2"

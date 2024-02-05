@@ -47,7 +47,7 @@
 		"@liskhq/lisk-db": "^0.3.10",
 		"@oclif/core": "^3",
 		"@oclif/plugin-help": "^6",
-		"@openzeppelin/merkle-tree": "^1.0.5",
+		"@openzeppelin/merkle-tree": "^1.0.6",
 		"ethereumjs-util": "^7.1.5",
 		"ethers": "^6.8.1",
 		"tweetnacl": "^1.0.3"
