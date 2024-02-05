@@ -9,6 +9,7 @@ class DB {
 		this.models = [Signature];
 		this.sequelize = new Sequelize({
 			dialect: 'postgres',
+			host: process.env.DB_HOST || '127.0.0.1',
 			database: process.env.DB_DATABASE || 'claim-backend',
 			username: process.env.DB_USERNAME || 'claim-backend',
 			password: process.env.DB_PASSWORD || 'let-me-in',
