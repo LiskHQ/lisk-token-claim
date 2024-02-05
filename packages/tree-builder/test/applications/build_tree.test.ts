@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import * as fs from 'fs';
 import { keccak256 } from 'ethers';
-import { address } from '@liskhq/lisk-cryptography';
+import { address, utils } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
 import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
+import { append0x } from '../../src/utils';
 
 describe('buildTree', () => {
 	let accounts: Account[];
@@ -73,5 +74,39 @@ describe('buildTree', () => {
 				),
 			).deep.equal(true);
 		}
+	});
+
+	it('should generate identical tree comparing with calling OZ library directly, and handle uint64 balances correctly', () => {
+		// 2 ** 64 - 1 = 18446744073709551615: https://www.wolframalpha.com/input?i=2%5E64+-1
+		const account = {
+			lskAddress: address.getLisk32AddressFromPublicKey(utils.getRandomBytes(32)),
+			balanceBeddows: '18446744073709551615',
+			numberOfSignatures: 2,
+			mandatoryKeys: [append0x(utils.getRandomBytes(32))],
+			optionalKeys: [append0x(utils.getRandomBytes(32)), append0x(utils.getRandomBytes(32))],
+		} as Account;
+
+		const merkleTreeFromBuildTree = buildTree([account]);
+		const merkleTreeFromOz = StandardMerkleTree.of(
+			[
+				[
+					append0x(address.getAddressFromLisk32Address(account.lskAddress)),
+					account.balanceBeddows,
+					account.numberOfSignatures,
+					account.mandatoryKeys,
+					account.optionalKeys,
+				],
+			],
+			LEAF_ENCODING,
+		);
+		expect(merkleTreeFromBuildTree.tree.root).to.be.equal(merkleTreeFromOz.root);
+
+		const merkleTreeFromOzDump = merkleTreeFromOz.dump();
+		const ozLeaf = merkleTreeFromOzDump.values[0].value;
+		expect(merkleTreeFromBuildTree.leaves[0].address).to.be.equal(ozLeaf[0]);
+		expect(merkleTreeFromBuildTree.leaves[0].balanceBeddows).to.be.equal(ozLeaf[1]);
+		expect(merkleTreeFromBuildTree.leaves[0].numberOfSignatures).to.be.equal(ozLeaf[2]);
+		expect(merkleTreeFromBuildTree.leaves[0].mandatoryKeys).to.be.deep.equal(ozLeaf[3]);
+		expect(merkleTreeFromBuildTree.leaves[0].optionalKeys).to.be.deep.equal(ozLeaf[4]);
 	});
 });

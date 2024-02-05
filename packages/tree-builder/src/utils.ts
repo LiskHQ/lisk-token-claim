@@ -1,7 +1,10 @@
 import { utils } from '@liskhq/lisk-cryptography';
 import { UserBalance } from './interface';
 
-export function append0x(input: string): string {
+export function append0x(input: string | Buffer): string {
+	if (input instanceof Buffer) {
+		input = input.toString('hex');
+	}
 	if (input.substring(0, 2) === '0x') {
 		return input;
 	}
