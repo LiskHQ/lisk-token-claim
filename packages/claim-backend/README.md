@@ -11,6 +11,7 @@ This library supplies leaf details to frontend. It also stores partial signature
 
 | param            | Description                                              | Required |
 | ---------------- | -------------------------------------------------------- | -------- |
+| BACKEND_PORT     | Port used by backend (Default: 3000)                     | false    |
 | DB_PORT          | Port used by PostSQL DB (Default: 5432)                  | false    |
 | DB_DATABASE      | Name of Database of PostSQL DB (Default: claim-backend)  | false    |
 | DB_USERNAME      | Username of PostSQL DB (Default: claim-backend)          | false    |

@@ -7,7 +7,7 @@ import { submitMultisig } from './controllers/submit-multisig';
 import { checkEligibility } from './controllers/check-eligibility';
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.BACKEND_PORT || 3000;
 const server = new JSONRPCServer();
 
 void (async () => {
