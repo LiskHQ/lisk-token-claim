@@ -97,7 +97,7 @@ export async function createSnapshot(db: StateDB, tokenId: Buffer): Promise<Acco
 			latestProcessedAddress: Buffer;
 		}) => {
 			// Ignore non-LSK Token
-			if (key.subarray(6 + ADDRESS_LENGTH).compare(tokenId) !== 0) {
+			if (key.subarray(TOKEN_PREFIX.length + ADDRESS_LENGTH).compare(tokenId) !== 0) {
 				return;
 			}
 			const balance = codec.decode<UserBalance>(userBalanceSchema, value);
