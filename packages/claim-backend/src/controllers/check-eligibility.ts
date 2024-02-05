@@ -1,28 +1,42 @@
+import { Op } from 'sequelize';
+import { address } from '@liskhq/lisk-cryptography';
 import { getLeafMap, getMultisigMap } from '../utils/leaf-map';
 import { ErrorCode } from '../utils/error';
 import Signature from '../models/Signature.model';
-import { Op } from 'sequelize';
-import { address } from '@liskhq/lisk-cryptography';
+import { Leaf } from '../interface';
 
-export async function check({ lskAddress }: { lskAddress: string }) {
+const checkReady = (
+	numberOfSignaturesGroupByLskAddressAndDestination: {
+		[lskAddress: string]: { [destination: string]: number };
+	},
+	leaf: Leaf,
+): boolean => {
+	return numberOfSignaturesGroupByLskAddressAndDestination[leaf.lskAddress]
+		? Math.max(
+				...Object.values(numberOfSignaturesGroupByLskAddressAndDestination[leaf.lskAddress]),
+			) === leaf.numberOfSignatures
+		: false;
+};
+
+export async function checkEligibility({ lskAddress }: { lskAddress: string }) {
 	try {
 		address.validateLisk32Address(lskAddress);
 	} catch (err) {
 		return Promise.reject(new Error(ErrorCode.INVALID_LSK_ADDRESS));
 	}
 
-	const account = getLeafMap(lskAddress);
+	const leaf = getLeafMap(lskAddress);
 	const multisigAccounts = getMultisigMap(lskAddress);
 
 	const signatures =
-		multisigAccounts.length > 0 || (account?.numberOfSignatures && account?.numberOfSignatures > 0)
+		multisigAccounts.length > 0 || (leaf?.numberOfSignatures && leaf?.numberOfSignatures > 0)
 			? await Signature.findAll({
 					attributes: ['lskAddress', 'destination', 'signer', 'r', 's'],
 					where: {
 						lskAddress: {
 							[Op.in]: multisigAccounts
 								.map(account => account.lskAddress)
-								.concat(account?.lskAddress ? [account.lskAddress] : []),
+								.concat(leaf?.lskAddress ? [leaf.lskAddress] : []),
 						},
 					},
 					raw: true,
@@ -43,28 +57,18 @@ export async function check({ lskAddress }: { lskAddress: string }) {
 		{},
 	);
 
-	const accountWithReadyFlag = account
-		? account.numberOfSignatures > 0
+	const accountWithReadyFlag = leaf
+		? leaf.numberOfSignatures > 0
 			? {
-					...account,
-					ready: numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]
-						? Math.max(
-								...Object.values(
-									numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress],
-								),
-							) === account.numberOfSignatures
-						: false,
+					...leaf,
+					ready: checkReady(numberOfSignaturesGroupByLskAddressAndDestination, leaf),
 				}
-			: account
+			: leaf
 		: null;
 
 	const multisigAccountsWithReadyFlag = multisigAccounts.map(account => ({
 		...account,
-		ready: numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]
-			? Math.max(
-					...Object.values(numberOfSignaturesGroupByLskAddressAndDestination[account.lskAddress]),
-				) === account.numberOfSignatures
-			: false,
+		ready: checkReady(numberOfSignaturesGroupByLskAddressAndDestination, account),
 	}));
 
 	return Promise.resolve({

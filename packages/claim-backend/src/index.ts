@@ -1,10 +1,10 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import { check } from './controllers/check';
-import { DB } from './db';
-import { submitMultisig } from './controllers/submit-multisig';
-import { loadMerkleTree } from './utils/leaf-map';
 import { JSONRPCServer } from 'json-rpc-2.0';
+import { DB } from './db';
+import { loadMerkleTree } from './utils/leaf-map';
+import { submitMultisig } from './controllers/submit-multisig';
+import { checkEligibility } from './controllers/check-eligibility';
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -18,7 +18,7 @@ void (async () => {
 		app.use(express.json());
 		app.use(express.urlencoded({ extended: true }));
 
-		server.addMethod('check', check);
+		server.addMethod('checkEligibility', checkEligibility);
 		server.addMethod('submitMultisig', submitMultisig);
 
 		app.post('/rpc', (req, res) => {

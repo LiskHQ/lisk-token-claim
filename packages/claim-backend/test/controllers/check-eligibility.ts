@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { address } from '@liskhq/lisk-cryptography';
-import { check } from '../../src/controllers/check';
+import { checkEligibility } from '../../src/controllers/check-eligibility';
 import * as LeafMap from '../../src/utils/leaf-map';
 import {
 	buildMockLeaf,
@@ -14,7 +14,7 @@ import Signature from '../../src/models/Signature.model';
 import { ErrorCode } from '../../src/utils/error';
 import { append0x } from '../../src/utils';
 
-describe('check', () => {
+describe('checkEligibility', () => {
 	let getLeafMapStub: sinon.SinonStub;
 	let getMultisigMapStub: sinon.SinonStub;
 	let signatureFindAllStub: sinon.SinonStub;
@@ -34,7 +34,7 @@ describe('check', () => {
 	it('should return error when address is not valid', async () => {
 		const lskAddress = 'foobar';
 		try {
-			await check({ lskAddress });
+			await checkEligibility({ lskAddress });
 		} catch (err: unknown) {
 			expect(err instanceof Error && err.message).to.eq(ErrorCode.INVALID_LSK_ADDRESS);
 		}
@@ -43,7 +43,7 @@ describe('check', () => {
 	it('should return success with empty result when address is not in leafMap or multisigMap, ie. not eligible', async () => {
 		const lskAddress = randomLskAddress();
 
-		const result = await check({ lskAddress });
+		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
 			account: null,
 			multisigAccounts: [],
@@ -56,7 +56,7 @@ describe('check', () => {
 		const leaf = buildMockLeaf({ lskAddress });
 		getLeafMapStub.returns(leaf);
 
-		const result = await check({ lskAddress });
+		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
 			account: leaf,
 			multisigAccounts: [],
@@ -87,7 +87,7 @@ describe('check', () => {
 		getLeafMapStub.returns(leaf);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const result = await check({ lskAddress });
+		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
 			account: {
 				...leaf,
@@ -123,7 +123,7 @@ describe('check', () => {
 		getLeafMapStub.returns(leaf);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const result = await check({ lskAddress });
+		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
 			account: {
 				...leaf,
@@ -156,7 +156,9 @@ describe('check', () => {
 		getMultisigMapStub.returns([leaf]);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const result = await check({ lskAddress: address.getLisk32AddressFromPublicKey(publicKey1) });
+		const result = await checkEligibility({
+			lskAddress: address.getLisk32AddressFromPublicKey(publicKey1),
+		});
 		expect(result).to.deep.equal({
 			account: null,
 			multisigAccounts: [
@@ -194,7 +196,9 @@ describe('check', () => {
 		getMultisigMapStub.returns([leaf]);
 		signatureFindAllStub.returns(signaturesFromDB);
 
-		const result = await check({ lskAddress: address.getLisk32AddressFromPublicKey(publicKey1) });
+		const result = await checkEligibility({
+			lskAddress: address.getLisk32AddressFromPublicKey(publicKey1),
+		});
 		expect(result).to.deep.equal({
 			account: null,
 			multisigAccounts: [
