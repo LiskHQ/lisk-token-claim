@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
+import { address } from '@liskhq/lisk-cryptography';
 import * as ReadJson from '../../src/utils/read-json';
 import { getLeafMap, getMultisigMap, loadMerkleTree } from '../../src/utils/leaf-map';
 import { buildMockLeaf, randomHash, randomPublicKeyBuffer } from '../utils';
-import { address } from '@liskhq/lisk-cryptography';
 import { append0x } from '../../src/utils';
 
 describe('leafMap', () => {

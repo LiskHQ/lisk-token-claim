@@ -1,5 +1,3 @@
-export type Network = 'mainnet' | 'testnet' | 'example';
-
 export interface Leaf {
 	lskAddress: string;
 	address: string;
@@ -16,11 +14,6 @@ export interface Leaf {
 			s: string;
 		}[];
 	};
-}
-
-export interface MerkleTree {
-	merkleRoot: string;
-	leaves: Leaf[];
 }
 
 export interface Signature {
