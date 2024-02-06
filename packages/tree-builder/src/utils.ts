@@ -1,7 +1,5 @@
 import { utils } from '@liskhq/lisk-cryptography';
-import BigNumber from 'bignumber.js';
 import { UserBalance } from './interface';
-import { LSK_MULTIPLIER } from './constants';
 
 export function append0x(input: string | Buffer): string {
 	if (input instanceof Buffer) {
@@ -31,6 +29,8 @@ export function getTotalBalance(balance: UserBalance): bigint {
 		balance.lockedBalances.reduce((acc, cur) => acc + cur.amount, BigInt(0))
 	);
 }
-export function multiplyBeddows(input: number): string {
-	return new BigNumber(input).multipliedBy(LSK_MULTIPLIER).toString();
+
+// When bytes = 8, max value = 2 ** (8 * 8) - 1
+export function randomBalanceBeddows(maxBytes = 8): string {
+	return BigInt(append0x(utils.getRandomBytes(maxBytes))).toString();
 }

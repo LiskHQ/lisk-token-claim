@@ -1,8 +1,5 @@
 import { computeStorePrefix } from './utils';
 
-// 1 LSK = 10^8 Beddows
-export const LSK_MULTIPLIER = 10 ** 8;
-
 // Each leaf will be encoded in the following order:
 // LSK_ADDRESS_IN_HEX: bytes20
 // BALANCE_IN_BEDDOWS: uint64

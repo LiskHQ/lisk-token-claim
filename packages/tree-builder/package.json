@@ -48,7 +48,6 @@
 		"@oclif/core": "^3",
 		"@oclif/plugin-help": "^6",
 		"@openzeppelin/merkle-tree": "^1.0.6",
-		"bignumber.js": "^9.1.2",
 		"ethereumjs-util": "^7.1.5",
 		"ethers": "^6.8.1",
 		"tweetnacl": "^1.0.3"
