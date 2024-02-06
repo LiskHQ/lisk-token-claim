@@ -29,3 +29,8 @@ export function getTotalBalance(balance: UserBalance): bigint {
 		balance.lockedBalances.reduce((acc, cur) => acc + cur.amount, BigInt(0))
 	);
 }
+
+// When bytes = 8, max value = 2 ** (8 * 8) - 1
+export function randomBalanceBeddows(maxBytes = 8): string {
+	return BigInt(append0x(utils.getRandomBytes(maxBytes))).toString();
+}

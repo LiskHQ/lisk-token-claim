@@ -6,9 +6,9 @@ import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
-import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
+import { LEAF_ENCODING } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
-import { append0x } from '../../src/utils';
+import { append0x, randomBalanceBeddows } from '../../src/utils';
 
 describe('buildTree', () => {
 	let accounts: Account[];
@@ -24,12 +24,11 @@ describe('buildTree', () => {
 
 		// Create 5 accounts on the fly, they are all Multisig such that all fields are filled
 		accounts = keyPairsSorted.slice(0, 5).map(key => {
-			const balance = Number((10000 * Math.random()).toFixed(8));
 			const numberOfMandatoryKeys = Math.floor(5 * Math.random()) + 1;
 			const numberOfOptionalKeys = Math.floor(5 * Math.random());
 			return {
 				lskAddress: key.address,
-				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER).toString(),
+				balanceBeddows: randomBalanceBeddows(),
 				numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
 				mandatoryKeys: keyPairsSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
 				optionalKeys: keyPairsSorted
