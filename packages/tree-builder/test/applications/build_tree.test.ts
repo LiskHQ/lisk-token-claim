@@ -6,9 +6,9 @@ import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { Account, ExampleKey } from '../../src/interface';
 import { createPayload, buildTree } from '../../src/applications/generate-merkle-tree/build_tree';
-import { LEAF_ENCODING, LSK_MULTIPLIER } from '../../src/constants';
+import { LEAF_ENCODING } from '../../src/constants';
 import { createKeyPairs } from '../../src/applications/example/create_key_pairs';
-import { append0x } from '../../src/utils';
+import { append0x, multiplyBeddows } from '../../src/utils';
 
 describe('buildTree', () => {
 	let accounts: Account[];
@@ -29,7 +29,7 @@ describe('buildTree', () => {
 			const numberOfOptionalKeys = Math.floor(5 * Math.random());
 			return {
 				lskAddress: key.address,
-				balanceBeddows: Math.floor(balance * LSK_MULTIPLIER).toString(),
+				balanceBeddows: multiplyBeddows(balance),
 				numberOfSignatures: numberOfMandatoryKeys + numberOfOptionalKeys,
 				mandatoryKeys: keyPairsSorted.slice(0, numberOfMandatoryKeys).map(key => key.publicKey),
 				optionalKeys: keyPairsSorted

@@ -1,5 +1,7 @@
 import { utils } from '@liskhq/lisk-cryptography';
+import BigNumber from 'bignumber.js';
 import { UserBalance } from './interface';
+import { LSK_MULTIPLIER } from './constants';
 
 export function append0x(input: string | Buffer): string {
 	if (input instanceof Buffer) {
@@ -28,4 +30,7 @@ export function getTotalBalance(balance: UserBalance): bigint {
 		balance.availableBalance +
 		balance.lockedBalances.reduce((acc, cur) => acc + cur.amount, BigInt(0))
 	);
+}
+export function multiplyBeddows(input: number): string {
+	return new BigNumber(input).multipliedBy(LSK_MULTIPLIER).toString();
 }

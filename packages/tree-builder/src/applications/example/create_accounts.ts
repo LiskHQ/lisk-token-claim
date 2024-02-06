@@ -1,9 +1,7 @@
 import * as fs from 'fs';
 import { address } from '@liskhq/lisk-cryptography';
 import { Account, ExampleKey } from '../../interface';
-
-// 1 LSK = 10^8 Beddows
-const LSK_MULTIPLIER = 10 ** 8;
+import { multiplyBeddows } from '../../utils';
 
 // Balances are random between 0 - <RANDOM_RANGE>
 const RANDOM_RANGE = 10000;
@@ -61,7 +59,7 @@ export function createAccounts(numberOfAccounts = 54) {
 	for (let index = 0; index < numberOfAccounts - multiSigs.length; index++) {
 		const account = sortedKeyPairs[index];
 		const balance = randomBalance(RANDOM_RANGE);
-		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER);
+		const balanceBeddows = multiplyBeddows(balance);
 
 		results.push({
 			lskAddress: account.address,
@@ -72,7 +70,7 @@ export function createAccounts(numberOfAccounts = 54) {
 	for (const multiSig of multiSigs) {
 		const account = sortedKeyPairs[results.length];
 		const balance = randomBalance(RANDOM_RANGE);
-		const balanceBeddows = Math.round(balance * LSK_MULTIPLIER).toString();
+		const balanceBeddows = multiplyBeddows(balance);
 
 		results.push({
 			lskAddress: account.address,
