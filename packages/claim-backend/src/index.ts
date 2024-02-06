@@ -7,7 +7,8 @@ import { submitMultisig } from './controllers/submit-multisig';
 import { checkEligibility } from './controllers/check-eligibility';
 dotenv.config();
 
-const PORT = process.env.BACKEND_PORT || 3000;
+const HOST = process.env.BACKEND_HOST || '127.0.0.1';
+const PORT = Number(process.env.BACKEND_PORT) || 3000;
 const server = new JSONRPCServer();
 
 void (async () => {
@@ -20,6 +21,9 @@ void (async () => {
 
 		server.addMethod('checkEligibility', checkEligibility);
 		server.addMethod('submitMultisig', submitMultisig);
+
+		// For Health Check
+		app.get('/', (_, res) => res.send('OK'));
 
 		app.post('/rpc', (req, res) => {
 			const jsonRPCRequest = req.body;
@@ -36,8 +40,8 @@ void (async () => {
 		const db = new DB();
 		await db.sync();
 
-		app.listen(PORT, () => {
-			console.info(`Claim Backend running at port ${PORT}`);
+		app.listen(PORT, HOST, () => {
+			console.info(`Claim Backend running at ${HOST}:${PORT}`);
 		});
 	}
 })();

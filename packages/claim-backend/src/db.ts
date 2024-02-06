@@ -15,6 +15,15 @@ class DB {
 			password: process.env.DB_PASSWORD || 'let-me-in',
 			models: [__dirname + '/models/*.model.ts'],
 			port: Number(process.env.DB_PORT) || 5432,
+			dialectOptions:
+				process.env.DB_SSLMODE === 'true'
+					? {
+							ssl: {
+								require: true,
+								rejectUnauthorized: false,
+							},
+						}
+					: {},
 		});
 		this.sequelize.addModels(this.models);
 	}
