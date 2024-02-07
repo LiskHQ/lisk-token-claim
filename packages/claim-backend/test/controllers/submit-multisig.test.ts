@@ -1,8 +1,9 @@
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 import * as sinon from 'sinon';
 import { address, utils } from '@liskhq/lisk-cryptography';
 import * as LeafMap from '../../src/utils/leaf-map';
 import { submitMultisig } from '../../src/controllers/submit-multisig';
-import { expect } from 'chai';
 import { ErrorCode } from '../../src/utils/error';
 import Signature from '../../src/models/signature.model';
 import * as verifySignature from '../../src/utils/verify-signature';
@@ -17,6 +18,9 @@ interface SubmitMultisigBody {
 }
 
 describe('submitMultisig', () => {
+	const { expect } = chai;
+	chai.use(chaiAsPromised);
+
 	const createMultisigBody = (body: Partial<SubmitMultisigBody>): SubmitMultisigBody => {
 		const publicKey = utils.getRandomBytes(32);
 		return {
@@ -58,15 +62,13 @@ describe('submitMultisig', () => {
 
 		const lskAddress = address.getLisk32AddressFromPublicKey(utils.getRandomBytes(32));
 
-		try {
-			await submitMultisig(
+		await expect(
+			submitMultisig(
 				createMultisigBody({
 					lskAddress,
 				}),
-			);
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(ErrorCode.INVALID_LSK_ADDRESS);
-		}
+			),
+		).to.eventually.be.rejectedWith(ErrorCode.INVALID_LSK_ADDRESS);
 	});
 
 	it('should return error when destination address is not a valid ETH address', async () => {
@@ -80,16 +82,14 @@ describe('submitMultisig', () => {
 		);
 
 		const ethAddress = 'foobar';
-		try {
-			await submitMultisig(
+		await expect(
+			submitMultisig(
 				createMultisigBody({
 					lskAddress,
 					destination: ethAddress,
 				}),
-			);
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(ErrorCode.INVALID_DESTINATION_ADDRESS);
-		}
+			),
+		).to.eventually.be.rejectedWith(ErrorCode.INVALID_DESTINATION_ADDRESS);
 	});
 
 	it('should return error when public key is not part of that multisig address', async () => {
@@ -104,13 +104,9 @@ describe('submitMultisig', () => {
 			}),
 		);
 
-		try {
-			await submitMultisig(createMultisigBody({}));
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(
-				ErrorCode.PUBLIC_KEY_NOT_PART_OF_MULTISIG_ADDRESS,
-			);
-		}
+		await expect(submitMultisig(createMultisigBody({}))).to.eventually.be.rejectedWith(
+			ErrorCode.PUBLIC_KEY_NOT_PART_OF_MULTISIG_ADDRESS,
+		);
 	});
 
 	it('should return error when too many optional keys supplied', async () => {
@@ -124,11 +120,9 @@ describe('submitMultisig', () => {
 		);
 		signatureCountStub.returns(Promise.resolve(1));
 
-		try {
-			await submitMultisig(createMultisigBody({ publicKey }));
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(ErrorCode.NUMBER_OF_SIGNATURES_REACHED);
-		}
+		await expect(submitMultisig(createMultisigBody({ publicKey }))).to.eventually.be.rejectedWith(
+			ErrorCode.NUMBER_OF_SIGNATURES_REACHED,
+		);
 	});
 
 	it('should return error when signature is invalid', async () => {
@@ -142,16 +136,15 @@ describe('submitMultisig', () => {
 		);
 		verifySignatureStub.returns(false);
 
-		try {
-			await submitMultisig(createMultisigBody({ publicKey }));
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(ErrorCode.INVALID_SIGNATURE);
-		}
+		await expect(submitMultisig(createMultisigBody({ publicKey }))).to.eventually.be.rejectedWith(
+			ErrorCode.INVALID_SIGNATURE,
+		);
 	});
 
 	it('should return error when lskAddress-destination-publicKey has been signed before', async () => {
 		const publicKey = utils.getRandomBytes(32).toString('hex');
-		const multisigRequest = createMultisigBody({ publicKey });
+		const destination = randomEthAddress();
+		const multisigRequest = createMultisigBody({ publicKey, destination });
 		getLeafMapStub.returns(
 			buildMockLeaf({
 				numberOfSignatures: 2,
@@ -160,15 +153,16 @@ describe('submitMultisig', () => {
 			}),
 		);
 		verifySignatureStub.returns(true);
-		signatureFindOneStub.returns({
-			...multisigRequest,
-		});
+		signatureFindOneStub.returns(multisigRequest);
 
-		try {
-			await submitMultisig(multisigRequest);
-		} catch (err) {
-			expect(err instanceof Error && err.message).to.equal(ErrorCode.ALREADY_SIGNED);
-		}
+		await expect(
+			submitMultisig(
+				createMultisigBody({
+					destination,
+					publicKey,
+				}),
+			),
+		).to.eventually.be.rejectedWith(ErrorCode.ALREADY_SIGNED);
 	});
 
 	it('should return success and store to db, and ready = false when number of signatures not reached', async () => {

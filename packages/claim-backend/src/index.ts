@@ -12,36 +12,34 @@ const PORT = Number(process.env.BACKEND_PORT) || 3000;
 const server = new JSONRPCServer();
 
 void (async () => {
-	{
-		loadMerkleTree();
-		const app: Express = express();
+	loadMerkleTree();
+	const app: Express = express();
 
-		app.use(express.json());
-		app.use(express.urlencoded({ extended: true }));
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
 
-		server.addMethod('checkEligibility', checkEligibility);
-		server.addMethod('submitMultisig', submitMultisig);
+	server.addMethod('checkEligibility', checkEligibility);
+	server.addMethod('submitMultisig', submitMultisig);
 
-		// For Health Check from VPS monitoring
-		app.get('/', (_, res) => res.send('OK'));
+	// For Health Check from VPS monitoring
+	app.get('/', (_, res) => res.send('OK'));
 
-		app.post('/rpc', (req, res) => {
-			const jsonRPCRequest = req.body;
+	app.post('/rpc', (req, res) => {
+		const jsonRPCRequest = req.body;
 
-			void server.receive(jsonRPCRequest).then(jsonRPCResponse => {
-				if (jsonRPCResponse) {
-					res.json(jsonRPCResponse);
-				} else {
-					res.sendStatus(204);
-				}
-			});
+		void server.receive(jsonRPCRequest).then(jsonRPCResponse => {
+			if (jsonRPCResponse) {
+				res.json(jsonRPCResponse);
+			} else {
+				res.sendStatus(204);
+			}
 		});
+	});
 
-		const db = new DB();
-		await db.sync();
+	const db = new DB();
+	await db.sync();
 
-		app.listen(PORT, HOST, () => {
-			console.info(`Claim Backend running at ${HOST}:${PORT}`);
-		});
-	}
+	app.listen(PORT, HOST, () => {
+		console.info(`Claim Backend running at ${HOST}:${PORT}`);
+	});
 })();
