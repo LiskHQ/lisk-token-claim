@@ -15,6 +15,7 @@ class DB {
 			password: process.env.DB_PASSWORD || 'let-me-in',
 			models: [__dirname + '/models/*.model.ts'],
 			port: Number(process.env.DB_PORT) || 5432,
+			logging: process.env.DB_LOGGING !== 'false',
 			dialectOptions:
 				process.env.DB_SSLMODE === 'true'
 					? {
