@@ -3,9 +3,9 @@ import { keccak256 } from 'ethers';
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { remove0x } from './index';
 
-const BYTES_9 = '000000000000000000';
+export const BYTES_9 = '000000000000000000';
 
-function verifySignature(
+export function verifySignature(
 	hash: string,
 	destination: string,
 	publicKey: string,
@@ -25,5 +25,3 @@ function verifySignature(
 		return false;
 	}
 }
-
-export { BYTES_9, verifySignature };

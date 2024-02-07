@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import Signature from './models/signature.model';
 
-class DB {
+export class DB {
 	private readonly sequelize: Sequelize;
 	private readonly models;
 
@@ -37,5 +37,3 @@ class DB {
 		}
 	}
 }
-
-export { DB, Signature };
