@@ -19,11 +19,11 @@ export default class GenerateMerkleTree extends Command {
 			description: 'Destination path of the merkle tree',
 			default: path.join(process.cwd(), 'data'),
 		}),
-		tokenId: Flags.string({
+		'token-id': Flags.string({
 			description: 'Token ID, use default for mainnet LSK Token',
 			parse: async (input: string) => {
 				if (input.length !== 16) {
-					throw new Error('tokenId length be in 8 bytes');
+					throw new Error('token-id length be in 8 bytes');
 				}
 				return input;
 			},
@@ -33,7 +33,7 @@ export default class GenerateMerkleTree extends Command {
 
 	async run(): Promise<void> {
 		const { flags } = await this.parse(GenerateMerkleTree);
-		const { 'db-path': dbPath, tokenId, 'output-path': outputPath } = flags;
+		const { 'db-path': dbPath, 'token-id': tokenId, 'output-path': outputPath } = flags;
 
 		const stateDbPath = path.join(dbPath, 'state.db');
 		this.log(`Reading: ${stateDbPath} ...`);
@@ -46,7 +46,7 @@ export default class GenerateMerkleTree extends Command {
 		try {
 			const accounts = await createSnapshot(rdb, Buffer.from(tokenId, 'hex'));
 			if (accounts.length === 0) {
-				this.log('DB has 0 accounts, check tokenId or local chain status');
+				this.log('DB has 0 accounts, check token-id or local chain status');
 				return;
 			}
 			await buildTreeJson(outputPath, accounts);

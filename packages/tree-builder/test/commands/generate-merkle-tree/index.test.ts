@@ -37,17 +37,17 @@ describe('GenerateMerkleTree', () => {
 			'generate-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
-			'--tokenId=0000',
+			'--token-id=0000',
 		])
-		.catch(err => expect(err.message).to.contain('tokenId length be in 8 bytes'))
-		.it('should reject when tokenId has invalid length');
+		.catch(err => expect(err.message).to.contain('token-id length be in 8 bytes'))
+		.it('should reject when token-id has invalid length');
 
 	test
 		.loadConfig({ root: __dirname })
 		.stdout()
 		.command(['generate-merkle-tree', `--output-path=${dataPath}`, `--db-path=${dataPath}`])
 		.it('should warn 0 account for empty DB', ctx => {
-			expect(ctx.stdout).to.contain('DB has 0 accounts, check tokenId or local chain status');
+			expect(ctx.stdout).to.contain('DB has 0 accounts, check token-id or local chain status');
 		});
 
 	test
@@ -73,10 +73,10 @@ describe('GenerateMerkleTree', () => {
 			'generate-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
-			'--tokenId=0000000000000001',
+			'--token-id=0000000000000001',
 		])
-		.it('should warn 0 account for incorrect tokenId', ctx => {
-			expect(ctx.stdout).to.contain('DB has 0 accounts, check tokenId or local chain status');
+		.it('should warn 0 account for incorrect token-id', ctx => {
+			expect(ctx.stdout).to.contain('DB has 0 accounts, check token-id or local chain status');
 		});
 
 	test
