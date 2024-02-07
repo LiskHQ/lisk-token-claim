@@ -10,7 +10,7 @@ import {
 	randomLskAddress,
 	randomPublicKeyBuffer,
 } from '../utils';
-import Signature from '../../src/models/Signature.model';
+import Signature from '../../src/models/signature.model';
 import { ErrorCode } from '../../src/utils/error';
 import { append0x } from '../../src/utils';
 

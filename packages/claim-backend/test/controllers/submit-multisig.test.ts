@@ -4,7 +4,7 @@ import * as LeafMap from '../../src/utils/leaf-map';
 import { submitMultisig } from '../../src/controllers/submit-multisig';
 import { expect } from 'chai';
 import { ErrorCode } from '../../src/utils/error';
-import Signature from '../../src/models/Signature.model';
+import Signature from '../../src/models/signature.model';
 import * as verifySignature from '../../src/utils/verify-signature';
 import { buildMockLeaf, randomEthAddress, randomHash, randomLskAddress } from '../utils';
 

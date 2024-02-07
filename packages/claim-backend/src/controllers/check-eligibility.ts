@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import { address } from '@liskhq/lisk-cryptography';
 import { getLeafMap, getMultisigMap } from '../utils/leaf-map';
 import { ErrorCode } from '../utils/error';
-import Signature from '../models/Signature.model';
+import Signature from '../models/signature.model';
 import { Leaf } from '../interface';
 
 const checkReady = (
@@ -22,7 +22,7 @@ export async function checkEligibility({ lskAddress }: { lskAddress: string }) {
 	try {
 		address.validateLisk32Address(lskAddress);
 	} catch (err) {
-		return Promise.reject(new Error(ErrorCode.INVALID_LSK_ADDRESS));
+		throw new Error(ErrorCode.INVALID_LSK_ADDRESS);
 	}
 
 	const leaf = getLeafMap(lskAddress);

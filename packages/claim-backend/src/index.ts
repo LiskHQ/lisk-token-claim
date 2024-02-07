@@ -22,7 +22,7 @@ void (async () => {
 		server.addMethod('checkEligibility', checkEligibility);
 		server.addMethod('submitMultisig', submitMultisig);
 
-		// For Health Check
+		// For Health Check from VPS monitoring
 		app.get('/', (_, res) => res.send('OK'));
 
 		app.post('/rpc', (req, res) => {
