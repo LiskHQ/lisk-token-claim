@@ -71,9 +71,9 @@ export async function checkEligibility({ lskAddress }: { lskAddress: string }) {
 		ready: checkReady(numberOfSignaturesGroupByLskAddressAndDestination, account),
 	}));
 
-	return Promise.resolve({
+	return {
 		account: accountWithReadyFlag,
 		multisigAccounts: multisigAccountsWithReadyFlag,
 		signatures,
-	});
+	};
 }

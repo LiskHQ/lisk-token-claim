@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { address } from '@liskhq/lisk-cryptography';
-import * as ReadJson from '../../src/utils/read-json';
+import * as fsHelper from '../../src/utils/fs-helper';
 import { getLeafMap, getMultisigMap, loadMerkleTree } from '../../src/utils/leaf-map';
 import { buildMockLeaf, randomHash, randomPublicKeyBuffer } from '../utils';
 import { append0x } from '../../src/utils';
@@ -16,8 +16,8 @@ describe('leafMap', () => {
 		let readJsonStub: sinon.SinonStub;
 
 		beforeEach(() => {
-			fileExistsStub = sinon.stub(ReadJson, 'fileExists');
-			readJsonStub = sinon.stub(ReadJson, 'readJSON');
+			fileExistsStub = sinon.stub(fsHelper, 'fileExists');
+			readJsonStub = sinon.stub(fsHelper, 'readJson');
 		});
 
 		afterEach(() => {

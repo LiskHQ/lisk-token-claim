@@ -9,11 +9,11 @@ dotenv.config();
 
 const HOST = process.env.BACKEND_HOST || '127.0.0.1';
 const PORT = Number(process.env.BACKEND_PORT) || 3000;
-const server = new JSONRPCServer();
 
 void (async () => {
 	loadMerkleTree();
 	const app: Express = express();
+	const server = new JSONRPCServer();
 
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));

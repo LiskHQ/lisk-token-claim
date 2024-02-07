@@ -118,7 +118,7 @@ describe('submitMultisig', () => {
 				optionalKeys: [publicKey, utils.getRandomBytes(32).toString('hex')],
 			}),
 		);
-		signatureCountStub.returns(Promise.resolve(1));
+		signatureCountStub.resolves(1);
 
 		await expect(submitMultisig(createMultisigBody({ publicKey }))).to.eventually.be.rejectedWith(
 			ErrorCode.NUMBER_OF_SIGNATURES_REACHED,
@@ -153,7 +153,7 @@ describe('submitMultisig', () => {
 			}),
 		);
 		verifySignatureStub.returns(true);
-		signatureFindOneStub.returns(multisigRequest);
+		signatureFindOneStub.resolves(multisigRequest);
 
 		await expect(
 			submitMultisig(
@@ -176,8 +176,8 @@ describe('submitMultisig', () => {
 		);
 		verifySignatureStub.returns(true);
 		signatureCreateStub.resolves();
-		signatureCountStub.returns(Promise.resolve(1));
-		signatureFindOneStub.returns(null);
+		signatureCountStub.resolves(1);
+		signatureFindOneStub.resolves(null);
 
 		const result = await submitMultisig(createMultisigBody({ publicKey }));
 
@@ -198,8 +198,8 @@ describe('submitMultisig', () => {
 		);
 		verifySignatureStub.returns(true);
 		signatureCreateStub.resolves();
-		signatureCountStub.returns(Promise.resolve(1));
-		signatureFindOneStub.returns(
+		signatureCountStub.resolves(1);
+		signatureFindOneStub.resolves(
 			createMultisigBody({
 				destination: randomEthAddress(),
 				publicKey,
@@ -229,8 +229,8 @@ describe('submitMultisig', () => {
 		);
 		verifySignatureStub.returns(true);
 		signatureCreateStub.resolves();
-		signatureCountStub.returns(Promise.resolve(2));
-		signatureFindOneStub.returns(null);
+		signatureCountStub.resolves(2);
+		signatureFindOneStub.resolves(null);
 
 		const result = await submitMultisig(createMultisigBody({ publicKey }));
 

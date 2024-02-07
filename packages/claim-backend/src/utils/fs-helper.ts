@@ -4,6 +4,6 @@ export const fileExists = (fileName: string) => {
 	return fs.existsSync(fileName);
 };
 
-export const readJSON = (fileName: string) => {
+export const readJson = (fileName: string) => {
 	return JSON.parse(fs.readFileSync(fileName, 'utf-8'));
 };
