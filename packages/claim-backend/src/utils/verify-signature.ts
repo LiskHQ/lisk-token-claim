@@ -1,8 +1,8 @@
 import * as tweetnacl from 'tweetnacl';
-import { AbiCoder, keccak256 } from 'ethers';
+import { keccak256 } from 'ethers';
+import { defaultAbiCoder } from '@ethersproject/abi';
 import { remove0x } from './index';
 
-const abiCoder = new AbiCoder();
 const BYTES_9 = '000000000000000000';
 
 function verifySignature(
@@ -12,7 +12,8 @@ function verifySignature(
 	r: string,
 	s: string,
 ) {
-	const message = keccak256(abiCoder.encode(['bytes32', 'address'], [hash, destination])) + BYTES_9;
+	const message =
+		keccak256(defaultAbiCoder.encode(['bytes32', 'address'], [hash, destination])) + BYTES_9;
 
 	try {
 		return tweetnacl.sign.detached.verify(
