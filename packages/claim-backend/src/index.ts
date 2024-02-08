@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import { JSONRPCServer } from 'json-rpc-2.0';
 import { DB } from './db';
@@ -9,12 +10,17 @@ dotenv.config();
 
 const HOST = process.env.BACKEND_HOST || '127.0.0.1';
 const PORT = Number(process.env.BACKEND_PORT) || 3000;
+const corsOptions = {
+	origin: process.env.CORS_ORIGIN || '*',
+	methods: 'GET,POST',
+};
 
 void (async () => {
 	loadMerkleTree();
 	const app: Express = express();
 	const server = new JSONRPCServer();
 
+	app.use(cors(corsOptions));
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 
