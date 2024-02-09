@@ -1,16 +1,18 @@
 # Lisk Token Claim <!-- omit in toc -->
 
-This repository is a monorepo for essential non-contract services for Token Claim.  
+This repository is a monorepo for essential non-contract services for Token Claim.
 
 ## Table of Contents <!-- omit in toc -->
+
 - [Repositories](#repositories)
-    * [Tree Builder](#tree-builder)
-    * [Token Claim Backend](#token-claim-backend)
+  - [Tree Builder](#tree-builder)
+  - [Token Claim Backend](#claim-backend)
 - [Setup and Installation](#setup-and-installation)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Repositories
+
 In this monorepo there are currently 2 repositories:
 
 ### [Tree Builder](packages/tree-builder)
@@ -24,14 +26,17 @@ Perform as a backend server, compatible with JSON RPC 2.0 Standard.
 The database is using PostgreSQL
 
 ## Setup and Installation
+
 The Node version for this project is 18. Make sure you have the correct version installed. If you are using `nvm`, run `nvm use 18`.
 
 ### 1. Clone Lisk Token Claim Repository
+
 ```
 $ git clone git@github.com:LiskHQ/lisk-token-claim.git
 ```
 
-### 2. Install Node dependencies and build project  
+### 2. Install Node dependencies and build project
+
 ```
 $ yarn && yarn build
 ```
