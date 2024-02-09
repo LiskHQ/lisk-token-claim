@@ -2,10 +2,11 @@
 
 This library supplies leaf details to frontend. It also stores partial signatures of claims from multisig addresses.
 
-## Requirement
+## Additional Requirement
+Apart from Node version 18, Claim Backend also requires:
 
-1. NodeJS v18
-2. Docker (Latest Version Recommended)
+1. Docker (Latest Version Recommended) **or** 
+2. PostgreSQL (Latest Version Recommended)
 
 ## .env Params
 

@@ -1,14 +1,12 @@
 # Tree Builder
 
-This library builds Merkle Tree from a snapshot and computes Merkle Root.
+This library is a command-line service that builds Merkle Tree from a snapshot and computes Merkle Root.
 
 ## Run
 
 ```
 $ cd packages/tree-builder
-$ ./bin/run.js generate-merkle-tree --network=mainnet # Mainnet
-$ ./bin/run.js generate-merkle-tree --network=testnet # Testnet
-$ ./bin/run.js generate-merkle-tree --network=example # Example, see below
+$ ./bin/run.js generate-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>]
 ```
 
 ## Files
