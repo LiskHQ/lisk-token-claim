@@ -3,7 +3,7 @@ import { address } from '@liskhq/lisk-cryptography';
 import { Account, ExampleKey } from '../../interface';
 import { randomBalanceBeddows } from '../../utils';
 
-// Random Balance in Beddows between 0 - 2 ** 8 * (RANDOM_BYTES_RANGE)
+// Random Balance in Beddows between 0 - 2 ** (8 * RANDOM_BYTES_RANGE)
 const RANDOM_BYTES_RANGE = 5;
 
 // Multisig Accounts
