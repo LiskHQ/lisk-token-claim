@@ -1,7 +1,7 @@
 import { Leaf } from '../interface';
 import { address } from '@liskhq/lisk-cryptography';
 import { remove0x } from './index';
-import { fileExists, readJSON } from './read-json';
+import { fileExists, readJson } from './fs-helper';
 
 const leafMap: {
 	[lskAddress: string]: Leaf;
@@ -27,7 +27,7 @@ export function loadMerkleTree() {
 	}
 	console.log(`Loading Merkle Tree: ${process.env.MERKLE_TREE_PATH}`);
 
-	const { leaves } = readJSON(process.env.MERKLE_TREE_PATH);
+	const { leaves } = readJson(process.env.MERKLE_TREE_PATH);
 	for (const leaf of leaves) {
 		leafMap[leaf.lskAddress] = leaf;
 		if (leaf.numberOfSignatures > 0) {

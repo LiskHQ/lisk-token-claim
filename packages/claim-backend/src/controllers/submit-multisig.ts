@@ -95,8 +95,8 @@ export async function submitMultisig({
 			destination,
 		},
 	});
-	return Promise.resolve({
+	return {
 		success: true,
 		ready: numberOfSignatures === leaf.numberOfSignatures,
-	});
+	};
 }

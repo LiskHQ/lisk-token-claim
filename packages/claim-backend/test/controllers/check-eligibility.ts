@@ -22,7 +22,7 @@ describe('checkEligibility', () => {
 	beforeEach(() => {
 		getLeafMapStub = sinon.stub(LeafMap, 'getLeafMap').returns(null);
 		getMultisigMapStub = sinon.stub(LeafMap, 'getMultisigMap').returns([]);
-		signatureFindAllStub = sinon.stub(Signature, 'findAll').returns(Promise.resolve([]));
+		signatureFindAllStub = sinon.stub(Signature, 'findAll').resolves([]);
 	});
 
 	afterEach(() => {
@@ -85,7 +85,7 @@ describe('checkEligibility', () => {
 			}),
 		];
 		getLeafMapStub.returns(leaf);
-		signatureFindAllStub.returns(signaturesFromDB);
+		signatureFindAllStub.resolves(signaturesFromDB);
 
 		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
@@ -121,7 +121,7 @@ describe('checkEligibility', () => {
 			}),
 		];
 		getLeafMapStub.returns(leaf);
-		signatureFindAllStub.returns(signaturesFromDB);
+		signatureFindAllStub.resolves(signaturesFromDB);
 
 		const result = await checkEligibility({ lskAddress });
 		expect(result).to.deep.equal({
@@ -154,7 +154,7 @@ describe('checkEligibility', () => {
 			}),
 		];
 		getMultisigMapStub.returns([leaf]);
-		signatureFindAllStub.returns(signaturesFromDB);
+		signatureFindAllStub.resolves(signaturesFromDB);
 
 		const result = await checkEligibility({
 			lskAddress: address.getLisk32AddressFromPublicKey(publicKey1),
@@ -194,7 +194,7 @@ describe('checkEligibility', () => {
 			}),
 		];
 		getMultisigMapStub.returns([leaf]);
-		signatureFindAllStub.returns(signaturesFromDB);
+		signatureFindAllStub.resolves(signaturesFromDB);
 
 		const result = await checkEligibility({
 			lskAddress: address.getLisk32AddressFromPublicKey(publicKey1),
