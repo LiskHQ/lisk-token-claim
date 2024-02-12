@@ -19,8 +19,10 @@ $ yarn && yarn build
 ```
 
 ## Docker
+
 Dockerfiles are stored at the [docker](./docker/) folder.
 To build the docker locally,
+
 ```
-docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .  
+docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .
 ```
