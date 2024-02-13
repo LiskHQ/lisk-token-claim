@@ -44,10 +44,10 @@ $ yarn && yarn build
 ## Contributing
 
 If you find any issues or have suggestions for improvements,
-please [open an issue](https://github.com/LiskHQ//lisk-token-claim/issues/new/choose) on the GitHub repository. You can also
-submit [pull requests](https://github.com/LiskHQ//lisk-token-claim/compare)
-with [bug fixes](https://github.com/LiskHQ//lisk-token-claim/issues/new?assignees=&labels=bug+report&projects=&template=bug-report.md&title=%5BBug%5D%3A+),
-[new features](https://github.com/LiskHQ//lisk-token-claim/issues/new?assignees=&labels=&projects=&template=feature-request.md),
+please [open an issue](https://github.com/LiskHQ/lisk-token-claim/issues/new/choose) on the GitHub repository. You can also
+submit [pull requests](https://github.com/LiskHQ/lisk-token-claim/compare)
+with [bug fixes](https://github.com/LiskHQ/lisk-token-claim/issues/new?assignees=&labels=bug+report&projects=&template=bug-report.md&title=%5BBug%5D%3A+),
+[new features](https://github.com/LiskHQ/lisk-token-claim/issues/new?assignees=&labels=&projects=&template=feature-request.md),
 or documentation enhancements.
 
 ## License
