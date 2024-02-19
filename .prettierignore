@@ -25,6 +25,7 @@ REVISION
 *.blob
 *.lock
 *.keep
+*.pdf
 
 ## jest snapshot
 *.snap
