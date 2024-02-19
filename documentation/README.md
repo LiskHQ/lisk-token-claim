@@ -15,7 +15,7 @@ This document states the general requirement of each library in this monorepo.
 
 ### Requirement for Tree Builder
 
-- Should read all account balances from Lisk Blockchain directly.
+- Should read all account balances from Lisk Network directly.
 - Should build Merkle Tree and Proof according to accounts gathered from Blockchain.
 
 ### Requirement for Claim Backend

@@ -1,6 +1,6 @@
 # Claim Backend
 
-This library supplies leaf details to frontend. It also stores partial signatures of claims from multisig addresses.
+This library supplies leaf details to frontend by providing an endpoint that responds with details necessary for the claim. It also stores partial signatures of claims from multisig addresses.
 
 ## Additional Requirement
 
@@ -33,4 +33,45 @@ $ cp .env.example .env
 $ < Edit .env regarding to ".env Params" >
 $ docker-compose up -d
 $ yarn server
+```
+
+## Endpoints
+
+### `/checkEligibility`
+It accepts POST request with param lskAddress. If the address has eligible LSK to claim, it will return amount of token (account), proof and, should this address owns any multisig account, it will also be displayed here (multisigAccounts).
+
+For multisig addresses, there is a ready flag to determine if the claim is ready.
+```
+curl --location 'http://127.0.0.1:3000/rpc' \
+--header 'Content-Type: application/json' \
+--data '{
+    "jsonrpc": "2.0",
+    "method": "checkEligibility",
+    "params": {
+        "lskAddress": "lskfcu7z7sch46o67sq24v9h9df2h5o2juvjp3fjj"
+    },
+    "id": 1
+}'
+```
+
+### `/submitMultisig`
+After the user has signed a multisig signature, this API will be called to record the signature to backend DB.
+
+If this endpoint is submitted by the last signer of the multisig account, the 200 response will show "ready": true. 
+In that case the UI could call `/checkEligibility` again to obtain all signatures and submit to smart contract.
+```
+curl --location 'http://127.0.0.1:3000/rpc' \
+--header 'Content-Type: application/json' \
+--data '{
+    "jsonrpc": "2.0",
+    "method": "submitMultisig",
+    "params": {
+        "lskAddress": "lskfcu7z7sch46o67sq24v9h9df2h5o2juvjp3fjj",
+        "destination": "0x34A1D3fff3958843C43aD80F30b94c510645C316",
+        "publicKey": "0x83eac294606806e0f4125203e2d0dac5ef1fc8730d5ec12e77e94f823f2262fa",
+        "r": "0xeb7bae6ec3996e38c159e37ad270088d06b19642ea1a7112cc21a6e06b0e756a",
+        "s": "0x165ee91a3a7e66a1abae1721e80105329922f7e8621bbd382c4d1e95365eeb02"
+    },
+    "id": 1
+}'
 ```
