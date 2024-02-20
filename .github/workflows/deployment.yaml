@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - development
+      - 12-add-deployment-script
 
 env:
   S3_BUCKET: lisk-migration-assets
@@ -14,7 +15,9 @@ jobs:
   deployment:
     name: deployment
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    environment: development
+    # TODO: use below line to deploy to production when production setup is ready
+    # environment: ${{ github.ref_name }}
 
     steps:
       - name: Checkout
@@ -40,7 +43,7 @@ jobs:
 
       - name: Download merkle tree information
         run: |
-          aws s3 sync s3://$S3_BUCKET/token-claim/ data/token-claim
+          aws s3 sync s3://$S3_BUCKET/token-claim/${{ env.NETWORK }} data/token-claim
 
       - name: Build and push
         uses: docker/build-push-action@v5
