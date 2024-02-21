@@ -1,6 +1,6 @@
 # Lisk Token Claim <!-- omit in toc -->
 
-This repository is a monorepo for essential non-contract services for Token Claim.
+This repository is a monorepo for essential non-contract services for the LSK Token Claim on the Lisk L2.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -17,13 +17,13 @@ In this monorepo there are currently 2 repositories:
 
 ### [Tree Builder](packages/tree-builder)
 
-Builds Merkle Tree from a snapshot and computes Merkle Root.
+Builds a Merkle Tree from a snapshot and computes the Merkle Root.
 
 ### [Claim Backend](packages/claim-backend)
 
 Perform as a backend server, compatible with JSON RPC 2.0 Standard.
 
-The database is using PostgreSQL
+The database is using PostgreSQL.
 
 ## Setup and Installation
 

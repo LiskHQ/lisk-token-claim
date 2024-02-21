@@ -16,10 +16,10 @@ This document states the general requirement of each library in this monorepo.
 ### Requirement for Tree Builder
 
 - Should read all account balances from Lisk Network directly.
-- Should build Merkle Tree and Proof according to accounts gathered from Blockchain.
+- Should build Merkle tree and proofs according to the accounts gathered from the blockchain.
 
 ### Requirement for Claim Backend
 
-- Should response corresponding Merkle Leaf correctly upon request.
+- Should return corresponding Merkle Leaf upon request.
 - Should store partial signatures for multi-signature claims.
 - Should calculate readiness for individual multi-signature account.

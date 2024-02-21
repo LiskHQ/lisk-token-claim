@@ -39,7 +39,7 @@ $ yarn server
 
 ### `/checkEligibility`
 
-It accepts POST request with param lskAddress. If the address has eligible LSK to claim, it will return amount of token (account), proof and, should this address owns any multisig account, it will also be displayed here (multisigAccounts).
+It accepts POST request with param `lskAddress`. If the address is eligible for claiming some LSK, it will return the amount of tokens (account), proof and, should this address match to any public of a multisignature account, it will also be displayed here (multisigAccounts).
 
 For multisig addresses, there is a ready flag to determine if the claim is ready.
 
@@ -58,10 +58,10 @@ curl --location 'http://127.0.0.1:3000/rpc' \
 
 ### `/submitMultisig`
 
-After the user has signed a multisig signature, this API will be called to record the signature to backend DB.
+After the user has signed a claim message for a multisignature account, this API will be called to store the signature at the backend DB.
 
-If this endpoint is submitted by the last signer of the multisig account, the 200 response will show "ready": true.
-In that case the UI could call `/checkEligibility` again to obtain all signatures and submit to smart contract.
+If this endpoint is submitted by the last signer of the multisig account, the 200 response will show `"ready": true`.
+In that case the UI could call `/checkEligibility` again to obtain all signatures and submit the claim transaction.
 
 ```
 curl --location 'http://127.0.0.1:3000/rpc' \

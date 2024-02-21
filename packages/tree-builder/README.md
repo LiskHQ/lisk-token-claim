@@ -1,6 +1,6 @@
 # Tree Builder
 
-This library is a command-line service that builds Merkle Tree from a snapshot and computes Merkle Root.
+This library is a command-line service that builds a Merkle tree from a snapshot and computes the Merkle root.
 
 ## Run
 
