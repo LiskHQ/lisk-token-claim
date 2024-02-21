@@ -4,16 +4,16 @@ This repository is a monorepo for essential non-contract services for the LSK To
 
 ## Table of Contents <!-- omit in toc -->
 
-- [Repositories](#repositories)
+- [Packages](#packages)
   - [Tree Builder](#tree-builder)
   - [Token Claim Backend](#claim-backend)
 - [Setup and Installation](#setup-and-installation)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Repositories
+## Packages
 
-In this monorepo there are currently 2 repositories:
+In this monorepo there are currently 2 packages:
 
 ### [Tree Builder](packages/tree-builder)
 
@@ -40,6 +40,14 @@ $ git clone git@github.com:LiskHQ/lisk-token-claim.git
 ```
 $ yarn && yarn build
 ```
+
+## Documentation
+- [Tech Design](./documentation/Tech_Design_Claims_Process.pdf) - A comprehensive document, including:
+  - Project Background
+  - Requirement of the project
+  - Components of the project 
+  - Technical specification
+  - Design
 
 ## Contributing
 
