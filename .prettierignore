@@ -4,6 +4,7 @@ LICENSE
 mocha.opts
 .DS_Store
 REVISION
+Dockerfile
 
 # rc files
 .*rc
@@ -25,6 +26,7 @@ REVISION
 *.blob
 *.lock
 *.keep
+*.pdf
 
 ## jest snapshot
 *.snap

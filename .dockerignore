@@ -1,0 +1,12 @@
+**/dist
+**/node_modules
+**/README.md
+**/LICENSE
+**/README.md
+**/tsconfig.eslint.json
+**/.eslintrc.json
+**/.mocharc.json
+**/.gitignore
+**/.gitattributes
+
+**/tsconfig.tsbuildinfo

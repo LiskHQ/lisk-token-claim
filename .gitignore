@@ -68,12 +68,15 @@ dist
 # vuepress v2.x temp and cache directory
 .temp
 .cache
+.DS_Store
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
 # Example Accounts and MerkleTree are not committed
 data/example
+data/token-claim
+tmp
 
 # DB is not committed
 postgres
