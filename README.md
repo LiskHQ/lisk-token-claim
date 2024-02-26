@@ -8,6 +8,7 @@ This repository is a monorepo for essential non-contract services for the LSK To
   - [Tree Builder](#tree-builder)
   - [Token Claim Backend](#claim-backend)
 - [Setup and Installation](#setup-and-installation)
+- [Docker](#docker)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -41,11 +42,21 @@ $ git clone git@github.com:LiskHQ/lisk-token-claim.git
 $ yarn && yarn build
 ```
 
+## Docker
+
+Dockerfiles are stored at the [docker](./docker/) folder.
+To build the docker locally,
+
+```
+docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .
+```
+
 ## Documentation
+
 - [Tech Design](./documentation/Tech_Design_Claims_Process.pdf) - A comprehensive document, including:
   - Project Background
   - Requirement of the project
-  - Components of the project 
+  - Components of the project
   - Technical specification
   - Design
 

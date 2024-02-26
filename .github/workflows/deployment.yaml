@@ -1,0 +1,74 @@
+# https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-amazon-elastic-container-service
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+env:
+  S3_BUCKET: lisk-migration-assets
+
+jobs:
+  deployment:
+    name: deployment
+    runs-on: ubuntu-latest
+    environment: development
+    # TODO: use below line to deploy to production when production setup is ready
+    # environment: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+
+      - name: Setup docker image
+        id: docker-image
+        run: |
+          repository=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "repository=$repository" >> $GITHUB_OUTPUT
+          echo "image=${{ steps.login-ecr.outputs.registry }}/$repository:${{ github.sha }}" >> $GITHUB_OUTPUT
+
+      - name: Download merkle tree information
+        run: |
+          aws s3 sync s3://$S3_BUCKET/token-claim/${{ env.NETWORK }} data/token-claim
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        id: docker-build
+        with:
+          context: .
+          file: ./docker/claim-backend/Dockerfile
+          push: true
+          tags: ${{ steps.docker-image.outputs.image }}
+
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK }} --query taskDefinition > task-definition.json
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ github.event.repository.name }}
+          image: ${{ steps.docker-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ secrets.ECS_SERVICE }}
+          cluster: ${{ secrets.ECS_CLUSTER }}
+          wait-for-service-stability: true
