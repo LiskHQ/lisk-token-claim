@@ -39,9 +39,9 @@ $ yarn server
 
 ### `/checkEligibility`
 
-It accepts POST request with param `lskAddress`. If the address is eligible for claiming some LSK, it will return the amount of tokens (account), proof and, should this address match to any public key of a multisignature account, it will also be displayed here (multisigAccounts).
+It accepts POST request with param `lskAddress`. If the address is eligible for claiming some LSK, it will return the amount of tokens (under `account`), proof and, should this address match to any public key of a multisignature account, it will also be displayed here (under `multisigAccounts`).
 
-(signatures) field stores valid signatures of addresses in multiAccounts, which are previously submitted by `/submitMultisig`.
+`signatures` field stores valid signatures of addresses in multiAccounts, which are previously submitted by `/submitMultisig`.
 
 For multisig addresses, there is a ready flag to determine if the claim is ready.
 
