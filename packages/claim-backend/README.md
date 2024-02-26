@@ -1,6 +1,6 @@
 # Claim Backend
 
-This package supplies Leaf details to frontend by providing an endpoint that responds with details necessary for the claim. It also stores partial signatures of claims from multisig addresses. Details of Leaf can be obtained at [Tech Design](../../documentation/Tech_Design_Claims_Process.pdf).
+This package supplies Leaf details to frontend by providing an endpoint that responds with details necessary for the claim. It also stores partial signatures of claims from multisig addresses. Details of Leaf can be obtained from [Tech Design](../../documentation/Tech_Design_Claims_Process.pdf).
 
 ## Additional Requirement
 
@@ -39,9 +39,13 @@ $ yarn server
 
 ### `/checkEligibility`
 
-It accepts POST request with param `lskAddress`. If the address is eligible for claiming some LSK, it will return the amount of tokens (account), proof and, should this address match to any public of a multisignature account, it will also be displayed here (multisigAccounts).
+It accepts POST request with param `lskAddress`. If the address is eligible for claiming some LSK, it will return the amount of tokens (account), proof and, should this address match to any public key of a multisignature account, it will also be displayed here (multisigAccounts).
+
+(signatures) field stores valid signatures of addresses in multiAccounts, which are previously submitted by `/submitMultisig`.
 
 For multisig addresses, there is a ready flag to determine if the claim is ready.
+
+#### Sample Request
 
 ```
 curl --location 'http://127.0.0.1:3000/rpc' \
@@ -56,12 +60,52 @@ curl --location 'http://127.0.0.1:3000/rpc' \
 }'
 ```
 
+#### Sample Response
+
+```
+{
+  "account": {
+    "lskAddress": "lskfcu7z7sch46o67sq24v9h9df2h5o2juvjp3fjj",
+    "address": "0xf0e0e03b63ea54c53b75c244deb75ec756cc7202",
+    "balanceBeddows": "865518296094",
+    "numberOfSignatures": 0,
+    "mandatoryKeys": [],
+    "optionalKeys": [],
+    "hash": "0x99ceb57a2b44f7788e14f147f6bce45b4b59ac778467e4234a090289e4e1be95",
+    "proof": [
+      ...
+    ]
+  },
+  "multisigAccounts": [{
+    "lskAddress": "lskf9t4eho3cayhhp7k5rruu4g7gr8yzo9b6yg4s4",
+    "address": "0xf3669b75881e63de91d45ca50827eefc9f1031a6",
+    "balanceBeddows": "551573764672",
+    "numberOfSignatures": 2,
+    "mandatoryKeys": [
+      "0x83eac294606806e0f4125203e2d0dac5ef1fc8730d5ec12e77e94f823f2262fa"
+    ],
+    "optionalKeys": [
+      "0xc75fd8d6cdb26f53f1fc9d16b5361099ae73907dfbfba112c6dcc94b5afbb600",
+      "0x0824f95c67a1bf7726a928db60d9966ad644d3a50f135d8c2bc7862cf08ea5b1"
+    ],
+    "hash": "0x99ceb57a2b44f7788e14f147f6bce45b4b59ac778467e4234a090289e4e1be95",
+    "proof": [
+        ...
+    ],
+    "ready": false
+  }],
+  "signatures": []
+}
+```
+
 ### `/submitMultisig`
 
 After the user has signed a claim message for a multisignature account, this API will be called to store the signature at the backend DB.
 
 If this endpoint is submitted by the last signer of the multisig account, the 200 response will show `"ready": true`.
 In that case the UI could call `/checkEligibility` again to obtain all signatures and submit the claim transaction.
+
+#### Sample Request
 
 ```
 curl --location 'http://127.0.0.1:3000/rpc' \
@@ -78,4 +122,17 @@ curl --location 'http://127.0.0.1:3000/rpc' \
     },
     "id": 1
 }'
+```
+
+#### Sample Response
+
+```
+{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "success": true,
+      "ready": true
+    }
+}
 ```
