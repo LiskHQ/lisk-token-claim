@@ -1,6 +1,6 @@
 # Claim Backend
 
-This package supplies Leaf details to frontend by providing an endpoint that responds with details necessary for the claim. It also stores partial signatures of claims from multisig addresses. Details of Leaf can be obtained from [Tech Design](../../documentation/Tech_Design_Claims_Process.pdf).
+This package supplies Leaf details to frontend by providing an endpoint that responds with details necessary for the claim. It also stores partial signatures of claims from multisig addresses. Details of Leaf can be obtained from [Tech Design](../../documentation/Tech_Design.md).
 
 ## Additional Requirement
 

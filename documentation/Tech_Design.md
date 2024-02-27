@@ -1,4 +1,34 @@
-# Tech Design
+# Tech Design <!-- omit in toc -->
+
+## Table of Contents <!-- omit in toc -->
+
+- [Background](#background)
+- [Requirement](#requirement)
+- [Component](#component)
+  - [Lisk-db](#lisk-db)
+  - [Lisk-token-claim](#lisk-token-claim)
+    - [Lisk-tree-builder](#lisk-tree-builder)
+    - [Lisk-claim-backend](#lisk-claim-backend)
+  - [Lisk L2 Claim Contract](#lisk-l2-claim-contract)
+  - [Lisk-token](#lisk-token)
+  - [Lisk-portal](#lisk-portal)
+- [Specification](#specification)
+  - [Lisk-tree-builder](#lisk-tree-builder-1)
+  - [Lisk-claim-backend:Endpoint](#lisk-claim-backendendpoint)
+    - [POST `/checkEligibility`](#post-checkeligibility)
+      - [Request](#request)
+      - [Response](#response)
+    - [POST `/submitMultisig`](#post-submitmultisig)
+      - [Request](#request-1)
+      - [Response](#response-1)
+  - [Lisk-claim-backend:DB Schema](#lisk-claim-backenddb-schema)
+- [Design](#design)
+  - [Prepare Stage](#prepare-stage-in-blue)
+  - [Claim Stage](#claim-stage-in-red)
+    - [Regular Account](#regular-account)
+    - [Multisig Account](#multisig-account)
+  - [Completion Stage](#completion-stage-in-green)
+- [Visual Graph of Claim Process](#visual-graph-of-claim-process)
 
 ## Background
 
@@ -24,7 +54,7 @@ Stores all user balance at Lisk Chain. To be used here to generate snapshot for 
 
 A monorepo that stores 2 components, lisk-tree-builder and lisk-claim-backend:
 
-#### [Lisk-tree-builder](<(https://github.com/LiskHQ/lisk-token-claim/tree/main/packages/tree-builder)>)
+#### [Lisk-tree-builder](https://github.com/LiskHQ/lisk-token-claim/tree/main/packages/tree-builder)
 
 A script to generate Merkle Tree during the claim preparation process. It will read db directly to get address balances and multisig information. The result will be passed to Lisk-claim-backend.
 
@@ -70,22 +100,23 @@ After sorting user by address, all users will be placed at the bottom of the tre
 After several operations, there will be 1 top hash left, this hash would be the **MerkleRoot**. For each leaf, the hashes along its way up to the root, are **MerkleProof**.
 
 ![MerkleTree.png](Tech_Design/MerkleTree.png)
+
 Lisk-tree-builder uses [Openzeppelin’s MerkleTree library](https://github.com/OpenZeppelin/merkle-tree) to achieve tree generation mentioned above. After generation of the tree. A JSON file will be output to store the tree for further operation.
 
 After running tree-builder, 3 files will be generated.
 
 |                    | merkle-root.json (For Claim Contract deployment) | merkle-tree-result.json (For testing purpose) | merkle-tree-result-detailed.json (For publication to website) |
-|--------------------|--------------------------------------------------|-----------------------------------------------|---------------------------------------------------------------|
-| merkleRoot         | ✅                                                | ✅                                             | ✅                                                             |
+| ------------------ | ------------------------------------------------ | --------------------------------------------- | ------------------------------------------------------------- |
+| merkleRoot         | ✅                                               | ✅                                            | ✅                                                            |
 | leaves             |                                                  |                                               |                                                               |
-| lskAddress         | ❌                                                | ❌                                             | ✅                                                             |
-| b32Address         | ❌                                                | ✅                                             | ✅ (as address)                                                |
-| balanceBeddows     | ❌                                                | ✅                                             | ✅                                                             |
-| numberOfSignatures | ❌                                                | ✅                                             | ✅                                                             |
-| mandatoryKeys      | ❌                                                | ✅                                             | ✅                                                             |
-| optionalKeys       | ❌                                                | ✅                                             | ✅                                                             |
-| hash               | ❌                                                | ❌                                             | ✅                                                             |
-| proof              | ❌                                                | ✅                                             | ✅                                                             |
+| lskAddress         | ❌                                               | ❌                                            | ✅                                                            |
+| b32Address         | ❌                                               | ✅                                            | ✅ (as address)                                               |
+| balanceBeddows     | ❌                                               | ✅                                            | ✅                                                            |
+| numberOfSignatures | ❌                                               | ✅                                            | ✅                                                            |
+| mandatoryKeys      | ❌                                               | ✅                                            | ✅                                                            |
+| optionalKeys       | ❌                                               | ✅                                            | ✅                                                            |
+| hash               | ❌                                               | ❌                                            | ✅                                                            |
+| proof              | ❌                                               | ✅                                            | ✅                                                            |
 
 ### Lisk-claim-backend:Endpoint
 
@@ -111,6 +142,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
 `signatures` stores signatures that are related to accounts in `multisigAccounts`, and `account` if that is also a multisig address
 
 ##### Request
+
 ```
 {
     "jsonrpc": "2.0",
@@ -123,6 +155,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
 ```
 
 ##### Response
+
 <details>
   <summary>OK (Address is regular account, has eligible LSK to claim, and is not a member of any multisig account)</summary>
 
@@ -153,6 +186,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
         }
     }
 ```
+
 </details>
 <details>
   <summary>OK (Address is a multisig account, has eligible LSK to claim, and is not a member of any multisig account, including itself)</summary>
@@ -187,6 +221,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
   "signatures": []
 }
 ```
+
 </details>
 <details>
   <summary>OK (Address is a multisig account, has eligible LSK to claim, and the address is a member of itself)</summary>
@@ -244,6 +279,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
   "signatures": []
 }
 ```
+
 </details>
 <details>
   <summary>OK (Address has only eligible multisig accounts, i.e. address itself has no LSK balance)</summary>
@@ -286,6 +322,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
   ]
 }
 ```
+
 </details>
 <details>
   <summary>OK (Address has NO eligible LSK to claim, NOR owning any multisig account)</summary>
@@ -301,6 +338,7 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (lskAddress not a valid LSK address)</summary>
@@ -315,9 +353,11 @@ For multisig addresses, there is a `ready` flag to determine if the claim is rea
     }
 }
 ```
+
 </details>
 
 ---
+
 #### POST `/submitMultisig`
 
 After the user has signed a multisig signature, this API will be called to record the signature to backend DB.
@@ -325,6 +365,7 @@ After the user has signed a multisig signature, this API will be called to recor
 If this endpoint is submitted by the last signer of the multisig account, the 200 response will show `"ready": true`. In that case the UI could call `/checkEligibility` again to obtain all signatures and submit to smart contract.
 
 ##### Request
+
 ```
 {
     "jsonrpc": "2.0",
@@ -341,6 +382,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
 ```
 
 ##### Response
+
 <details>
   <summary>OK (Number of signatures has not reached)</summary>
 
@@ -354,6 +396,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>OK (Number of signatures has been reached)</summary>
@@ -368,6 +411,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (The requested signature has been signed)</summary>
@@ -382,6 +426,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (Destination address is not in ETH format)</summary>
@@ -396,6 +441,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (lskAddress not valid, not a multisig address, or does not have eligible token to claim)</summary>
@@ -410,6 +456,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (PublicKey not part of Multisig address)</summary>
@@ -424,10 +471,10 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (Invalid Signature)
-
 
 </summary>
 
@@ -441,6 +488,7 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 <details>
   <summary>Error (Exceeds numberOfSignatures)</summary>
@@ -455,25 +503,29 @@ If this endpoint is submitted by the last signer of the multisig account, the 20
     }
 }
 ```
+
 </details>
 
 ### Lisk-claim-backend:DB Schema
+
 PostgreSQL DB will be used to store signatures submitted by multisig key holders. Currently there is one table: **Signatures**
 
-| **Signatures**         |                                                                                      |
-|------------------------|--------------------------------------------------------------------------------------|
-| **Column**             | **Description**                                                                      |
-| lskAddress             | LSK Address of Multisig Account                                                      |
-| destination            | Target L2 ETH Address to claim the tokens                                            |
-| signer                 | Public Key of the signer, should match one of the  `mandatoryKeys` or `optionalKeys` |
-| isOptional             | A flag to show if the above signer is belongs to  `optionalKeys`                     |
-| r                      | r-component of the signature                                                         |
-| s                      | s-component of the signature                                                         |
-| **Indexes**            |                                                                                      |
-| lskAddress,destination | Only one  `lskAddress-destination`  combination allowed                              |
+| **Signatures**         |                                                                                     |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| **Column**             | **Description**                                                                     |
+| lskAddress             | LSK Address of Multisig Account                                                     |
+| destination            | Target L2 ETH Address to claim the tokens                                           |
+| signer                 | Public Key of the signer, should match one of the `mandatoryKeys` or `optionalKeys` |
+| isOptional             | A flag to show if the above signer is belongs to `optionalKeys`                     |
+| r                      | r-component of the signature                                                        |
+| s                      | s-component of the signature                                                        |
+| **Indexes**            |                                                                                     |
+| lskAddress,destination | Only one `lskAddress-destination` combination allowed                               |
 
 ## Design
+
 ### Prepare Stage (In Blue)
+
 1. Retrieve list of address and balance in key-value pair from Lisk Chain, aka snapshot
 2. Prepare Merkle Tree and generate root and proof using snapshot
 3. Set up LSK Claim Backend (Server), which stores Merkle data and balances upon request
@@ -481,7 +533,9 @@ PostgreSQL DB will be used to store signatures submitted by multisig key holders
 5. Send sufficient LSK Token to LSK Claim Contract
 
 ### Claim Stage (In Red)
+
 #### Regular Account
+
 1. User access to Lisk Portal
 2. User enquiries eligibility from Server by submitting LSK Address
 3. Server returns claim amount (if any) with array of proof
@@ -491,6 +545,7 @@ PostgreSQL DB will be used to store signatures submitted by multisig key holders
 7. Eligible amount are sent to user address
 
 #### Multisig Account
+
 1. User access to Lisk Portal
 2. User enquires eligibility from Server by submitting signer LSK Address
 3. Server returns claim amount (if any) with array of proof, and array of signatures.
@@ -502,8 +557,10 @@ PostgreSQL DB will be used to store signatures submitted by multisig key holders
 9. Eligible amount are sent to destination address
 
 ### Completion Stage (In Green)
+
 1. Admin of the contract could, after a pre-defined period of time, recover all unclaimed LSK
 2. All unclaimed LSK are sent to admin address
 
 ## Visual Graph of Claim Process
+
 ![VisualGraph.png](Tech_Design%2FVisualGraph.png)
