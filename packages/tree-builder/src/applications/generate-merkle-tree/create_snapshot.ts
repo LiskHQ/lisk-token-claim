@@ -46,7 +46,9 @@ async function iterate(
 ) {
 	let start = Buffer.alloc(ADDRESS_LENGTH, 0);
 	let lastProcessedAddress: Buffer;
-	do {
+
+	// eslint-disable-next-line no-constant-condition
+	while (true) {
 		const stream = rdb.iterate({
 			gte: Buffer.concat([prefixBuffer, start, postfixBuffer]),
 			lte: Buffer.concat([prefixBuffer, Buffer.alloc(ADDRESS_LENGTH, 255), postfixBuffer]),
@@ -74,7 +76,7 @@ async function iterate(
 			break;
 		}
 		start = incrementBufferWithOverflow(lastProcessedAddress);
-	} while (lastProcessedAddress);
+	}
 }
 
 export async function createSnapshot(db: StateDB, tokenId: Buffer): Promise<Account[]> {
