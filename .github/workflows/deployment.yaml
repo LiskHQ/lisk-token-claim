@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - development
+      - fix-docker
 
 env:
   S3_BUCKET: lisk-migration-assets
@@ -42,7 +43,7 @@ jobs:
 
       - name: Download merkle tree information
         run: |
-          aws s3 sync s3://$S3_BUCKET/token-claim/${{ env.NETWORK }} data/token-claim
+          aws s3 sync s3://$S3_BUCKET/token-claim/${{ vars.NETWORK }} data/token-claim
 
       - name: Build and push
         uses: docker/build-push-action@v5

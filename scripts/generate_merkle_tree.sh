@@ -1,11 +1,12 @@
 #!/bin/bash
 
+S3_BUCKET_NAME="lisk-migration-assets"
 FOLDER_NAME="token-claim"
 NETWORK="testnet"
 OUTPUT_DIR="./data/$FOLDER_NAME"
 SNAPSHOT_URL="https://snapshots.lisk.com/$NETWORK/blockchain.db.tar.gz"
 
-if $NETWORK = "mainnet"; then
+if [ "$NETWORK" = "mainnet" ]; then
     TOKEN_ID="0000000000000000"
 else
     TOKEN_ID="0100000000000000"
