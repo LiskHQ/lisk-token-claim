@@ -18,15 +18,16 @@ describe('GenerateAirdropMerkleTree', () => {
 	let sandbox: SinonSandbox;
 	let applyAirdropStub: SinonStub;
 
-	const cutOff = BigInt(50);
-	const whaleCap = BigInt(250000);
-	const airdropPercent = BigInt(10);
+	// Figures differ from default are used to validate configurability
+	const cutOff = lskToBeddows(100);
+	const whaleCap = lskToBeddows(500000);
+	const airdropPercent = BigInt(15);
 	const excludedAddresses = ['foobar'];
 
 	const pubKeyHash = utils.getRandomBytes(20);
 	const account = {
 		lskAddress: address.getLisk32AddressFromAddress(pubKeyHash),
-		balanceBeddows: lskToBeddows(BigInt(Math.floor(Math.random() * 100)) + cutOff),
+		balanceBeddows: lskToBeddows(Math.floor(Math.random() * 100)) + cutOff,
 	};
 
 	beforeEach(async () => {
@@ -126,6 +127,9 @@ describe('GenerateAirdropMerkleTree', () => {
 			'generate-airdrop-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
+			`--cutoff=${cutOff}`,
+			`--whale-cap=${whaleCap}`,
+			`--airdrop-percent=${airdropPercent}`,
 			`--excluded-addresses-path=${dataPath}/excluded-address`,
 		])
 		.it('should call applyAirdrop with correct params', ctx => {

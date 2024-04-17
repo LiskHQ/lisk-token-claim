@@ -26,7 +26,7 @@ describe('generateAirdropMerkleTree', () => {
 				},
 				{
 					lskAddress: 'address-below-cutoff',
-					balanceBeddows: (cutOff - 1n).toString(),
+					balanceBeddows: (cutOff - BigInt(1)).toString(),
 				},
 				{
 					lskAddress: 'address1',
@@ -34,7 +34,7 @@ describe('generateAirdropMerkleTree', () => {
 				},
 				{
 					lskAddress: 'address-above-whale-cap',
-					balanceBeddows: (whaleCap + 1n).toString(),
+					balanceBeddows: (whaleCap + BigInt(1)).toString(),
 				},
 				{
 					lskAddress: 'address-excluded',
@@ -67,7 +67,7 @@ describe('generateAirdropMerkleTree', () => {
 				expect(findAccountByAddress(accountsAfterApplyAirdrop, address).balanceBeddows).to.eq(
 					(
 						(BigInt(findAccountByAddress(accounts, address).balanceBeddows) * airdropPercent) /
-						100n
+						BigInt(100)
 					).toString(),
 				);
 			}
