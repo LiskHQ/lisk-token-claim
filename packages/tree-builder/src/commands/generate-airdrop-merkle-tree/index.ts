@@ -7,7 +7,7 @@ import { createSnapshot } from '../../applications/generate-merkle-tree/create_s
 import { applyAirdrop } from '../../applications/generate-airdrop-merkle-tree';
 import { lskToBeddows } from '../../utils';
 
-export default class GenerateMerkleTree extends Command {
+export default class GenerateAirdropMerkleTree extends Command {
 	static description = 'Generate Airdrop Merkle Tree from blockchain data';
 
 	static examples = [
@@ -34,17 +34,17 @@ export default class GenerateMerkleTree extends Command {
 			default: '0000000000000000',
 		}),
 		cutoff: Flags.string({
-			description: 'Minimal amount of LSK required to participate in the migration airdrop.',
+			description: 'Minimal amount of LSK required to participate in the migration airdrop',
 			default: '50',
 		}),
 		'whale-cap': Flags.string({
 			description:
-				'Cap on the LSK amount of a single Lisk v4 account to be used for the airdrop computation.',
+				'Cap on the LSK amount of a single Lisk v4 account to be used for the airdrop computation',
 			default: '250000',
 		}),
 		'airdrop-percent': Flags.string({
 			description:
-				'The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied.',
+				'The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied',
 			default: '10',
 		}),
 		'excluded-addresses-path': Flags.string({
@@ -53,7 +53,7 @@ export default class GenerateMerkleTree extends Command {
 	};
 
 	async run(): Promise<void> {
-		const { flags } = await this.parse(GenerateMerkleTree);
+		const { flags } = await this.parse(GenerateAirdropMerkleTree);
 		const {
 			'db-path': dbPath,
 			'token-id': tokenId,
@@ -104,10 +104,10 @@ export default class GenerateMerkleTree extends Command {
 			const accountJSONPath = path.join(outputPath, 'accounts.json');
 			fs.writeFileSync(accountJSONPath, JSON.stringify(airdropAccounts, null, 4), 'utf-8');
 			this.log('Account snapshot outputted to:', accountJSONPath);
-			this.log(`Success running GenerateMerkleTree`);
+			this.log(`Success running GenerateAirdropMerkleTree`);
 		} catch (err: unknown) {
 			if (err instanceof Error) {
-				this.log('Error Generating Merkle Tree:', err.message);
+				this.log('Error Generating Airdrop Merkle Tree:', err.message);
 			}
 		} finally {
 			rdb.close();
