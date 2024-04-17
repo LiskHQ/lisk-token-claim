@@ -34,3 +34,7 @@ export function getTotalBalance(balance: UserBalance): bigint {
 export function randomBalanceBeddows(maxBytes = 8): string {
 	return BigInt(append0x(utils.getRandomBytes(maxBytes))).toString();
 }
+
+export const lskToBeddows = (lskAmount: number | bigint | string): bigint => {
+	return BigInt(lskAmount) * BigInt(10 ** 8);
+};

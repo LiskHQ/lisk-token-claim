@@ -35,3 +35,6 @@ dist/
 
 # env example files
 *.env.example
+
+# Excluded Addresses
+data/mainnet/excluded-addresses
