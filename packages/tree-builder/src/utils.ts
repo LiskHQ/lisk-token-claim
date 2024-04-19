@@ -38,3 +38,7 @@ export function randomBalanceBeddows(maxBytes = 8): string {
 export const lskToBeddows = (lskAmount: number | bigint | string): bigint => {
 	return BigInt(lskAmount) * BigInt(10 ** 8);
 };
+
+export const beddowsToWei = (beddowsAmount: number | bigint | string): bigint => {
+	return BigInt(beddowsAmount) * BigInt(10 ** 10);
+};

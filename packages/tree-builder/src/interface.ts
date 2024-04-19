@@ -32,6 +32,11 @@ export interface Leaf {
 	proof: string[];
 }
 
+export type LeafWithoutMultisig = Omit<
+	Leaf,
+	'numberOfSignatures' | 'mandatoryKeys' | 'optionalKeys'
+>;
+
 export interface MerkleTree {
 	merkleRoot: string;
 	leaves: Leaf[];

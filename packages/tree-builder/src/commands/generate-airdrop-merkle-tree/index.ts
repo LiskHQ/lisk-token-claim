@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { Command, Flags } from '@oclif/core';
 import { StateDB } from '@liskhq/lisk-db';
-import { buildTreeJson } from '../../applications/generate-merkle-tree/build_tree_json';
+import { buildAirdropTreeJson } from '../../applications/generate-airdrop-merkle-tree/build_airdrop_tree_json';
 import { createSnapshot } from '../../applications/generate-merkle-tree/create_snapshot';
 import { applyAirdrop } from '../../applications/generate-airdrop-merkle-tree';
 import { lskToBeddows } from '../../utils';
@@ -99,7 +99,7 @@ export default class GenerateAirdropMerkleTree extends Command {
 				excludedAddresses,
 			);
 
-			await buildTreeJson(outputPath, airdropAccounts);
+			await buildAirdropTreeJson(outputPath, airdropAccounts);
 
 			const accountJSONPath = path.join(outputPath, 'accounts.json');
 			fs.writeFileSync(accountJSONPath, JSON.stringify(airdropAccounts, null, 4), 'utf-8');

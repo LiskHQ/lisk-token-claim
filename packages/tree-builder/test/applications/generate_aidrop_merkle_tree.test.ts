@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { applyAirdrop } from '../../src/applications/generate-airdrop-merkle-tree';
 import { Account } from '../../src/interface';
-import { lskToBeddows } from '../../src/utils';
+import { beddowsToWei, lskToBeddows } from '../../src/utils';
 
 const findAccountByAddress = (accounts: Account[], address: string) => {
 	const account = accounts.find(account => account.lskAddress === address);
@@ -57,17 +57,18 @@ describe('generateAirdropMerkleTree', () => {
 			// Expect `address-below-cutoff` and `address-excluded` removed
 			expect(accountsAfterApplyAirdrop.length).to.eq(accounts.length - 2);
 
-			// Expect `address-above-whale-cap` being capped at (whale-cap * percent / 100)
+			// Expect `address-above-whale-cap` being capped at (whale-cap * percent / 100), then applies `beddowsToWei`
 			expect(
 				findAccountByAddress(accountsAfterApplyAirdrop, 'address-above-whale-cap').balanceBeddows,
-			).to.eq(((whaleCap * airdropPercent) / BigInt(100)).toString());
+			).to.eq((beddowsToWei(whaleCap * airdropPercent) / BigInt(100)).toString());
 
-			// Expect other balances = balance * percent / 100
+			// Expect other balances = beddowsToWei * balance * percent / 100
 			for (const address of ['address0', 'address1', 'address2']) {
 				expect(findAccountByAddress(accountsAfterApplyAirdrop, address).balanceBeddows).to.eq(
 					(
-						(BigInt(findAccountByAddress(accounts, address).balanceBeddows) * airdropPercent) /
-						BigInt(100)
+						beddowsToWei(
+							BigInt(findAccountByAddress(accounts, address).balanceBeddows) * airdropPercent,
+						) / BigInt(100)
 					).toString(),
 				);
 			}
