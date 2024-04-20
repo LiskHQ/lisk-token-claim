@@ -1,4 +1,4 @@
-import { Leaf, Signature } from '../src/interface';
+import { AirdropLeaf, Leaf, Signature } from '../src/interface';
 import { address, utils } from '@liskhq/lisk-cryptography';
 import { append0x } from '../src/utils';
 import { ethers } from 'ethers';
@@ -23,6 +23,17 @@ export const buildMockLeaf = (leaf: Partial<Leaf>): Leaf => {
 		numberOfSignatures: leaf.numberOfSignatures ?? 0,
 		mandatoryKeys: leaf.mandatoryKeys ?? [],
 		optionalKeys: leaf.optionalKeys ?? [],
+		hash: leaf.hash ?? randomHash(),
+		proof: leaf.proof ?? [randomHash()],
+	};
+};
+
+export const buildMockAirdropLeaf = (leaf: Partial<AirdropLeaf>): AirdropLeaf => {
+	const publicKey = randomPublicKeyBuffer();
+	return {
+		lskAddress: leaf.lskAddress ?? address.getLisk32AddressFromPublicKey(publicKey),
+		address: leaf.address ?? '0x' + address.getAddressFromPublicKey(publicKey).toString('hex'),
+		balanceWei: leaf.balanceWei ?? Math.floor(Math.random() * 10000).toString(),
 		hash: leaf.hash ?? randomHash(),
 		proof: leaf.proof ?? [randomHash()],
 	};

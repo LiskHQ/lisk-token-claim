@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import { checkAirdropEligibility } from '../../src/controllers/check-airdrop-eligibility';
 import * as LeafMap from '../../src/utils/leaf-map';
 import { ErrorCode } from '../../src/utils/error';
-import { randomLskAddress } from '../utils';
+import { buildMockAirdropLeaf, randomLskAddress } from '../utils';
 
 describe('checkAirdropEligibility', () => {
 	let getLeafMapStub: sinon.SinonStub;
@@ -30,13 +30,10 @@ describe('checkAirdropEligibility', () => {
 	});
 
 	it('should return success and leaf details for eligible address', () => {
-		const lskAddress = randomLskAddress();
-		const leaf = {
-			lskAddress,
-			balanceWei: '123456',
-		};
+		const leaf = buildMockAirdropLeaf({});
 		getLeafMapStub.returns(leaf);
-		const result = checkAirdropEligibility({ lskAddress });
+
+		const result = checkAirdropEligibility({ lskAddress: leaf.lskAddress });
 		expect(result).to.deep.equal({
 			account: leaf,
 		});
