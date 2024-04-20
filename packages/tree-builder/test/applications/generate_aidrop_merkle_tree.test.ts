@@ -62,19 +62,15 @@ describe('generateAirdropMerkleTree', () => {
 
 			// Expect `address-above-whale-cap` being capped at (whale-cap * percent / 100), then applies `beddowsToWei`
 			expect(
-				findAccountByAddress(accountsAfterApplyAirdrop, 'address-above-whale-cap')
-					.balanceWei,
+				findAccountByAddress(accountsAfterApplyAirdrop, 'address-above-whale-cap').balanceWei,
 			).to.eq((beddowsToWei(whaleCap * airdropPercent) / BigInt(100)).toString());
 
 			// Expect other balances = beddowsToWei * balance * percent / 100
 			for (const address of ['address0', 'address1', 'address2']) {
-				expect(
-					findAccountByAddress(accountsAfterApplyAirdrop, address).balanceWei,
-				).to.eq(
+				expect(findAccountByAddress(accountsAfterApplyAirdrop, address).balanceWei).to.eq(
 					(
 						beddowsToWei(
-							BigInt(findAccountByAddress(accounts, address).balanceBeddows) *
-								airdropPercent,
+							BigInt(findAccountByAddress(accounts, address).balanceBeddows) * airdropPercent,
 						) / BigInt(100)
 					).toString(),
 				);
