@@ -1,4 +1,4 @@
-import { Leaf } from '../interface';
+import { AirdropLeaf, Leaf } from '../interface';
 import { address } from '@liskhq/lisk-cryptography';
 import { remove0x } from './index';
 import { fileExists, readJson } from './fs-helper';
@@ -11,12 +11,20 @@ const multisigMap: {
 	[lskAddress: string]: Leaf[];
 } = {};
 
+const airdropLeafMap: {
+	[lskAddress: string]: AirdropLeaf;
+} = {};
+
 export function getLeafMap(lskAddress: string): Leaf | null {
 	return leafMap[lskAddress] ?? null;
 }
 
 export function getMultisigMap(lskAddress: string): Leaf[] {
 	return multisigMap[lskAddress] ?? [];
+}
+
+export function getAirdropLeafMap(lskAddress: string): AirdropLeaf | null {
+	return airdropLeafMap[lskAddress] ?? null;
 }
 
 export function loadMerkleTree() {
@@ -43,4 +51,21 @@ export function loadMerkleTree() {
 
 	console.log(`LeafMap: ${Object.keys(leafMap).length} Leaves loaded`);
 	console.log(`MultisigMap: ${Object.keys(multisigMap).length} Multisig Account Holders loaded`);
+}
+
+export function loadAirdropMerkleTree() {
+	const airdropMerkleTreePath = process.env.AIRDROP_MERKLE_TREE_PATH;
+	if (!airdropMerkleTreePath || !fileExists(airdropMerkleTreePath)) {
+		throw new Error(
+			`AIRDROP_MERKLE_TREE_PATH is invalid or does not exist: ${airdropMerkleTreePath}`,
+		);
+	}
+	console.log(`Loading Airdrop Merkle Tree: ${airdropMerkleTreePath}`);
+
+	const { leaves } = readJson(airdropMerkleTreePath);
+	for (const leaf of leaves) {
+		airdropLeafMap[leaf.lskAddress] = leaf;
+	}
+
+	console.log(`AirdropLeafMap: ${Object.keys(airdropLeafMap).length} Leaves loaded`);
 }

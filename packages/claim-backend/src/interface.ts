@@ -24,3 +24,11 @@ export interface Signature {
 	r: string;
 	s: string;
 }
+
+export interface AirdropLeaf {
+	lskAddress: string;
+	address: string;
+	balanceWei: string;
+	hash: string;
+	proof: string[];
+}
