@@ -5,7 +5,7 @@ import { StateDB } from '@liskhq/lisk-db';
 import { buildAirdropTreeJson } from '../../applications/generate-airdrop-merkle-tree/build_airdrop_tree_json';
 import { createSnapshot } from '../../applications/generate-merkle-tree/create_snapshot';
 import { applyAirdrop } from '../../applications/generate-airdrop-merkle-tree';
-import { lskToBeddows } from '../../utils';
+import { lskToBeddows, readExcludedAddresses } from '../../utils';
 
 export default class GenerateAirdropMerkleTree extends Command {
 	static description = 'Generate Airdrop Merkle Tree from blockchain data';
@@ -80,9 +80,7 @@ export default class GenerateAirdropMerkleTree extends Command {
 			}
 
 			// Apply Airdrop Rules
-			const excludedAddresses = excludedAddressesPath
-				? fs.readFileSync(excludedAddressesPath, 'utf-8').split('\n')
-				: [];
+			const excludedAddresses = readExcludedAddresses(excludedAddressesPath);
 			this.log(`Cutoff: ${cutOff} LSK`);
 			this.log(`Whale Cap: ${whaleCap} LSK`);
 			this.log(`Airdrop %: ${airdropPercent} %`);

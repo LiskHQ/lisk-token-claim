@@ -1,20 +1,17 @@
 import { address } from '@liskhq/lisk-cryptography';
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { ux } from '@oclif/core';
-import { Account, LeafWithoutMultisig } from '../../interface';
+import { AirdropAccount, AirdropLeaf } from '../../interface';
 import { AIRDROP_LEAF_ENCODING } from '../../constants';
 import { append0x } from '../../utils';
 
-export function createPayload(account: Account) {
-	return [
-		append0x(address.getAddressFromLisk32Address(account.lskAddress)),
-		account.balanceBeddows,
-	];
+export function createPayload(account: AirdropAccount) {
+	return [append0x(address.getAddressFromLisk32Address(account.lskAddress)), account.balanceWei];
 }
 
-export function buildAirdropTree(accounts: Account[]): {
+export function buildAirdropTree(accounts: AirdropAccount[]): {
 	tree: StandardMerkleTree<(string | number | Buffer | string[])[]>;
-	leaves: LeafWithoutMultisig[];
+	leaves: AirdropLeaf[];
 } {
 	// Check that addresses are sorted
 	for (const [index, account] of accounts.entries()) {
@@ -33,7 +30,7 @@ export function buildAirdropTree(accounts: Account[]): {
 
 	ux.log(`${accounts.length} Accounts to generate:`);
 
-	const leaves: LeafWithoutMultisig[] = [];
+	const leaves: AirdropLeaf[] = [];
 	const tree = StandardMerkleTree.of(
 		accounts.map(account => {
 			return createPayload(account);
@@ -48,7 +45,7 @@ export function buildAirdropTree(accounts: Account[]): {
 		leaves.push({
 			lskAddress: account.lskAddress,
 			address: append0x(addressHex.toString('hex')),
-			balanceBeddows: account.balanceBeddows,
+			balanceWei: account.balanceWei,
 			hash: tree.leafHash(payload),
 			proof: tree.getProof(payload),
 		});

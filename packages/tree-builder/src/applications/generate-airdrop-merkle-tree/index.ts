@@ -1,4 +1,4 @@
-import { Account } from '../../interface';
+import { Account, AirdropAccount } from '../../interface';
 import { beddowsToWei } from '../../utils';
 
 export const applyAirdrop = (
@@ -7,8 +7,8 @@ export const applyAirdrop = (
 	whaleCap: bigint,
 	percent: bigint,
 	excludedAddresses: string[] = [],
-): Account[] => {
-	return accounts.reduce((acc: Account[], account: Account) => {
+): AirdropAccount[] => {
+	return accounts.reduce((acc: AirdropAccount[], account: Account) => {
 		const balanceBeddows = BigInt(account.balanceBeddows);
 		if (balanceBeddows < cutOff) {
 			return acc;
@@ -20,7 +20,7 @@ export const applyAirdrop = (
 
 		acc.push({
 			lskAddress: account.lskAddress,
-			balanceBeddows: beddowsToWei((newBalanceBeddows * percent) / BigInt(100)).toString(),
+			balanceWei: beddowsToWei((newBalanceBeddows * percent) / BigInt(100)).toString(),
 		});
 		return acc;
 	}, []);

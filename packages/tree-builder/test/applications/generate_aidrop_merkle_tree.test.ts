@@ -3,7 +3,10 @@ import { applyAirdrop } from '../../src/applications/generate-airdrop-merkle-tre
 import { Account } from '../../src/interface';
 import { beddowsToWei, lskToBeddows } from '../../src/utils';
 
-const findAccountByAddress = (accounts: Account[], address: string) => {
+const findAccountByAddress = <T extends { lskAddress: string }>(
+	accounts: T[],
+	address: string,
+): T => {
 	const account = accounts.find(account => account.lskAddress === address);
 	if (!account) {
 		throw 'Account Not Found';
@@ -59,15 +62,19 @@ describe('generateAirdropMerkleTree', () => {
 
 			// Expect `address-above-whale-cap` being capped at (whale-cap * percent / 100), then applies `beddowsToWei`
 			expect(
-				findAccountByAddress(accountsAfterApplyAirdrop, 'address-above-whale-cap').balanceBeddows,
+				findAccountByAddress(accountsAfterApplyAirdrop, 'address-above-whale-cap')
+					.balanceWei,
 			).to.eq((beddowsToWei(whaleCap * airdropPercent) / BigInt(100)).toString());
 
 			// Expect other balances = beddowsToWei * balance * percent / 100
 			for (const address of ['address0', 'address1', 'address2']) {
-				expect(findAccountByAddress(accountsAfterApplyAirdrop, address).balanceBeddows).to.eq(
+				expect(
+					findAccountByAddress(accountsAfterApplyAirdrop, address).balanceWei,
+				).to.eq(
 					(
 						beddowsToWei(
-							BigInt(findAccountByAddress(accounts, address).balanceBeddows) * airdropPercent,
+							BigInt(findAccountByAddress(accounts, address).balanceBeddows) *
+								airdropPercent,
 						) / BigInt(100)
 					).toString(),
 				);

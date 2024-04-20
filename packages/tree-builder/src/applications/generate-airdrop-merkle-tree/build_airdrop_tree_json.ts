@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ux } from '@oclif/core';
-import { Account } from '../../interface';
+import { AirdropAccount } from '../../interface';
 import { buildAirdropTree } from './build_airdrop_tree';
 
-export async function buildAirdropTreeJson(outputPath: string, accounts: Account[]) {
+export async function buildAirdropTreeJson(outputPath: string, accounts: AirdropAccount[]) {
 	const { tree, leaves } = buildAirdropTree(accounts);
 
 	const merkleTreeResultDetailedJSONPath = path.join(
@@ -33,7 +33,7 @@ export async function buildAirdropTreeJson(outputPath: string, accounts: Account
 				merkleRoot: tree.root,
 				leaves: leaves.map(leaf => ({
 					b32Address: leaf.address,
-					balanceBeddows: leaf.balanceBeddows,
+					balanceWei: leaf.balanceWei,
 					proof: leaf.proof,
 				})),
 			},

@@ -22,7 +22,7 @@ describe('GenerateAirdropMerkleTree', () => {
 	const cutOff = lskToBeddows(100);
 	const whaleCap = lskToBeddows(500000);
 	const airdropPercent = BigInt(15);
-	const excludedAddresses = ['foobar'];
+	const excludedAddresses = [address.getLisk32AddressFromPublicKey(utils.getRandomBytes(32))];
 
 	const pubKeyHash = utils.getRandomBytes(20);
 	const account = {
@@ -132,8 +132,7 @@ describe('GenerateAirdropMerkleTree', () => {
 			`--airdrop-percent=${airdropPercent}`,
 			`--excluded-addresses-path=${dataPath}/excluded-address`,
 		])
-		.it('should call applyAirdrop with correct params', ctx => {
-			console.log(ctx.stdout);
+		.it('should call applyAirdrop with correct params', () => {
 			expect(
 				applyAirdropStub.calledWith(
 					[

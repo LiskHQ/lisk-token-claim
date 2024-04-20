@@ -21,6 +21,11 @@ export interface Account {
 	optionalKeys?: string[];
 }
 
+export interface AirdropAccount {
+	lskAddress: string;
+	balanceWei: string;
+}
+
 export interface Leaf {
 	lskAddress: string;
 	address: string;
@@ -32,10 +37,13 @@ export interface Leaf {
 	proof: string[];
 }
 
-export type LeafWithoutMultisig = Omit<
-	Leaf,
-	'numberOfSignatures' | 'mandatoryKeys' | 'optionalKeys'
->;
+export interface AirdropLeaf {
+	lskAddress: string;
+	address: string;
+	balanceWei: string;
+	hash: string;
+	proof: string[];
+}
 
 export interface MerkleTree {
 	merkleRoot: string;

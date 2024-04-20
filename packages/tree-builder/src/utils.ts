@@ -1,4 +1,7 @@
-import { utils } from '@liskhq/lisk-cryptography';
+import * as os from 'os';
+import * as path from 'path';
+import * as fs from 'fs';
+import { address, utils } from '@liskhq/lisk-cryptography';
 import { UserBalance } from './interface';
 
 export function append0x(input: string | Buffer): string {
@@ -42,3 +45,20 @@ export const lskToBeddows = (lskAmount: number | bigint | string): bigint => {
 export const beddowsToWei = (beddowsAmount: number | bigint | string): bigint => {
 	return BigInt(beddowsAmount) * BigInt(10 ** 10);
 };
+
+export function readExcludedAddresses(excludedAddressesPath: string | undefined): string[] {
+	if (excludedAddressesPath === undefined) {
+		return [];
+	}
+	const resolvedPath = path.resolve(excludedAddressesPath.replace('~', os.homedir()));
+	if (!fs.existsSync(resolvedPath)) {
+		throw new Error(`${resolvedPath} does not exist`);
+	}
+
+	const excludedAddresses = fs.readFileSync(resolvedPath, 'utf-8').split('\n');
+
+	for (const excludedAddress of excludedAddresses) {
+		address.validateLisk32Address(excludedAddress);
+	}
+	return excludedAddresses;
+}
