@@ -1,7 +1,7 @@
 import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
-import { address, utils } from '@liskhq/lisk-cryptography';
+import { utils, address as cryptoAddress } from '@liskhq/lisk-cryptography';
 import { UserBalance } from './interface';
 
 export function append0x(input: string | Buffer): string {
@@ -55,10 +55,10 @@ export function readExcludedAddresses(excludedAddressesPath: string | undefined)
 		throw new Error(`${resolvedPath} does not exist`);
 	}
 
-	const excludedAddresses = fs.readFileSync(resolvedPath, 'utf-8').split('\n');
+	const addresses = fs.readFileSync(resolvedPath, 'utf-8').split('\n').filter(String);
 
-	for (const excludedAddress of excludedAddresses) {
-		address.validateLisk32Address(excludedAddress);
+	for (const address of addresses) {
+		cryptoAddress.validateLisk32Address(address);
 	}
-	return excludedAddresses;
+	return addresses;
 }
