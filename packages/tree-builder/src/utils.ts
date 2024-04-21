@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
-=======
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
->>>>>>> 40a13c9 (feat: add address exclusion handling)
 import { utils, address as cryptoAddress } from '@liskhq/lisk-cryptography';
 import { UserBalance } from './interface';
 

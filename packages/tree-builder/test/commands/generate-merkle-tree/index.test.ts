@@ -133,10 +133,7 @@ describe('GenerateMerkleTree', () => {
 			writer.close();
 			db.close();
 
-			fs.appendFileSync(
-				excludedAddressesPath,
-				address.getLisk32AddressFromAddress(excludedAddress),
-			);
+			fs.writeFileSync(excludedAddressesPath, address.getLisk32AddressFromAddress(excludedAddress));
 		})
 		.command([
 			'generate-merkle-tree',
