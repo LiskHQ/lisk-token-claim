@@ -8,6 +8,11 @@ import { computeStorePrefix } from './utils';
 // OPTIONAL_KEYS: bytes32[]
 export const LEAF_ENCODING = ['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes32[]'];
 
+// Each leaf will be encoded in the following order:
+// LSK_ADDRESS_IN_HEX: bytes20
+// BALANCE_IN_WEI: uint256
+export const AIRDROP_LEAF_ENCODING = ['bytes20', 'uint256'];
+
 // moduleName = "token", substore prefix = "0x00"
 export const TOKEN_PREFIX = Buffer.concat([computeStorePrefix('token'), Buffer.alloc(2, 0)]);
 
