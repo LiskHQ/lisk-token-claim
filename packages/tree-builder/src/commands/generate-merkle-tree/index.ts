@@ -81,7 +81,7 @@ export default class GenerateMerkleTree extends Command {
 			const accountJSONPath = path.join(outputPath, 'accounts.json');
 			fs.writeFileSync(accountJSONPath, JSON.stringify(includedAccounts), 'utf-8');
 
-			const exceptionAccountJSONPath = path.join(outputPath, 'excluded_accounts.json');
+			const exceptionAccountJSONPath = path.join(outputPath, 'excluded-accounts.json');
 			fs.writeFileSync(exceptionAccountJSONPath, JSON.stringify(excludedAccounts), 'utf-8');
 
 			this.log('Account snapshot outputted to:', accountJSONPath);

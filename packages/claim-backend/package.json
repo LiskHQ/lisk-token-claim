@@ -22,7 +22,7 @@
 		"node": ">=18.0.0"
 	},
 	"scripts": {
-		"build": "shx rm -rf dist && tsc -b",
+		"build": "shx rm -rf dist tsconfig.tsbuildinfo && tsc -b",
 		"test": "mocha --forbid-only \"test/**/*.test.ts\"",
 		"dev": "ts-node ./src/index.ts",
 		"server": "node ./dist/index.js"

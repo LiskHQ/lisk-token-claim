@@ -25,7 +25,7 @@
 		"node": ">=18.0.0"
 	},
 	"scripts": {
-		"build": "shx rm -rf dist && tsc -b",
+		"build": "shx rm -rf dist tsconfig.tsbuildinfo && tsc -b",
 		"postpack": "shx rm -f oclif.manifest.json",
 		"prepack": "yarn build && oclif manifest && oclif readme",
 		"prepare": "yarn build",
