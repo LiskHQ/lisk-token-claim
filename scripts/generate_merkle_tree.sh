@@ -5,6 +5,7 @@ FOLDER_NAME="token-claim"
 NETWORK="testnet"
 OUTPUT_DIR="./data/$FOLDER_NAME"
 SNAPSHOT_URL="https://snapshots.lisk.com/$NETWORK/blockchain.db.tar.gz"
+EXCLUDE_ADDRESSES_PATH="./data/exclude_addresses.txt"
 
 if [ "$NETWORK" = "mainnet" ]; then
     TOKEN_ID="0000000000000000"
@@ -32,7 +33,7 @@ else
     echo "Output folder already exists"
 fi
 
-./packages/tree-builder/bin/run.js generate-merkle-tree --db-path=./tmp --output-path=$OUTPUT_DIR --token-id=$TOKEN_ID || exit 1
+./packages/tree-builder/bin/run.js generate-merkle-tree --db-path=./tmp --output-path=$OUTPUT_DIR --token-id=$TOKEN_ID --excluded-addresses-path $EXCLUDE_ADDRESSES_PATH || exit 1
 
 # Upload files in $OUTPUT_DIR to S3 with folder token-claim
 aws s3 cp $OUTPUT_DIR s3://$S3_BUCKET_NAME/$FOLDER_NAME/$NETWORK --recursive
