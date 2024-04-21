@@ -3,20 +3,38 @@ import * as fs from 'fs';
 import * as os from 'os';
 import { expect, test } from '@oclif/test';
 import { StateDB } from '@liskhq/lisk-db';
-import { address, utils } from '@liskhq/lisk-cryptography';
+import { utils, address } from '@liskhq/lisk-cryptography';
 import { codec } from '@liskhq/lisk-codec';
+import { createSandbox, SinonSandbox, SinonStub } from 'sinon';
 import { TOKEN_PREFIX } from '../../../src/constants';
 import { userBalanceSchema } from '../../../src/applications/generate-merkle-tree/schema';
+import * as generateAirdropMerkleTree from '../../../src/applications/generate-airdrop-merkle-tree';
+import { lskToBeddows } from '../../../src/utils';
 
-describe('GenerateMerkleTree', () => {
+describe('GenerateAirdropMerkleTree', () => {
 	const dataPath = os.tmpdir();
-	const excludedAddressesPath = path.join(dataPath, 'excludedAddresses.txt');
 	const stateDBPath = path.join(dataPath, 'state.db');
 	const tokenId = Buffer.from('0000000000000000', 'hex');
+	let sandbox: SinonSandbox;
+	let applyAirdropStub: SinonStub;
+
+	// Figures differ from default are used to validate configurability
+	const cutOff = lskToBeddows(100);
+	const whaleCap = lskToBeddows(500000);
+	const airdropPercent = BigInt(15);
+	const excludedAddresses = [address.getLisk32AddressFromPublicKey(utils.getRandomBytes(32))];
+
+	const pubKeyHash = utils.getRandomBytes(20);
+	const account = {
+		lskAddress: address.getLisk32AddressFromAddress(pubKeyHash),
+		balanceBeddows: lskToBeddows(Math.floor(Math.random() * 100)) + cutOff,
+	};
 
 	beforeEach(async () => {
+		sandbox = createSandbox();
 		// Create Empty DB before each test
 		const db = new StateDB(stateDBPath);
+
 		db.close();
 	});
 
@@ -27,7 +45,7 @@ describe('GenerateMerkleTree', () => {
 
 	test
 		.loadConfig({ root: __dirname })
-		.command(['generate-merkle-tree'])
+		.command(['generate-airdrop-merkle-tree'])
 		.catch(err => expect(err.message).to.contain('Missing required flag db-path'))
 		.it('should reject when dbPath not provided');
 
@@ -35,7 +53,7 @@ describe('GenerateMerkleTree', () => {
 		.loadConfig({ root: __dirname })
 		.stdout()
 		.command([
-			'generate-merkle-tree',
+			'generate-airdrop-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
 			'--token-id=0000',
@@ -46,7 +64,7 @@ describe('GenerateMerkleTree', () => {
 	test
 		.loadConfig({ root: __dirname })
 		.stdout()
-		.command(['generate-merkle-tree', `--output-path=${dataPath}`, `--db-path=${dataPath}`])
+		.command(['generate-airdrop-merkle-tree', `--output-path=${dataPath}`, `--db-path=${dataPath}`])
 		.it('should warn 0 account for empty DB', ctx => {
 			expect(ctx.stdout).to.contain('DB has 0 accounts, check token-id or local chain status');
 		});
@@ -61,7 +79,7 @@ describe('GenerateMerkleTree', () => {
 			await writer.set(
 				Buffer.concat([TOKEN_PREFIX, utils.getRandomBytes(20), tokenId]),
 				codec.encode(userBalanceSchema, {
-					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
+					availableBalance: account.balanceBeddows,
 					lockedBalances: [],
 				}),
 			);
@@ -71,7 +89,7 @@ describe('GenerateMerkleTree', () => {
 			db.close();
 		})
 		.command([
-			'generate-merkle-tree',
+			'generate-airdrop-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
 			'--token-id=0000000000000001',
@@ -88,43 +106,9 @@ describe('GenerateMerkleTree', () => {
 			const writer = db.newReadWriter();
 
 			await writer.set(
-				Buffer.concat([TOKEN_PREFIX, utils.getRandomBytes(20), tokenId]),
+				Buffer.concat([TOKEN_PREFIX, pubKeyHash, tokenId]),
 				codec.encode(userBalanceSchema, {
-					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
-					lockedBalances: [],
-				}),
-			);
-
-			await db.commit(writer, 0, Buffer.alloc(0));
-			writer.close();
-			db.close();
-		})
-		.command(['generate-merkle-tree', `--output-path=${dataPath}`, `--db-path=${dataPath}`])
-		.it('should process 1 account', ctx => {
-			expect(ctx.stdout).to.contain('1 Accounts to generate');
-		});
-
-	test
-		.loadConfig({ root: __dirname })
-		.stdout()
-		.do(async () => {
-			const db = new StateDB(stateDBPath);
-			const writer = db.newReadWriter();
-
-			await writer.set(
-				Buffer.concat([TOKEN_PREFIX, utils.getRandomBytes(20), tokenId]),
-				codec.encode(userBalanceSchema, {
-					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
-					lockedBalances: [],
-				}),
-			);
-
-			const excludedAddress = utils.getRandomBytes(20);
-
-			await writer.set(
-				Buffer.concat([TOKEN_PREFIX, excludedAddress, tokenId]),
-				codec.encode(userBalanceSchema, {
-					availableBalance: BigInt(Math.floor(Math.random() * 10000)),
+					availableBalance: account.balanceBeddows,
 					lockedBalances: [],
 				}),
 			);
@@ -133,15 +117,35 @@ describe('GenerateMerkleTree', () => {
 			writer.close();
 			db.close();
 
-			fs.writeFileSync(excludedAddressesPath, address.getLisk32AddressFromAddress(excludedAddress));
+			// Stub applyAirdrop
+			applyAirdropStub = sandbox.stub(generateAirdropMerkleTree, 'applyAirdrop');
+
+			// Create excludedAddress file
+			fs.writeFileSync(`${dataPath}/excluded-address`, excludedAddresses.join('\n'), 'utf-8');
 		})
 		.command([
-			'generate-merkle-tree',
+			'generate-airdrop-merkle-tree',
 			`--output-path=${dataPath}`,
 			`--db-path=${dataPath}`,
-			`--excluded-addresses-path=${excludedAddressesPath}`,
+			`--cutoff=${cutOff}`,
+			`--whale-cap=${whaleCap}`,
+			`--airdrop-percent=${airdropPercent}`,
+			`--excluded-addresses-path=${dataPath}/excluded-address`,
 		])
-		.it('should process 1 account', ctx => {
-			expect(ctx.stdout).to.contain('1 Accounts to generate');
+		.it('should call applyAirdrop with correct params', () => {
+			expect(
+				applyAirdropStub.calledWith(
+					[
+						{
+							lskAddress: account.lskAddress,
+							balanceBeddows: account.balanceBeddows.toString(),
+						},
+					],
+					lskToBeddows(cutOff),
+					lskToBeddows(whaleCap),
+					airdropPercent,
+					excludedAddresses,
+				),
+			).to.be.true;
 		});
 });
