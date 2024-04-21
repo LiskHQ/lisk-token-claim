@@ -18,6 +18,7 @@ const corsOptions = {
 
 void (async () => {
 	loadMerkleTree();
+	loadAirdropMerkleTree();
 	const app: Express = express();
 	const server = new JSONRPCServer();
 
@@ -26,12 +27,8 @@ void (async () => {
 	app.use(express.urlencoded({ extended: true }));
 
 	server.addMethod('checkEligibility', checkEligibility);
+	server.addMethod('checkAirdropEligibility', checkAirdropEligibility);
 	server.addMethod('submitMultisig', submitMultisig);
-
-	if (process.env.AIRDROP_ENABLED === 'true') {
-		loadAirdropMerkleTree();
-		server.addMethod('checkAirdropEligibility', checkAirdropEligibility);
-	}
 
 	// For Health Check from VPS monitoring
 	app.get('/', (_, res) => res.send('OK'));
