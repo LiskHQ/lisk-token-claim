@@ -10,6 +10,10 @@ EXCLUDE_AIRDROP_ADDRESSES_PATH="./data/$NETWORK/excluded_airdrop_addresses.txt"
 OUTPUT_DIR_CLAIM="$OUTPUT_DIR/claim"
 OUTPUT_DIR_AIRDROP="$OUTPUT_DIR/airdrop"
 
+if [ -n "$1" ]; then
+    NETWORK="$1"
+fi
+
 if [ "$NETWORK" = "mainnet" ]; then
     TOKEN_ID="0000000000000000"
 else
