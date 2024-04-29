@@ -24,8 +24,11 @@ $ ./bin/run.js generate-airdrop-merkle-tree --db-path <value> [--output-path <va
 | `/data/<network>/merkle-root.json`                 | Stores MerkleRoot only. Will be used for deployment of Claim Contract.                                                                                                                | `$ ./bin/run.js generate-merkle-tree --network=<network>` |
 
 ## Merkle Leaf
+
 Each leaf will be encoded as ABI-format, structure of Merkle Tree may vary and depends on usage
+
 ### Lisk Token Migration
+
 ```
 LSK_ADDRESS_IN_HEX: bytes20
 BALANCE_IN_BEDDOWS: uint64
@@ -33,26 +36,33 @@ NUMBER_OF_SIGNATURES: uint32
 MANDATORY_KEYS: bytes32[]
 OPTIONAL_KEYS: bytes32[]
 ```
+
 P.S. If the address is not a multisig address, `NUMBER_OF_SIGNATURES` would be `0,` `MANDATORY_KEYS` and `OPTIONAL_KEYS` be `[]`
 
-
 ### L2 Token Airdrop
+
 ```
 LSK_ADDRESS_IN_HEX: bytes20
 BALANCE_IN_WEI: uint256
 ```
-Note that Balance is represented in Wei(2**18) and in `uint256` format. 
+
+Note that Balance is represented in Wei(2\*\*18) and in `uint256` format.
 
 ## Params
+
 For both `Lisk Token Migration` and `L2 Token Airdrop`, a `merkle-root.json` will be generated.
+
 ```
 merkle-root.json:
 {
   merkleRoot: string;
 }
 ```
+
 For other files, refer to the table below:
+
 ### Lisk Token Migration
+
 ```
 accounts.json:
 {
@@ -94,7 +104,9 @@ merkle-tree-result.json:
 }
 # `address` is a reserved in solidity, hence `b32Address` here
 ```
+
 ### L2 Token Airdrop
+
 ```
 accounts.json:
 {
@@ -124,7 +136,9 @@ merkle-tree-result.json:
   }[];
 }
 ```
+
 ### # Only used at example
+
 ```
 signatures.json:
 {
@@ -136,6 +150,7 @@ signatures.json:
   }[];
 }[];
 ```
+
 ## _Demo/Testing Purpose Only_
 
 ```
