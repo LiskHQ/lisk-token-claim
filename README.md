@@ -62,11 +62,12 @@ docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .
   - Design
 
 - [Taking Snapshot](./documentation/Taking_Snapshot.md) - A detailed documentation for:
+
   - Obtaining Lisk v4 Snapshot
   - Data preparation for Merkle Tree Generation
   - Generate Merkle Tree for
     - Lisk Token Migration
-    - L2 Token Airdrop
+    - Migration Airdrop
 
 ## Contributing
 

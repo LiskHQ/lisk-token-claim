@@ -10,7 +10,7 @@ $ cd packages/tree-builder
 # Lisk Token Migration
 $ ./bin/run.js generate-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [excluded-addresses-path <value>]
 
-# L2 Token Airdrop
+# Migration Airdrop
 $ ./bin/run.js generate-airdrop-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [--cutoff <value>] [--whale-cap <value>] [--airdrop-percent <value>] [--excluded-addresses-path <value>]
 ```
 
@@ -39,7 +39,7 @@ OPTIONAL_KEYS: bytes32[]
 
 P.S. If the address is not a multisig address, `NUMBER_OF_SIGNATURES` would be `0,` `MANDATORY_KEYS` and `OPTIONAL_KEYS` be `[]`
 
-### L2 Token Airdrop
+### Migration Airdrop
 
 ```
 LSK_ADDRESS_IN_HEX: bytes20
@@ -50,7 +50,7 @@ Note that Balance is represented in Wei(2\*\*18) and in `uint256` format.
 
 ## Params
 
-For both `Lisk Token Migration` and `L2 Token Airdrop`, a `merkle-root.json` will be generated.
+For both `Lisk Token Migration` and `Migration Airdrop`, a `merkle-root.json` will be generated.
 
 ```
 merkle-root.json:
@@ -105,7 +105,7 @@ merkle-tree-result.json:
 # `address` is a reserved in solidity, hence `b32Address` here
 ```
 
-### L2 Token Airdrop
+### Migration Airdrop
 
 ```
 accounts.json:

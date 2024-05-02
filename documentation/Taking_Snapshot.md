@@ -10,7 +10,7 @@ Which the Merkle Tree is used for Token Migration and future Airdrops.
 There are 2 planned Merkle Tree from Lisk:
 
 1. **Lisk Token Migration** - The main Merkle Tree to let allow users migrate their LSK Token from Lisk Mainchain (Lisk Chain) to LSK L2 Network (L2 Chain).
-2. **L2 Token Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk v4 to Lisk L2
+2. **Migration Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk v4 to Lisk L2
 
 ## Pre-Requisite
 
@@ -67,9 +67,9 @@ $ ./bin/run.js generate-merkle-tree \
 --excluded-addresses-path=../../data/mainnet/exclude_addresses.txt
 ```
 
-### L2 Token Airdrop
+### Migration Airdrop
 
-Generate merkle tree for L2 Token Airdrop.
+Generate merkle tree for Migration Airdrop.
 
 | Flag                    | Description                                                                                                | Required | Default            |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
