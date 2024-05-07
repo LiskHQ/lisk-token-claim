@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import Signature from './models/signature.model';
+import fs from 'fs';
 
 export class DB {
 	private readonly sequelize: Sequelize;
@@ -21,7 +22,10 @@ export class DB {
 					? {
 							ssl: {
 								require: true,
-								rejectUnauthorized: false,
+								rejectUnauthorized: true,
+								ca: process.env.DB_SSL_CERT_PATH
+									? [fs.readFileSync(process.env.DB_SSL_CERT_PATH)]
+									: [],
 							},
 						}
 					: {},
