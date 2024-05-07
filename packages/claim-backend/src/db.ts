@@ -1,6 +1,7 @@
+import * as fs from 'fs';
+
 import { Sequelize } from 'sequelize-typescript';
 import Signature from './models/signature.model';
-import fs from 'fs';
 
 export class DB {
 	private readonly sequelize: Sequelize;
