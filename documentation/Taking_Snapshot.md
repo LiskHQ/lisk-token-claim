@@ -2,15 +2,15 @@
 
 ## Background
 
-This document focuses on converting Lisk Snapshot to Merkle Tree using `tree-builder`.
-Which the Merkle Tree is used for Token Migration and future Airdrops.
+This document focuses on converting a Lisk Snapshot to Merkle Tree using `tree-builder`.
+The Merkle Trees are used for the Token Migration and future airdrops.
 
 ## Merkle Trees
 
-There are 2 planned Merkle Tree from Lisk:
+There are 2 planned Merkle Tree for Lisk:
 
-1. **Lisk Token Migration** - The main Merkle Tree to let allow users migrate their LSK Token from Lisk Mainchain (Lisk Chain) to LSK L2 Network (L2 Chain).
-2. **Migration Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk v4 to Lisk L2
+1. **Lisk Token Migration** - The main Merkle Tree to let users migrate their LSK Token from Lisk L1 to LSK L2 Network (L2 Chain).
+2. **Migration Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk L1 to Lisk L2
 
 ## Pre-Requisite
 
@@ -19,25 +19,26 @@ There are 2 planned Merkle Tree from Lisk:
 
 ## Preparation
 
-1. Download and extract blockchain data of block [24,823,618](https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz) from Lisk Snapshots. Blockchain data will be available soon after the block height has reached.
+1. Download and extract blockchain data of block [24,823,618](https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz) from [Lisk Snapshots](https://snapshots.lisk.com/mainnet/). Blockchain data will be available soon after the block height has reached.
+
    ```
    # Estimated Available Date: 21 May, 2024 (0800 CET)
-   $ curl https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz -o /path/to/blockchain.db.tar.gz
-   $ tar -zxvf /path/to/blockchain.db.tar.gz
+   curl https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz -o ./blockchain.db.tar.gz
+
+   # OR download the latest snapshot available
+   curl https://snapshots.lisk.com/mainnet/blockchain.db.tar.gz -o ./blockchain.db.tar.gz
+
+   tar -zxvf ./blockchain.db.tar.gz
    ```
+
 2. Clone and install `lisk-token-claim`.
    ```
-   $ git clone git@github.com:LiskHQ/lisk-token-claim.git && cd lisk-token-claim
-   $ yarn && yarn build
+   git clone git@github.com:LiskHQ/lisk-token-claim.git && cd lisk-token-claim
+   yarn && yarn build
    ```
 3. Navigate to `tree-builder`.
    ```
-   $ cd packages/tree-builder
-   ```
-4. (Optional) Prepare `exclude_addresses.txt` and `exclude_airdrop_addresses.txt` \
-   Addresses can be added to a text file, separated by line-break.
-   ```
-   $ echo <excludeaddress> >> excluded_airdrop_addresses.txt
+   cd packages/tree-builder
    ```
 
 ## Generate Merkle Tree
@@ -57,12 +58,17 @@ Generate merkle tree for Lisk Token Migration.
 | excluded-addresses-path | File Path of List of addresses excluded from airdrop | False    | `""`               |
 
 ```
-# Create a separate folder to store Merkle Tree for Migration
-$ mkdir -p /path/to/migration
+# (Optional) Prepare exclude_addresses.txt
+# Addresses inside the text file will be excluded from ?igration, separated by line-break.
+# Exact addresses to be exlucded from Migration has been stored in this file: lisk-token-claim/data/mainnet/exclude_addresses.txt
+echo <excludeaddress> >> exclude_addresses.txt
 
-$ ./bin/run.js generate-merkle-tree \
---db-path=/path/to \
---output-path=/path/to/migration \
+# Create a separate folder to store Merkle Tree for Migration
+mkdir -p ./migration
+
+./bin/run.js generate-merkle-tree \
+--db-path=../../../ \
+--output-path=./migration \
 --token-id=0000000000000000 \
 --excluded-addresses-path=../../data/mainnet/exclude_addresses.txt
 ```
@@ -77,17 +83,22 @@ Generate merkle tree for Migration Airdrop.
 | output-path             | Destination path of the merkle tree                                                                        | False    | `./data`           |
 | token-id                | Token ID, use default for mainnet LSK Token                                                                | False    | `0000000000000000` |
 | cutoff                  | Minimal amount of LSK required to participate in the migration airdrop                                     | False    | `50`               |
-| whale-cap               | Cap on the LSK amount of a single Lisk v4 account to be used for the airdrop computation                   | False    | `250000`           |
+| whale-cap               | Cap on the LSK amount of a single Lisk L1 account to be used for the airdrop computation                   | False    | `250000`           |
 | airdrop-percent         | The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied | False    | `10`               |
 | excluded-addresses-path | File Path of List of addresses excluded from airdrop                                                       | False    | `""`               |
 
 ```
-# Create a separate folder to store Merkle Tree for Airdrop
-$ mkdir -p /path/to/airdrop
+# (Optional) Prepare exclude_airdrop_addresses.txt
+# Addresses inside the text file will be excluded from Airdrop, separated by line-break.
+# Exact addresses to be exlucded from Airdrop has been stored in this file: lisk-token-claim/data/mainnet/exclude_airdrop_addresses.txt
+echo <excludeaddress> >> exclude_airdrop_addresses.txt
 
-$ ./bin/run.js generate-airdrop-merkle-tree \
---db-path=/path/to \
---output-path=/path/to/airdrop \
+# Create a separate folder to store Merkle Tree for Airdrop
+mkdir -p ./airdrop-migration
+
+./bin/run.js generate-airdrop-merkle-tree \
+--db-path=../../../ \
+--output-path=./airdrop-migration \
 --token-id=0000000000000000 \
 --cutoff 50 \
 --whale-cap 250000 \
