@@ -1,12 +1,17 @@
-import { expect } from 'chai';
+import * as chai from 'chai';
 import * as sinon from 'sinon';
-import { readExcludedAddresses } from '../src/utils';
 import * as path from 'path';
+import chaiAsPromised from 'chai-as-promised';
+
+import { readExcludedAddresses } from '../src/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
 
 describe('utils', () => {
+	const { expect } = chai;
+	chai.use(chaiAsPromised);
+
 	describe('#readExcludedAddresses', () => {
 		const addresses = [
 			'lskbqdbu354hz87mnc7pddk8ywef33jnuqc5odhbp',
@@ -16,60 +21,61 @@ describe('utils', () => {
 		];
 
 		beforeEach(() => {
-			sinon.stub(fs, 'existsSync').returns(true);
-			sinon.stub(fs, 'readFileSync').returns(addresses.join('\n'));
+			sinon.stub(fs.promises, 'readFile').returns(addresses.join('\n'));
 		});
 
 		afterEach(() => {
 			sinon.restore();
 		});
 
-		it('should return empty array when input is undefined', () => {
-			const result = readExcludedAddresses(undefined);
+		it('should return empty array when input is undefined', async () => {
+			const result = await readExcludedAddresses(undefined);
 			expect(result).to.deep.equal([]);
 		});
 
-		it('should resolve the relative path with ~', () => {
-			readExcludedAddresses('~/home');
+		it('should resolve the relative path with ~', async () => {
+			await readExcludedAddresses('~/home');
 
-			const resolvedPath = fs.existsSync.getCall(0).args[0];
+			const resolvedPath = fs.promises.readFile.getCall(0).args[0];
 			expect(path.isAbsolute(resolvedPath)).to.be.true;
 		});
 
-		it('should resolve the relative path without ~', () => {
-			readExcludedAddresses('./home');
+		it('should resolve the relative path without ~', async () => {
+			await readExcludedAddresses('./home');
 
-			const resolvedPath = fs.existsSync.getCall(0).args[0];
+			const resolvedPath = fs.promises.readFile.getCall(0).args[0];
 
 			expect(path.isAbsolute(resolvedPath)).to.be.true;
 		});
 
-		it('should resolve the absolute path', () => {
+		it('should resolve the absolute path', async () => {
 			const filePath = '/home/lisk/path.json';
-			readExcludedAddresses(filePath);
+			await readExcludedAddresses(filePath);
 
-			const resolvedPath = fs.existsSync.getCall(0).args[0];
+			const resolvedPath = fs.promises.readFile.getCall(0).args[0];
 
 			expect(resolvedPath).to.equal(filePath);
 		});
 
-		it('should throw if the file does not exist', () => {
+		it('should throw if the file does not exist', async () => {
 			const filePath = '/home/lisk/path.json';
-			fs.existsSync.returns(false);
+			fs.promises.readFile.throws('Not Exist');
 
-			expect(() => readExcludedAddresses(filePath)).to.throw(`${filePath} does not exist`);
+			await expect(readExcludedAddresses(filePath)).to.be.rejectedWith(
+				`${filePath} does not exist or is not valid`,
+			);
 		});
 
-		it('should throw if address is invalid', () => {
-			fs.readFileSync.returns(`smdbqdbu354hz87mnc7pddk8ywef33jnuqc5odhbp
+		it('should throw if address is invalid', async () => {
+			fs.promises.readFile.returns(`smdbqdbu354hz87mnc7pddk8ywef33jnuqc5odhbp
 lskqbhxe6h7ymjkg6h4dq6s88ptm4qh3jke7g
 lskhysxtgcjjen7tsn8su64y3fs85knymvugw3wyt`);
 
-			expect(() => readExcludedAddresses('~/home')).to.throw('Invalid address');
+			await expect(readExcludedAddresses('~/home')).to.be.rejectedWith('Invalid address');
 		});
 
-		it('should return all the addresses in the list', () => {
-			expect(readExcludedAddresses('./home')).to.deep.equal(addresses);
+		it('should return all the addresses in the list', async () => {
+			expect(await readExcludedAddresses('./home')).to.deep.equal(addresses);
 		});
 	});
 });

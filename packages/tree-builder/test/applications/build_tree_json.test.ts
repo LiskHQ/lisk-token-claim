@@ -18,13 +18,15 @@ describe('buildTreeJSON', () => {
 	});
 
 	it('should build JSON files with correct params', async () => {
-		const accounts = JSON.parse(fs.readFileSync(path.join(jsonPath, 'accounts.json'), 'utf-8'));
+		const accounts = JSON.parse(
+			await fs.promises.readFile(path.join(jsonPath, 'accounts.json'), 'utf-8'),
+		);
 		const merkleTree = buildTree(accounts);
 		await buildTreeJson(jsonPath, accounts);
 
 		// Verify merkle-tree-result-detailed.json
 		const merkleTreeResultDetailedJSON = JSON.parse(
-			fs.readFileSync(path.join(jsonPath, 'merkle-tree-result-detailed.json'), 'utf-8'),
+			await fs.promises.readFile(path.join(jsonPath, 'merkle-tree-result-detailed.json'), 'utf-8'),
 		);
 		expect(merkleTreeResultDetailedJSON.merkleRoot).equal(merkleTree.tree.root);
 		expect(merkleTreeResultDetailedJSON.leaves.length).equal(merkleTree.leaves.length);
@@ -44,7 +46,7 @@ describe('buildTreeJSON', () => {
 
 		// Verify merkle-tree-result.json
 		const merkleTreeResultJSON = JSON.parse(
-			fs.readFileSync(path.join(jsonPath, 'merkle-tree-result.json'), 'utf-8'),
+			await fs.promises.readFile(path.join(jsonPath, 'merkle-tree-result.json'), 'utf-8'),
 		);
 		expect(merkleTreeResultJSON.merkleRoot).equal(merkleTree.tree.root);
 		expect(merkleTreeResultJSON.leaves.length).equal(merkleTree.leaves.length);
@@ -62,7 +64,7 @@ describe('buildTreeJSON', () => {
 
 		// Verify merkle-root.json
 		const merkleRootJSON = JSON.parse(
-			fs.readFileSync(path.join(jsonPath, 'merkle-root.json'), 'utf-8'),
+			await fs.promises.readFile(path.join(jsonPath, 'merkle-root.json'), 'utf-8'),
 		);
 		expect(merkleRootJSON.merkleRoot).equal(merkleTree.tree.root);
 	});

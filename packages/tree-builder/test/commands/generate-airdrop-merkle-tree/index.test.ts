@@ -121,7 +121,11 @@ describe('GenerateAirdropMerkleTree', () => {
 			applyAirdropStub = sandbox.stub(generateAirdropMerkleTree, 'applyAirdrop');
 
 			// Create excludedAddress file
-			fs.writeFileSync(`${dataPath}/excluded-address`, excludedAddresses.join('\n'), 'utf-8');
+			await fs.promises.writeFile(
+				`${dataPath}/excluded-address`,
+				excludedAddresses.join('\n'),
+				'utf-8',
+			);
 		})
 		.command([
 			'generate-airdrop-merkle-tree',

@@ -46,16 +46,20 @@ export const beddowsToWei = (beddowsAmount: number | bigint | string): bigint =>
 	return BigInt(beddowsAmount) * BigInt(10 ** 10);
 };
 
-export function readExcludedAddresses(excludedAddressesPath: string | undefined): string[] {
+export async function readExcludedAddresses(
+	excludedAddressesPath: string | undefined,
+): Promise<string[]> {
 	if (excludedAddressesPath === undefined) {
 		return [];
 	}
 	const resolvedPath = path.resolve(excludedAddressesPath.replace('~', os.homedir()));
-	if (!fs.existsSync(resolvedPath)) {
-		throw new Error(`${resolvedPath} does not exist`);
-	}
 
-	const addresses = fs.readFileSync(resolvedPath, 'utf-8').split('\n').filter(String);
+	let addresses;
+	try {
+		addresses = (await fs.promises.readFile(resolvedPath, 'utf-8')).split('\n').filter(String);
+	} catch (err) {
+		throw new Error(`${resolvedPath} does not exist or is not valid`);
+	}
 
 	for (const address of addresses) {
 		cryptoAddress.validateLisk32Address(address);

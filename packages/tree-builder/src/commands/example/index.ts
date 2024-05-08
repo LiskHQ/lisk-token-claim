@@ -39,7 +39,7 @@ export default class Example extends Command {
 		const accountPath = path.join(exampleDataPath, 'accounts.json');
 		this.log('Sample accounts outputted to:', accountPath);
 
-		const accounts = JSON.parse(fs.readFileSync(accountPath, 'utf-8')) as Account[];
+		const accounts = JSON.parse(await fs.promises.readFile(accountPath, 'utf-8')) as Account[];
 
 		// Build MerkleTree to example
 		await buildTreeJson(exampleDataPath, accounts);
