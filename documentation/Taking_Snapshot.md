@@ -7,7 +7,7 @@ The Merkle Trees are used for the Token Migration and future airdrops.
 
 ## Merkle Trees
 
-There are 2 planned Merkle Tree for Lisk:
+There are 2 planned Merkle Trees for Lisk:
 
 1. **Lisk Token Migration** - The main Merkle Tree to let users migrate their LSK Token from Lisk L1 to LSK L2 Network (L2 Chain).
 2. **Migration Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk L1 to Lisk L2
@@ -26,7 +26,7 @@ There are 2 planned Merkle Tree for Lisk:
    curl https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz -o ./blockchain.db.tar.gz
 
    # OR download the latest snapshot available
-   curl https://snapshots.lisk.com/mainnet/blockchain.db.tar.gz -o ./blockchain.db.tar.gz
+   # curl https://snapshots.lisk.com/mainnet/blockchain.db.tar.gz -o ./blockchain.db.tar.gz
 
    tar -zxvf ./blockchain.db.tar.gz
    ```
@@ -50,19 +50,14 @@ The descriptions of the above files can be found at [Tech Design](./Tech_Design.
 
 Generate merkle tree for Lisk Token Migration.
 
-| Flag                    | Description                                                                                                           | Required | Default            |
-| ----------------------- |-----------------------------------------------------------------------------------------------------------------------| -------- | ------------------ |
-| db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../` | True     |                    |
-| output-path             | Destination path of the merkle tree                                                                                   | False    | `./data`           |
-| token-id                | Token ID, use default for mainnet LSK Token                                                                           | False    | `0000000000000000` |
-| excluded-addresses-path | File Path of List of addresses excluded from airdrop                                                                  | False    | `""`               |
+| Flag                    | Description                                                                                                                                                                  | Required | Default            |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../`                                                        | True     |                    |
+| output-path             | Destination path of the merkle tree                                                                                                                                          | False    | `./data`           |
+| token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                  | False    | `0000000000000000` |
+| excluded-addresses-path | File Path of List of addresses excluded from airdrop. Exact addresses to be exlucded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
 
 ```
-# (Optional) Prepare exclude_addresses.txt
-# Addresses inside the text file will be excluded from ?igration, separated by line-break.
-# Exact addresses to be exlucded from Migration has been stored in this file: lisk-token-claim/data/mainnet/exclude_addresses.txt
-echo <excludeaddress> >> exclude_addresses.txt
-
 # Create a separate folder to store Merkle Tree for Migration
 mkdir -p ./migration
 
@@ -77,22 +72,17 @@ mkdir -p ./migration
 
 Generate merkle tree for Migration Airdrop.
 
-| Flag                    | Description                                                                                                | Required | Default            |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
-| db-path                 | Database path, where your state.db is located                                                              | True     |                    |
-| output-path             | Destination path of the merkle tree                                                                        | False    | `./data`           |
-| token-id                | Token ID, use default for mainnet LSK Token                                                                | False    | `0000000000000000` |
-| cutoff                  | Minimal amount of LSK required to participate in the migration airdrop                                     | False    | `50`               |
-| whale-cap               | Cap on the LSK amount of a single Lisk L1 account to be used for the airdrop computation                   | False    | `250000`           |
-| airdrop-percent         | The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied | False    | `10`               |
-| excluded-addresses-path | File Path of List of addresses excluded from airdrop                                                       | False    | `""`               |
+| Flag                    | Description                                                                                                                                                                        | Required | Default            |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
+| db-path                 | Database path, where your state.db is located                                                                                                                                      | True     |                    |
+| output-path             | Destination path of the merkle tree                                                                                                                                                | False    | `./data`           |
+| token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                        | False    | `0000000000000000` |
+| cutoff                  | Minimal amount of LSK required to participate in the migration airdrop                                                                                                             | False    | `50`               |
+| whale-cap               | Cap on the LSK amount of a single Lisk L1 account to be used for the airdrop computation                                                                                           | False    | `250000`           |
+| airdrop-percent         | The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied                                                                         | False    | `10`               |
+| excluded-addresses-path | File Path of List of addresses excluded from airdrop. Exact addresses to be exlucded from Airdrop has been stored in `lisk-token-claim/data/mainnet/exclude_airdrop_addresses.txt` | False    | `""`               |
 
 ```
-# (Optional) Prepare exclude_airdrop_addresses.txt
-# Addresses inside the text file will be excluded from Airdrop, separated by line-break.
-# Exact addresses to be exlucded from Airdrop has been stored in this file: lisk-token-claim/data/mainnet/exclude_airdrop_addresses.txt
-echo <excludeaddress> >> exclude_airdrop_addresses.txt
-
 # Create a separate folder to store Merkle Tree for Airdrop
 mkdir -p ./airdrop-migration
 
