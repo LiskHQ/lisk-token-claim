@@ -78,5 +78,7 @@ data/example
 data/token-claim
 tmp
 
-# DB is not committed
+# DB Files are not committed
 postgres
+db_password.txt
+

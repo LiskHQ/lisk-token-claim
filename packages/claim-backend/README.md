@@ -19,7 +19,7 @@ Apart from Node version 18, Claim Backend also requires:
 | DB_HOST          | Host used by PostgreSQL DB (Default: 127.0.0.1)            | false                     |
 | DB_DATABASE      | Name of Database of PostgreSQL DB (Default: claim-backend) | false                     |
 | DB_USERNAME      | Username of PostgreSQL DB (Default: claim-backend)         | false                     |
-| DB_PASSWORD      | Password of Database of PostgreSQL DB (Default: passwd)    | false                     |
+| DB_PASSWORD_PATH | Absolute file path or file path relative to `docker-compose.yaml` that stores the password of database of PostgreSQL DB (Default: ./db_password.txt) | false    |
 | DB_SSLMODE       | A flag to turn on SSL Connection on DB (Default: false)    | false                     |
 | DB_SSL_CERT_PATH | Path to SSL Certificate (.crt or .pem) (Default: `null`)   | When `DB_SSLMODE` is True |
 | DB_LOGGING       | A flag to turn on verbose logging of DB (Default: true)    | false                     |
@@ -29,11 +29,26 @@ Apart from Node version 18, Claim Backend also requires:
 ## Run
 
 ```
-$ cd packages/claim-backend
-$ cp .env.example .env
-$ < Edit .env regarding to ".env Params" >
-$ docker-compose up -d
-$ yarn server
+# Enter claim-backend package
+cd packages/claim-backend
+
+# Install dependencies
+yarn
+
+# Make a copy of .env.example
+cp .env.example .env
+
+# Edit .env regarding to ".env Params"
+(nano|vim|emacs) .env
+
+# Create secret for Docker DB Password
+echo -n $(openssl rand -hex 16) > db_password.txt
+
+# Start postgres locally
+docker-compose up -d
+
+# Start Claim Backend
+yarn server
 ```
 
 ## Endpoints
