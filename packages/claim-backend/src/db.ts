@@ -23,7 +23,10 @@ export class DB {
 					? {
 							ssl: {
 								require: true,
-								rejectUnauthorized: false,
+								rejectUnauthorized: true,
+								ca: process.env.DB_SSL_CERT_PATH
+									? [fs.readFileSync(process.env.DB_SSL_CERT_PATH)]
+									: [],
 							},
 						}
 					: {},
