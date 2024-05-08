@@ -17,4 +17,4 @@ services:
 
 secrets:
   db_password:
-    file: ${DB_PASSWORD_PATH:-db_password.txt}
+    file: ${DB_PASSWORD_PATH:-./db_password.txt}
