@@ -61,7 +61,9 @@ describe('utils', () => {
 			const filePath = '/home/lisk/path.json';
 			fs.promises.readFile.throws('Not Exist');
 
-			await expect(readExcludedAddresses(filePath)).to.be.rejectedWith(`${filePath} does not exist or is not valid`);
+			await expect(readExcludedAddresses(filePath)).to.be.rejectedWith(
+				`${filePath} does not exist or is not valid`,
+			);
 		});
 
 		it('should throw if address is invalid', async () => {
@@ -69,9 +71,7 @@ describe('utils', () => {
 lskqbhxe6h7ymjkg6h4dq6s88ptm4qh3jke7g
 lskhysxtgcjjen7tsn8su64y3fs85knymvugw3wyt`);
 
-			await expect(readExcludedAddresses('~/home')).to.be.rejectedWith(
-				'Invalid address',
-			);
+			await expect(readExcludedAddresses('~/home')).to.be.rejectedWith('Invalid address');
 		});
 
 		it('should return all the addresses in the list', async () => {
