@@ -67,9 +67,7 @@ export default class GenerateAirdropMerkleTree extends Command {
 		const stateDbPath = path.join(dbPath, 'state.db');
 		this.log(`Reading: ${stateDbPath} ...`);
 
-		if (!fs.existsSync(stateDbPath)) {
-			throw new Error(`${stateDbPath} does not exist`);
-		}
+		await fs.promises.access(stateDbPath);
 
 		const rdb = new StateDB(stateDbPath, { readonly: true });
 		try {
@@ -80,7 +78,7 @@ export default class GenerateAirdropMerkleTree extends Command {
 			}
 
 			// Apply Airdrop Rules
-			const excludedAddresses = readExcludedAddresses(excludedAddressesPath);
+			const excludedAddresses = await readExcludedAddresses(excludedAddressesPath);
 			this.log(`Cutoff: ${cutOff} LSK`);
 			this.log(`Whale Cap: ${whaleCap} LSK`);
 			this.log(`Airdrop %: ${airdropPercent} %`);
@@ -100,7 +98,11 @@ export default class GenerateAirdropMerkleTree extends Command {
 			await buildAirdropTreeJson(outputPath, airdropAccounts);
 
 			const accountJSONPath = path.join(outputPath, 'accounts.json');
-			fs.writeFileSync(accountJSONPath, JSON.stringify(airdropAccounts, null, 4), 'utf-8');
+			await fs.promises.writeFile(
+				accountJSONPath,
+				JSON.stringify(airdropAccounts, null, 4),
+				'utf-8',
+			);
 			this.log('Account snapshot outputted to:', accountJSONPath);
 			this.log(`Success running GenerateAirdropMerkleTree`);
 		} catch (err: unknown) {

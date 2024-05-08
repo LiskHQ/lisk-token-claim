@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { promises as fs } from 'fs';
 import * as path from 'path';
 import { ux } from '@oclif/core';
 import { AirdropAccount } from '../../interface';
@@ -11,7 +11,7 @@ export async function buildAirdropTreeJson(outputPath: string, accounts: Airdrop
 		outputPath,
 		'merkle-tree-result-detailed.json',
 	);
-	fs.writeFileSync(
+	await fs.writeFile(
 		merkleTreeResultDetailedJSONPath,
 		JSON.stringify(
 			{
@@ -26,7 +26,7 @@ export async function buildAirdropTreeJson(outputPath: string, accounts: Airdrop
 	ux.log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
 
 	const merkleTreeResultJSONPath = path.join(outputPath, 'merkle-tree-result.json');
-	fs.writeFileSync(
+	await fs.writeFile(
 		merkleTreeResultJSONPath,
 		JSON.stringify(
 			{
@@ -45,7 +45,7 @@ export async function buildAirdropTreeJson(outputPath: string, accounts: Airdrop
 	ux.log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
 
 	const merkleRootJSONPath = path.join(outputPath, 'merkle-root.json');
-	fs.writeFileSync(
+	await fs.writeFile(
 		merkleRootJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,

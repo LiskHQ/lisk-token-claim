@@ -1,10 +1,12 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { address } from '@liskhq/lisk-cryptography';
-import * as fsHelper from '../../src/utils/fs-helper';
 import { getLeafMap, getMultisigMap, loadMerkleTree } from '../../src/utils/leaf-map';
 import { buildMockLeaf, randomHash, randomPublicKeyBuffer } from '../utils';
 import { append0x } from '../../src/utils';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require('fs');
 
 describe('leafMap', () => {
 	describe('loadMerkleTree', () => {
@@ -12,22 +14,17 @@ describe('leafMap', () => {
 			process.env.MERKLE_TREE_PATH = '';
 		});
 
-		let fileExistsStub: sinon.SinonStub;
-		let readJsonStub: sinon.SinonStub;
-
 		beforeEach(() => {
-			fileExistsStub = sinon.stub(fsHelper, 'fileExists');
-			readJsonStub = sinon.stub(fsHelper, 'readJson');
+			sinon.stub(fs.promises, 'readFile');
 		});
 
 		afterEach(() => {
-			fileExistsStub.restore();
-			readJsonStub.restore();
+			sinon.restore();
 		});
 
-		it('should throw error when MERKLE_TREE_PATH is not set', () => {
+		it('should throw error when MERKLE_TREE_PATH is not set', async () => {
 			try {
-				loadMerkleTree();
+				await loadMerkleTree();
 			} catch (err) {
 				expect(err instanceof Error && err.message).contain(
 					'MERKLE_TREE_PATH is invalid or does not exist',
@@ -35,19 +32,19 @@ describe('leafMap', () => {
 			}
 		});
 
-		it('should throw error when MERKLE_TREE_PATH is not an existing file', () => {
+		it('should throw error when MERKLE_TREE_PATH is not an existing file', async () => {
 			process.env.MERKLE_TREE_PATH = 'path/to/merkle-tree.json';
-			fileExistsStub.returns(false);
+			fs.promises.readFile.throws('Not Exist');
 			try {
-				loadMerkleTree();
+				await loadMerkleTree();
 			} catch (err) {
 				expect(err instanceof Error && err.message).contain(
-					'MERKLE_TREE_PATH is invalid or does not exist',
+					`${process.env.MERKLE_TREE_PATH} does not exist or is not a proper JSON`,
 				);
 			}
 		});
 
-		it('should load JSON from MERKLE_TREE_PATH', () => {
+		it('should load JSON from MERKLE_TREE_PATH', async () => {
 			const publicKey = randomPublicKeyBuffer();
 			const lskAddress = address.getLisk32AddressFromPublicKey(publicKey);
 
@@ -71,10 +68,9 @@ describe('leafMap', () => {
 			};
 
 			process.env.MERKLE_TREE_PATH = 'path/to/merkle-tree.json';
-			fileExistsStub.returns(true);
-			readJsonStub.returns(merkleTree);
+			fs.promises.readFile.returns(JSON.stringify(merkleTree));
 
-			loadMerkleTree();
+			await loadMerkleTree();
 			expect(getLeafMap(lskAddress)).to.deep.equal(accountLeaf);
 			expect(getMultisigMap(lskAddress)).to.deep.equal(multisigLeaves);
 		});

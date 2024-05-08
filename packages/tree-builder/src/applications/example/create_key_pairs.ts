@@ -18,5 +18,5 @@ export async function createKeyPairs(amount = 100) {
 			privateKey: privateKey.toString('hex'),
 		});
 	}
-	fs.writeFileSync('../../data/example/key-pairs.json', JSON.stringify(keys), 'utf-8');
+	await fs.promises.writeFile('../../data/example/key-pairs.json', JSON.stringify(keys), 'utf-8');
 }

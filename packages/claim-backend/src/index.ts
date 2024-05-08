@@ -17,8 +17,8 @@ const corsOptions = {
 };
 
 void (async () => {
-	loadMerkleTree();
-	loadAirdropMerkleTree();
+	await loadMerkleTree();
+	await loadAirdropMerkleTree();
 	const app: Express = express();
 	const server = new JSONRPCServer();
 

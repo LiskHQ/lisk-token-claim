@@ -1,9 +1,9 @@
 import fs from 'fs';
 
-export const fileExists = (fileName: string) => {
-	return fs.existsSync(fileName);
-};
-
-export const readJson = (fileName: string) => {
-	return JSON.parse(fs.readFileSync(fileName, 'utf-8'));
+export const readJson = async (fileName: string) => {
+	try {
+		return JSON.parse(await fs.promises.readFile(fileName, 'utf-8'));
+	} catch (error) {
+		throw new Error(`${fileName} does not exist or is not a proper JSON`);
+	}
 };
