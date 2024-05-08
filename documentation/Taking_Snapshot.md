@@ -50,12 +50,12 @@ The descriptions of the above files can be found at [Tech Design](./Tech_Design.
 
 Generate merkle tree for Lisk Token Migration.
 
-| Flag                    | Description                                          | Required | Default            |
-| ----------------------- | ---------------------------------------------------- | -------- | ------------------ |
-| db-path                 | Database path, where your state.db is located        | True     |                    |
-| output-path             | Destination path of the merkle tree                  | False    | `./data`           |
-| token-id                | Token ID, use default for mainnet LSK Token          | False    | `0000000000000000` |
-| excluded-addresses-path | File Path of List of addresses excluded from airdrop | False    | `""`               |
+| Flag                    | Description                                                                                                           | Required | Default            |
+| ----------------------- |-----------------------------------------------------------------------------------------------------------------------| -------- | ------------------ |
+| db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../` | True     |                    |
+| output-path             | Destination path of the merkle tree                                                                                   | False    | `./data`           |
+| token-id                | Token ID, use default for mainnet LSK Token                                                                           | False    | `0000000000000000` |
+| excluded-addresses-path | File Path of List of addresses excluded from airdrop                                                                  | False    | `""`               |
 
 ```
 # (Optional) Prepare exclude_addresses.txt
