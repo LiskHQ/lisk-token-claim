@@ -54,11 +54,20 @@ docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .
 ## Documentation
 
 - [Tech Design](./documentation/Tech_Design.md) - A comprehensive document, including:
+
   - Project Background
   - Requirement of the project
   - Components of the project
   - Technical specification
   - Design
+
+- [Taking Snapshot](./documentation/Taking_Snapshot.md) - A detailed documentation for:
+
+  - Obtaining Lisk v4 Snapshot
+  - Data preparation for Merkle Tree Generation
+  - Generate Merkle Tree for
+    - Lisk Token Migration
+    - Migration Airdrop
 
 ## Contributing
 
