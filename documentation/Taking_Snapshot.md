@@ -50,12 +50,12 @@ The descriptions of the above files can be found at [Tech Design](./Tech_Design.
 
 Generate merkle tree for Lisk Token Migration.
 
-| Flag                    | Description                                                                                                                                                                  | Required | Default            |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
-| db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../`                                                        | True     |                    |
-| output-path             | Destination path of the merkle tree                                                                                                                                          | False    | `./data`           |
-| token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                  | False    | `0000000000000000` |
-| excluded-addresses-path | File Path of List of addresses excluded from airdrop. Exact addresses to be exlucded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
+| Flag                    | Description                                                                                                                                                                    | Required | Default            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------ |
+| db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../`                                                          | True     |                    |
+| output-path             | Destination path of the merkle tree                                                                                                                                            | False    | `./data`           |
+| token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                    | False    | `0000000000000000` |
+| excluded-addresses-path | File Path of List of addresses excluded from Migration. Exact addresses to be exlucded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
 
 ```
 # Create a separate folder to store Merkle Tree for Migration
