@@ -8,7 +8,13 @@ services:
     command: ['postgres', '-cshared_preload_libraries=pg_stat_statements']
     environment:
       POSTGRES_USER: claim-backend
-      POSTGRES_PASSWORD: passwd
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: claim-backend
     volumes:
       - ./postgres:/var/lib/postgresql/data
+    secrets:
+      - db_password
+
+secrets:
+  db_password:
+    file: ${DB_PASSWORD_PATH:-./db_password.txt}
