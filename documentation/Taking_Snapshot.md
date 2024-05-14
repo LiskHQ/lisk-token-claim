@@ -2,19 +2,19 @@
 
 ## Background
 
-This document focuses on converting a Lisk Snapshot to Merkle Tree using `tree-builder`.
-The Merkle Tree is used for the Token Migration, which let users migrate their LSK Token from Lisk L1 to LSK L2 Network (L2 Chain).
+This document focuses on generating the Merkle Tree from a Lisk Core snapshot using `tree-builder`.
+The Merkle Tree is used for the Token Migration, which lets the user migrate their LSK Token from the Lisk L1 to the LSK L2 Network (L2 Chain).
 
 ## Pre-Requisite
 
-- Node v18
+- NodeJS v18
 - yarn
 - jq
 
 ## Preparation
 
-1. Synchronize blockchain using `lisk-core`. It will shut down itself after Snapshot Height (#24,823,618) has been reached.
-   After synchronization, the snapshot data of the specific height can be found in `./snapshot/backup/`
+1. Synchronize blockchain using `lisk-core`. The node will automatically shut down itself after about a round after the Snapshot Height (#24,823,618) has been finalized, i.e. block #24,823,721 is finalized. Under ideal conditions, this might take about ~40-45 mins after the block at Snapshot Height is generated.
+   After synchronization, the snapshot data for the specified height (`system.backup.height`) in the Lisk Core node config can be found in `./snapshot/backup/`.
 
    > **Synchronization from scratch may take up to days.**
 
@@ -32,21 +32,21 @@ The Merkle Tree is used for the Token Migration, which let users migrate their L
    cat config/mainnet/config.json | jq ".system.backup.height"   # 24823618
 
    # Install dependencies and build lisk-core
-   yarn && yarn build
+   yarn install --frozen-lockfile && yarn build
 
    # Start lisk-core and let it keep running until synchronization has completed and reached block #24,823,618
    # Estimated Available Date: 21 May, 2024 (0800 CET)
    ./bin/run start --network mainnet --data-path ../snapshot --overwrite-config
    ```
 
-2. Go back to home folder, or start a new terminal if the `lisk-core` is still running, clone and install `lisk-token-claim`.
+2. Go back to home folder, or start a new terminal if the `lisk-core` instance is still running, clone and install `lisk-token-claim`.
    ```
    cd $LISK_HOME
-   git clone git@github.com:LiskHQ/lisk-token-claim.git
+   git clone https://github.com/LiskHQ/lisk-token-claim.git
    ```
-   At this stage your directory should look like this:
+   At this stage, your directory structure should look like this:
    ```
-   home/
+   $LISK_HOME/
    ├─ snapshot/
    │  ├─ backup/
    │  │  ├─ blockchain.db
@@ -62,7 +62,7 @@ The Merkle Tree is used for the Token Migration, which let users migrate their L
    cd lisk-token-claim
 
    # Install dependencies
-   yarn && yarn build
+   yarn install --frozen-lockfile && yarn build
 
    # Navigate to tree-builder
    cd packages/tree-builder
@@ -95,7 +95,7 @@ mkdir -p ./migration
 --excluded-addresses-path=../../data/mainnet/exclude_addresses.txt
 ```
 
-After Merkle Tree generation, the Merkle Root can be verified at `./migration`
+After Merkle Tree generation, the Merkle Root can be verified from `./migration/merkle-root.json`.
 
 ```
 cat migration/merkle-root.json | jq ".merkleRoot"
