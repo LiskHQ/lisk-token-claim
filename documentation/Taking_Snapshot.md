@@ -14,7 +14,7 @@ The Merkle Tree is used for the Token Migration, which let users migrate their L
 ## Preparation
 
 1. Synchronize blockchain using `lisk-core`. It will shut down itself after Snapshot Height (#24,823,618) has been reached.
-   After synchronization, the snapshot data of the specific height can be found in `./snapshot/backup/` \
+   After synchronization, the snapshot data of the specific height can be found in `./snapshot/backup/`
 
    > **Synchronization from scratch may take up to days.**
 
