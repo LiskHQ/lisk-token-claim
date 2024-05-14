@@ -33,7 +33,7 @@ jobs:
 
       - name: Create Password file
         run: |
-          echo ${{ secrets.DB_PASSWORD }} > ./packages/claim-backend/db_password.txt
+          echo -n ${{ secrets.DB_PASSWORD }} > ./packages/claim-backend/db_password.txt
 
       - name: Setup docker image
         id: docker-image
