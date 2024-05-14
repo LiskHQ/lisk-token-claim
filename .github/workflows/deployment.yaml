@@ -34,7 +34,9 @@ jobs:
       - name: Create Password file
         run: |
           touch ./packages/claim-backend/db_password.txt
-          ${{ secrets.DB_PASSWORD }} > ./packages/claim-backend/db_password.txt
+          echo $DB_PASSWORD > ./packages/claim-backend/db_password.txt
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Setup docker image
         id: docker-image
