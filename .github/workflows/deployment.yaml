@@ -14,9 +14,7 @@ jobs:
   deployment:
     name: deployment
     runs-on: ubuntu-latest
-    environment: development
-    # TODO: use below line to deploy to production when production setup is ready
-    # environment: ${{ github.ref_name }}
+    environment: ${{ github.ref_name }}
 
     steps:
       - name: Checkout
