@@ -15,7 +15,9 @@ describe('buildTree', () => {
 	before(async () => {
 		await createKeyPairs();
 		const keyPairsSorted = (
-			JSON.parse(fs.readFileSync('../../data/example/key-pairs.json', 'utf-8')) as ExampleKey[]
+			JSON.parse(
+				await fs.promises.readFile('../../data/example/key-pairs.json', 'utf-8'),
+			) as ExampleKey[]
 		).sort((key1, key2) =>
 			address
 				.getAddressFromLisk32Address(key1.address)

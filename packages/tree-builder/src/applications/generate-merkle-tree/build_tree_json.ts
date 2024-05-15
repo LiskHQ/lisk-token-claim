@@ -11,7 +11,7 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 		outputPath,
 		'merkle-tree-result-detailed.json',
 	);
-	fs.writeFileSync(
+	await fs.promises.writeFile(
 		merkleTreeResultDetailedJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,
@@ -22,7 +22,7 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 	ux.log(`Detailed result outputted to: ${merkleTreeResultDetailedJSONPath}`);
 
 	const merkleTreeResultJSONPath = path.join(outputPath, 'merkle-tree-result.json');
-	fs.writeFileSync(
+	await fs.promises.writeFile(
 		merkleTreeResultJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,
@@ -40,7 +40,7 @@ export async function buildTreeJson(outputPath: string, accounts: Account[]) {
 	ux.log(`Lightweight result outputted to: ${merkleTreeResultJSONPath}`);
 
 	const merkleRootJSONPath = path.join(outputPath, 'merkle-root.json');
-	fs.writeFileSync(
+	await fs.promises.writeFile(
 		merkleRootJSONPath,
 		JSON.stringify({
 			merkleRoot: tree.root,

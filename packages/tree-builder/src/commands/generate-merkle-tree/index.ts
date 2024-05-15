@@ -49,11 +49,9 @@ export default class GenerateMerkleTree extends Command {
 		const stateDbPath = path.join(dbPath, 'state.db');
 		this.log(`Reading: ${stateDbPath} ...`);
 
-		if (!fs.existsSync(stateDbPath)) {
-			throw new Error(`${stateDbPath} does not exist`);
-		}
+		await fs.promises.access(stateDbPath);
 
-		const excludedAddresses = readExcludedAddresses(excludedAddressesPath);
+		const excludedAddresses = await readExcludedAddresses(excludedAddressesPath);
 
 		const rdb = new StateDB(stateDbPath, { readonly: true });
 		try {
@@ -79,10 +77,14 @@ export default class GenerateMerkleTree extends Command {
 			await buildTreeJson(outputPath, includedAccounts);
 
 			const accountJSONPath = path.join(outputPath, 'accounts.json');
-			fs.writeFileSync(accountJSONPath, JSON.stringify(includedAccounts), 'utf-8');
+			await fs.promises.writeFile(accountJSONPath, JSON.stringify(includedAccounts), 'utf-8');
 
 			const exceptionAccountJSONPath = path.join(outputPath, 'excluded-accounts.json');
-			fs.writeFileSync(exceptionAccountJSONPath, JSON.stringify(excludedAccounts), 'utf-8');
+			await fs.promises.writeFile(
+				exceptionAccountJSONPath,
+				JSON.stringify(excludedAccounts),
+				'utf-8',
+			);
 
 			this.log('Account snapshot outputted to:', accountJSONPath);
 			this.log(`Success running GenerateMerkleTree`);
