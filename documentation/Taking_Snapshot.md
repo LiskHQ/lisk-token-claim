@@ -2,42 +2,69 @@
 
 ## Background
 
-This document focuses on converting a Lisk Snapshot to Merkle Tree using `tree-builder`.
-The Merkle Trees are used for the Token Migration and future airdrops.
-
-## Merkle Trees
-
-There are 2 planned Merkle Trees for Lisk:
-
-1. **Lisk Token Migration** - The main Merkle Tree to let users migrate their LSK Token from Lisk L1 to LSK L2 Network (L2 Chain).
-2. **Migration Airdrop** - A Merkle Tree that rewards LSK holders for migrating from Lisk L1 to Lisk L2
+This document focuses on generating the Merkle Tree from a Lisk Core snapshot using `tree-builder`.
+The Merkle Tree is used for the Token Migration, which lets the user migrate their LSK Token from the Lisk L1 to the LSK L2 Network (L2 Chain).
 
 ## Pre-Requisite
 
-- Node v18
+- NodeJS v18
 - yarn
+- jq
 
 ## Preparation
 
-1. Download and extract blockchain data of block [24,823,618](https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz) from [Lisk Snapshots](https://snapshots.lisk.com/mainnet/). Blockchain data will be available soon after the block height has reached.
+1. Synchronize blockchain using `lisk-core`. The node will automatically shut down itself after about a round after the Snapshot Height (#24,823,618) has been finalized, i.e. block #24,823,721 is finalized. Under ideal conditions, this might take about ~40-45 mins after the block at Snapshot Height is generated.
+   After synchronization, the snapshot data for the specified height (`system.backup.height`) in the Lisk Core node config can be found in `./snapshot/backup/`.
+
+   > **Synchronization from scratch may take up to days.**
 
    ```
+   # Record current path
+   LISK_HOME=$(pwd)
+
+   # Create snapshot folder as data path
+   mkdir ./snapshot
+
+   # Using version v4.0.6
+   git clone -b v4.0.6 https://github.com/LiskHQ/lisk-core.git && cd lisk-core
+
+   # Verify Backup height is correct and in place
+   cat config/mainnet/config.json | jq ".system.backup.height"   # 24823618
+
+   # Install dependencies and build lisk-core
+   yarn install --frozen-lockfile && yarn build
+
+   # Start lisk-core and let it keep running until synchronization has completed and reached block #24,823,618
    # Estimated Available Date: 21 May, 2024 (0800 CET)
-   curl https://snapshots.lisk.com/mainnet/blockchain-24823618.db.tar.gz -o ./blockchain.db.tar.gz
-
-   # OR download the latest snapshot available
-   # curl https://snapshots.lisk.com/mainnet/blockchain.db.tar.gz -o ./blockchain.db.tar.gz
-
-   tar -zxvf ./blockchain.db.tar.gz
+   ./bin/run start --network mainnet --data-path ../snapshot --overwrite-config
    ```
 
-2. Clone and install `lisk-token-claim`.
+2. Go back to home directory, or start a new terminal if the `lisk-core` instance is still running, clone and install `lisk-token-claim`.
    ```
-   git clone git@github.com:LiskHQ/lisk-token-claim.git && cd lisk-token-claim
-   yarn && yarn build
+   cd $LISK_HOME
+   git clone https://github.com/LiskHQ/lisk-token-claim.git
    ```
-3. Navigate to `tree-builder`.
+   At this stage, your directory structure should look like this:
    ```
+   $LISK_HOME/
+   ├─ snapshot/
+   │  ├─ backup/
+   │  │  ├─ blockchain.db
+   │  │  ├─ state.db
+   │  ├─ ....
+   ├─ lisk-core/
+   ├─ lisk-token-claim/
+   ```
+3. Navigate to `tree-builder` inside `lisk-token-claim` and install dependencies along the way.
+
+   ```
+   # Enter lisk-token-claim
+   cd lisk-token-claim
+
+   # Install dependencies
+   yarn install --frozen-lockfile && yarn build
+
+   # Navigate to tree-builder
    cd packages/tree-builder
    ```
 
@@ -55,43 +82,21 @@ Generate merkle tree for Lisk Token Migration.
 | db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../`                                                          | True     |                    |
 | output-path             | Destination path of the merkle tree                                                                                                                                            | False    | `./data`           |
 | token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                    | False    | `0000000000000000` |
-| excluded-addresses-path | File Path of List of addresses excluded from Migration. Exact addresses to be exlucded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
+| excluded-addresses-path | File Path of List of addresses excluded from Migration. Exact addresses to be excluded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
 
 ```
 # Create a separate folder to store Merkle Tree for Migration
 mkdir -p ./migration
 
 ./bin/run.js generate-merkle-tree \
---db-path=../../../ \
+--db-path=../../../snapshot/backup \
 --output-path=./migration \
 --token-id=0000000000000000 \
 --excluded-addresses-path=../../data/mainnet/exclude_addresses.txt
 ```
 
-### Migration Airdrop
-
-Generate merkle tree for Migration Airdrop.
-
-| Flag                    | Description                                                                                                                                                                        | Required | Default            |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------ |
-| db-path                 | Database path, where your state.db is located                                                                                                                                      | True     |                    |
-| output-path             | Destination path of the merkle tree                                                                                                                                                | False    | `./data`           |
-| token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                        | False    | `0000000000000000` |
-| cutoff                  | Minimal amount of LSK required to participate in the migration airdrop                                                                                                             | False    | `50`               |
-| whale-cap               | Cap on the LSK amount of a single Lisk L1 account to be used for the airdrop computation                                                                                           | False    | `250000`           |
-| airdrop-percent         | The airdrop amount is equal to the given percentage of LSK balance, after whale cap and cutoff are applied                                                                         | False    | `10`               |
-| excluded-addresses-path | File Path of List of addresses excluded from airdrop. Exact addresses to be exlucded from Airdrop has been stored in `lisk-token-claim/data/mainnet/exclude_airdrop_addresses.txt` | False    | `""`               |
+After Merkle Tree generation, the Merkle Root can be verified from `./migration/merkle-root.json`.
 
 ```
-# Create a separate folder to store Merkle Tree for Airdrop
-mkdir -p ./airdrop-migration
-
-./bin/run.js generate-airdrop-merkle-tree \
---db-path=../../../ \
---output-path=./airdrop-migration \
---token-id=0000000000000000 \
---cutoff 50 \
---whale-cap 250000 \
---airdrop-percent 10 \
---excluded-addresses-path=../../data/mainnet/excluded_airdrop_addresses.txt
+cat migration/merkle-root.json | jq ".merkleRoot"
 ```
