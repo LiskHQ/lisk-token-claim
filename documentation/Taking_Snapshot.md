@@ -39,7 +39,7 @@ The Merkle Tree is used for the Token Migration, which lets the user migrate the
    ./bin/run start --network mainnet --data-path ../snapshot --overwrite-config
    ```
 
-2. Go back to home folder, or start a new terminal if the `lisk-core` instance is still running, clone and install `lisk-token-claim`.
+2. Go back to home directory, or start a new terminal if the `lisk-core` instance is still running, clone and install `lisk-token-claim`.
    ```
    cd $LISK_HOME
    git clone https://github.com/LiskHQ/lisk-token-claim.git
