@@ -34,7 +34,8 @@ jobs:
       - name: Setup docker image
         id: docker-image
         run: |
-          repository=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          # repository=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          repository=liskhq/lisk-token-claim
           echo "repository=$repository" >> $GITHUB_OUTPUT
           echo "image=${{ steps.login-ecr.outputs.registry }}/$repository:${{ github.sha }}" >> $GITHUB_OUTPUT
 
@@ -60,7 +61,8 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: task-definition.json
-          container-name: ${{ github.event.repository.name }}
+          # container-name: ${{ github.event.repository.name }}
+          container-name: lisk-token-claim
           image: ${{ steps.docker-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
