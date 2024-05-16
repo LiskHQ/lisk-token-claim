@@ -31,6 +31,10 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
+      - name: Create Password file
+        run: |
+          echo -n ${{ secrets.DB_PASSWORD }} > ./packages/claim-backend/db_password.txt
+
       - name: Setup docker image
         id: docker-image
         run: |
