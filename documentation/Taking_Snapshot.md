@@ -37,7 +37,7 @@ The Merkle Tree is used for the Token Migration, which lets the user migrate the
    yarn install --frozen-lockfile && yarn build
 
    # Start lisk-core and let it keep running until synchronization has completed and reached block #24,823,618
-   # Estimated Available Date: 21 May, 2024 (0800 CET)
+   # Initial Estimated Date: 21 May, 2024 (0800 CEST)
    ./bin/run start --network mainnet --data-path ../snapshot --overwrite-config
    ```
 
@@ -79,20 +79,18 @@ The descriptions of the above files can be found at [Tech Design](./Tech_Design.
 
 Generate merkle tree for Lisk Token Migration.
 
-<span style="color:red">🔴 excluded-addresses-path feature will be available when Snapshot Height has reached. i.e. 21 May, 2024 (0800 CET) 🔴</span>.
-
 | Flag                    | Description                                                                                                                                                                    | Required | Default            |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------ |
 | db-path                 | Database path, where your state.db is located. If following the preparation stage above, db-path would be `../../../`                                                          | True     |                    |
 | output-path             | Destination path of the merkle tree                                                                                                                                            | False    | `./data`           |
 | token-id                | Token ID, use default for mainnet LSK Token                                                                                                                                    | False    | `0000000000000000` |
-| excluded-addresses-path | File Path of List of addresses excluded from Migration. Exact addresses to be excluded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` | False    | `""`               |
+| excluded-addresses-path | File Path of List of addresses excluded from Migration. Exact addresses to be excluded from Migration has been stored in `lisk-token-claim/data/mainnet/exclude_addresses.txt` <br> <span style="color:red">🔴 This flag will be made available in a subsequent release, expected after the Lisk L1 Mainnet Snapshot Height (#24,823,618) has been finalized 🔴</span> | False    | `""`               |
 
 ```
 # Create a separate folder to store Merkle Tree for Migration
 mkdir -p ./migration
 
-# excluded-addresses-path feature will be available when Snapshot Height has reached. i.e. 21 May, 2024 (0800 CET)
+# 🔴 `--excluded-addresses-path` flag will be made available in a subsequent release, expected after the Lisk L1 Mainnet Snapshot Height (#24,823,618) has been finalized 🔴
 # ./bin/run.js generate-merkle-tree \
 # --db-path=../../../snapshot/backup \
 # --output-path=./migration \
