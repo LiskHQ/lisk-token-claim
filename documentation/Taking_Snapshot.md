@@ -18,7 +18,7 @@ The Merkle Tree is used for the Token Migration, which lets the user migrate the
 
    > **Synchronization from scratch may take up to days.**
 
-   > **To test this functionality before Snapshot Height has reached, you can edit `system.backup.height` to a smaller amount at file `config/mainnet/config.json`**
+   > **To test this functionality before Snapshot Height has reached, you can edit `system.backup.height` to a lower height at file `config/mainnet/config.json`**
 
    ```
    # Record current path
