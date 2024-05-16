@@ -79,7 +79,7 @@ The descriptions of the above files can be found at [Tech Design](./Tech_Design.
 
 Generate merkle tree for Lisk Token Migration.
 
-<span style="color:red">excluded-addresses-path feature will be available when Snapshot Height has reached. i.e. 21 May, 2024 (0800 CET)</span>.
+<span style="color:red">🔴 excluded-addresses-path feature will be available when Snapshot Height has reached. i.e. 21 May, 2024 (0800 CET) 🔴</span>.
 
 | Flag                    | Description                                                                                                                                                                    | Required | Default            |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------ |
