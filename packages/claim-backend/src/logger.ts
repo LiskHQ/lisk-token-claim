@@ -14,26 +14,23 @@ dotenv.config();
 const logger = log4js.getLogger();
 logger.level = process.env.BACKEND_LOGGER_LEVEL ?? 'debug';
 
-export const truncate = (text: string): string => {
-	if (text.length > 150) {
-		return text.substring(0, 150) + ' ...';
+export const TRUNCATE_LENGTH = 150;
+
+export function truncate(text: string): string {
+	if (text.length > TRUNCATE_LENGTH) {
+		return text.substring(0, TRUNCATE_LENGTH) + ' ...';
 	}
 	return text;
-};
+}
 
-export const formatRequest = (request: JSONRPCRequest) => {
+export function formatRequest(request: JSONRPCRequest): string {
 	const method = request.method ?? 'EMPTY_METHOD';
 	const params = request.params ?? {};
 
 	return `${method}:${truncate(JSON.stringify(params))}`;
-};
+}
 
-const expressLog = (
-	req: Request,
-	res: Response,
-	next: NextFunction,
-	error: Error | null = null,
-) => {
+function expressLog(req: Request, res: Response, next: NextFunction, error: Error | null = null) {
 	const logger = log4js.getLogger('HTTP');
 	const header =
 		':remote-addr - ":method :url HTTP/:http-version" :status :content-length ":referrer" ":user-agent" :response-time';
@@ -55,23 +52,21 @@ const expressLog = (
 			return formatter(getMessage(req));
 		},
 	})(req, res, next);
-};
+}
 
-export const expressLogger = (req: Request, res: Response, next: NextFunction) =>
-	expressLog(req, res, next);
+export function expressLogger(req: Request, res: Response, next: NextFunction) {
+	return expressLog(req, res, next);
+}
 
-export const expressErrorHandler = (
-	error: Error,
-	req: Request,
-	res: Response,
-	next: NextFunction,
-) => expressLog(req, res, next, error);
+export function expressErrorHandler(error: Error, req: Request, res: Response, next: NextFunction) {
+	return expressLog(req, res, next, error);
+}
 
-export const rpcLogger = async <ServerParams>(
+export async function rpcLogger<ServerParams>(
 	next: JSONRPCServerMiddlewareNext<ServerParams>,
 	request: JSONRPCRequest,
 	serverParams: ServerParams,
-) => {
+) {
 	const logger = log4js.getLogger('RPC');
 	return next(request, serverParams).then((response: JSONRPCResponse | null) => {
 		if (!response) {
@@ -86,13 +81,13 @@ export const rpcLogger = async <ServerParams>(
 		}
 		return response;
 	});
-};
+}
 
-export const rpcErrorHandler = async <ServerParams>(
+export async function rpcErrorHandler<ServerParams>(
 	next: JSONRPCServerMiddlewareNext<ServerParams>,
 	request: JSONRPCRequest,
 	serverParams: ServerParams,
-) => {
+) {
 	try {
 		return await next(request, serverParams);
 	} catch (error) {
@@ -114,6 +109,6 @@ export const rpcErrorHandler = async <ServerParams>(
 			throw error;
 		}
 	}
-};
+}
 
 export default logger;
