@@ -1,0 +1,129 @@
+import { input, select, confirm } from '@inquirer/prompts';
+import * as crypto from '@liskhq/lisk-cryptography';
+import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
+import L2ClaimAbi from '../abi/L2Claim';
+import { Network } from '../utils/network';
+import { ethers } from 'ethers';
+import { getETHWallet, getLSKPrivateKey } from '../utils/getPrivateKey';
+import { signMessage } from '../utils/sign-message';
+import { printPreview } from '../utils/print-table';
+import confirmSendTransaction from '../utils/confirm-send-transaction';
+import publishMultisigClaim from './publish-multisig-claim';
+import buildAccountList from '../utils/build-account-list';
+import { append0x } from '../utils';
+
+export default async function submitClaim(networkParams: Network) {
+	const privateKey = await getLSKPrivateKey();
+
+	const lskAddressBytes = crypto.address.getAddressFromPrivateKey(privateKey);
+	const lskAddress = crypto.address.getLisk32AddressFromAddress(lskAddressBytes);
+	console.log('Representing LSK L1 Address:', lskAddress);
+
+	const result = await fetchCheckEligibility(lskAddress, networkParams);
+	if (!result.account && result.multisigAccounts.length === 0) {
+		console.log(`No Eligible Claim for Address: ${lskAddress}`);
+		process.exit(1);
+	}
+
+	const claimAccount = await select({
+		message: 'Choose Claim Address',
+		choices: await buildAccountList(result, networkParams),
+	});
+
+	if (claimAccount.numberOfSignatures === 0) {
+		// Regular Claim
+		const wallet = await getETHWallet();
+		const walletWithSigner = wallet.connect(new ethers.JsonRpcProvider(networkParams.rpc));
+		console.log('Representing LSK L2 Address:', wallet.address);
+
+		const destinationAddress = await input({
+			message: 'Claim Destination Address',
+			default: wallet.address,
+		});
+
+		const claimContract = new ethers.Contract(
+			networkParams.l2Claim,
+			L2ClaimAbi,
+			new ethers.JsonRpcProvider(networkParams.rpc),
+		);
+
+		const signature = signMessage(claimAccount.hash, destinationAddress, privateKey);
+		const contractWithSigner = claimContract.connect(walletWithSigner) as ethers.Contract;
+
+		printPreview(claimAccount.lskAddress, destinationAddress, claimAccount.balanceBeddows);
+		await confirmSendTransaction(
+			contractWithSigner.claimRegularAccount,
+			[
+				claimAccount.proof,
+				crypto.ed.getPublicKeyFromPrivateKey(privateKey),
+				claimAccount.balanceBeddows,
+				destinationAddress,
+				[append0x(signature.substring(0, 64)), append0x(signature.substring(64))],
+			],
+			walletWithSigner,
+		);
+	} else {
+		// Multisig Claim
+		const signedDestinationAddresses = result.signatures.reduce(
+			(
+				addresses: {
+					name: string;
+					value: string;
+				}[],
+				signature,
+			) => {
+				if (
+					signature.lskAddress === claimAccount.lskAddress &&
+					!addresses.find(address => address.value === signature.destination)
+				) {
+					addresses.push({
+						name: signature.destination,
+						value: signature.destination,
+					});
+				}
+				return addresses;
+			},
+			[],
+		);
+
+		let destinationAddress = '';
+		if (signedDestinationAddresses.length > 0) {
+			destinationAddress = await select({
+				message: 'Claim Destination Address',
+				choices: signedDestinationAddresses.concat({
+					name: 'Other Address',
+					value: '',
+				}),
+			});
+		}
+		if (destinationAddress === '') {
+			destinationAddress = await input({ message: 'Destination L2 Address' });
+		}
+		const signature = signMessage(claimAccount.hash, destinationAddress, privateKey);
+
+		printPreview(claimAccount.lskAddress, destinationAddress, claimAccount.balanceBeddows);
+		if (await confirm({ message: 'Confirm Signing this Claim', default: false })) {
+			const submitResult = await fetchSubmitMultisig(
+				claimAccount.lskAddress,
+				destinationAddress,
+				append0x(crypto.ed.getPublicKeyFromPrivateKey(privateKey).toString('hex')),
+				append0x(signature.substring(0, 64)),
+				append0x(signature.substring(64)),
+				networkParams,
+			);
+
+			if (submitResult.success) {
+				console.log('Success Submitted Claim!');
+			}
+
+			if (
+				submitResult.ready &&
+				(await confirm({
+					message: `Address: ${claimAccount.lskAddress} has reach sufficient signatures, proceed to publish?`,
+				}))
+			) {
+				await publishMultisigClaim(networkParams, claimAccount.lskAddress);
+			}
+		}
+	}
+}
