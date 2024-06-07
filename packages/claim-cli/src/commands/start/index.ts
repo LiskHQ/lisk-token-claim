@@ -14,15 +14,14 @@ enum Choice {
 export default class Start extends Command {
 	static flags = {
 		network: Flags.string({
-			description:
-				'Destination address at signing stage. Default is the contract address created by default mnemonic in Anvil/Ganache when nonce=0',
+			description: 'Network ',
 			required: false,
 			default: 'mainnet',
 			options: ['mainnet', 'testnet', 'local'],
 		}),
 	};
 
-	static description = 'Generate example data for demo purpose';
+	static description = 'Start Lisk Migration CLI';
 
 	static examples = [`$ oex example`];
 
@@ -30,7 +29,7 @@ export default class Start extends Command {
 		const { flags } = await this.parse(Start);
 		const { network } = flags;
 
-		console.log(`Welcome to Lisk Claim CLI (Running on "${network}" Network)`);
+		console.log(`Welcome to Lisk Migration CLI (Running on "${network}" Network)`);
 		const answer = await select({
 			message: 'Please enter your choices',
 			choices: [

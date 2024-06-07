@@ -2,6 +2,8 @@ export interface Network {
 	api: string;
 	rpc: string;
 	l2Claim: string;
+	maxFeePerGas: bigint;
+	maxPriorityFeePerGas: bigint;
 }
 
 export const Mainnet = {

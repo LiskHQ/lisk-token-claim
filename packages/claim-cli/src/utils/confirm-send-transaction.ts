@@ -32,15 +32,15 @@ export default async function confirmSendTransaction(
 	const estimatedFee = estimatedGas * maxFeePerGas;
 	const ethBalance = await provider.getBalance(walletWithSigner.address);
 	console.log(
-		`> Estimated Network Fee (${estimatedGas} * ${maxFeePerGas} wei) = ${ethers.formatUnits(estimatedFee)} ETH`,
+		`> Estimated Network Fee (${estimatedGas} * ${maxFeePerGas} wei) = ${ethers.formatUnits(estimatedFee)} ETH.`,
 	);
 	console.log(`> Your Balance: ${ethers.formatUnits(ethBalance)} ETH`);
 	if (estimatedFee > ethBalance) {
-		console.log('Insufficient Balance for the Transaction');
+		console.log('Insufficient Balance for the Transaction.');
 		process.exit(1);
 	}
 	if (!(await confirm({ message: 'Confirm to Send Transaction', default: false }))) {
-		console.log('User Cancelled Submission');
+		console.log('User Cancelled Submission.');
 		process.exit(1);
 	}
 

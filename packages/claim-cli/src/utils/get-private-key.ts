@@ -1,6 +1,6 @@
-import { input, select } from '@inquirer/prompts';
+import { input, password, select } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
-import { ethers, HDNodeWallet, Wallet } from 'ethers';
+import { HDNodeWallet, Wallet } from 'ethers';
 import { remove0x } from './index';
 
 enum SecretType {
@@ -32,7 +32,7 @@ export const getPrivateKeyFromString = async (): Promise<Buffer> => {
 	const privKeyFormatted = remove0x(privKey);
 
 	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/)) {
-		console.log('Invalid Private Key, please check again');
+		console.log('Invalid Private Key, please check again.');
 		process.exit(1);
 	}
 	return Buffer.from(privKey, 'hex');
@@ -45,10 +45,10 @@ export const getLSKPrivateKey = async () => {
 
 export const getETHWalletFromMnemonic = async (): Promise<HDNodeWallet> => {
 	const mnemonic = await input({ message: 'Your L2 Mnemonic' });
-	const password = await input({ message: 'BIP39 Passphrase (Optional)' });
+	const passphrase = await password({ message: 'BIP39 Passphrase (Optional)' });
 	const path = await input({ message: 'Path', default: "m/44'/60'/0'/0/0" });
 
-	return ethers.HDNodeWallet.fromPhrase(mnemonic, password, path);
+	return HDNodeWallet.fromPhrase(mnemonic, passphrase, path);
 };
 
 export const getETHWalletKeyFromString = async (): Promise<Wallet> => {
@@ -59,10 +59,10 @@ export const getETHWalletKeyFromString = async (): Promise<Wallet> => {
 	const privKeyFormatted = remove0x(privKey);
 
 	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/)) {
-		console.log('Invalid Private Key, please check again');
+		console.log('Invalid Private Key, please check again.');
 		process.exit(1);
 	}
-	return new ethers.Wallet(privKey);
+	return new Wallet(privKey);
 };
 
 export const getETHWallet = async () => {

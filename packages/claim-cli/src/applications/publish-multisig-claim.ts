@@ -2,7 +2,7 @@ import { ethers, ZeroHash } from 'ethers';
 import { input, select } from '@inquirer/prompts';
 import { Network } from '../utils/network';
 import { fetchCheckEligibility } from '../utils/endpoint';
-import { getETHWallet } from '../utils/getPrivateKey';
+import { getETHWallet } from '../utils/get-private-key';
 import L2ClaimAbi from '../abi/L2Claim';
 import confirmSendTransaction from '../utils/confirm-send-transaction';
 import { printPreview } from '../utils/print-table';
@@ -17,7 +17,7 @@ export default async function publishMultisigClaim(
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account) {
-		console.log(`Address ${lskAddress} has no eligibility`);
+		console.log(`Address ${lskAddress} has no eligibility.`);
 		process.exit(1);
 	}
 
@@ -121,14 +121,6 @@ export default async function publishMultisigClaim(
 
 	const contractWithSigner = claimContract.connect(walletWithSigner) as ethers.Contract;
 
-	console.log([
-		result.account.proof,
-		result.account.address,
-		result.account.balanceBeddows,
-		[result.account.mandatoryKeys, result.account.optionalKeys],
-		destination,
-		signatures.map(signature => [signature.r, signature.s]),
-	]);
 	printPreview(result.account.lskAddress, destination, result.account.balanceBeddows);
 	await confirmSendTransaction(
 		contractWithSigner.claimMultisigAccount,

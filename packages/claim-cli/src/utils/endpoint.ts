@@ -28,7 +28,7 @@ export const fetchCheckEligibility = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later');
+		console.log('Network Error, please try again later.');
 		process.exit(1);
 	}
 
@@ -73,7 +73,7 @@ export const fetchSubmitMultisig = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later');
+		console.log('Network Error, please try again later.');
 		process.exit(1);
 	}
 

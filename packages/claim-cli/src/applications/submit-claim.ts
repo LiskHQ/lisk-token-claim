@@ -4,7 +4,7 @@ import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
 import L2ClaimAbi from '../abi/L2Claim';
 import { Network } from '../utils/network';
 import { ethers } from 'ethers';
-import { getETHWallet, getLSKPrivateKey } from '../utils/getPrivateKey';
+import { getETHWallet, getLSKPrivateKey } from '../utils/get-private-key';
 import { signMessage } from '../utils/sign-message';
 import { printPreview } from '../utils/print-table';
 import confirmSendTransaction from '../utils/confirm-send-transaction';
