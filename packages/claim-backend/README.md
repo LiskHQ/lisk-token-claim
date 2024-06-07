@@ -12,7 +12,7 @@ Apart from Node version 18, Claim Backend also requires:
 ## .env Params
 
 | param                | Description                                                                                                                                          | Required                  |
-| -------------------- |------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------- |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
 | BACKEND_HOST         | IP used by backend (Default: 127.0.0.1)                                                                                                              | false                     |
 | BACKEND_PORT         | Port used by backend (Default: 3000)                                                                                                                 | false                     |
 | BACKEND_LOGGER_LEVEL | Logger level in backend (trace/debug/info/warn/error/fatal) (Default: info)                                                                          | false                     |
