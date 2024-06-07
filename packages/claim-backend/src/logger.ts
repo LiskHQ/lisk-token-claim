@@ -12,7 +12,7 @@ import { ErrorCode } from './utils/error';
 dotenv.config();
 
 const logger = log4js.getLogger();
-logger.level = process.env.BACKEND_LOGGER_LEVEL ?? 'debug';
+logger.level = process.env.BACKEND_LOGGER_LEVEL ?? 'info';
 
 export const TRUNCATE_LENGTH = 150;
 
@@ -77,7 +77,7 @@ export async function rpcLogger<ServerParams>(
 		if (response.error) {
 			logger.warn(message);
 		} else {
-			logger.debug(message);
+			logger.info(message);
 		}
 		return response;
 	});

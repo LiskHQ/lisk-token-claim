@@ -12,10 +12,10 @@ Apart from Node version 18, Claim Backend also requires:
 ## .env Params
 
 | param                | Description                                                                                                                                          | Required                  |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| -------------------- |------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------- |
 | BACKEND_HOST         | IP used by backend (Default: 127.0.0.1)                                                                                                              | false                     |
 | BACKEND_PORT         | Port used by backend (Default: 3000)                                                                                                                 | false                     |
-| BACKEND_LOGGER_LEVEL | Logger level in backend (trace/debug/info/warn/error/fatal) (Default: debug)                                                                         | false                     |
+| BACKEND_LOGGER_LEVEL | Logger level in backend (trace/debug/info/warn/error/fatal) (Default: info)                                                                          | false                     |
 | DB_PORT              | Port used by PostgreSQL DB (Default: 5432)                                                                                                           | false                     |
 | DB_HOST              | Host used by PostgreSQL DB (Default: 127.0.0.1)                                                                                                      | false                     |
 | DB_DATABASE          | Name of Database of PostgreSQL DB (Default: claim-backend)                                                                                           | false                     |
@@ -161,7 +161,7 @@ Claim Backend uses [log4js](https://www.npmjs.com/package/log4js) to record API 
 - default
   - `INFO`: General logging during the start of backend.
 - RPC
-  - `DEBUG`: When sending success RPC response to client.
+  - `INFO`: When sending success RPC response to client.
   - `WARN`: When sending an Error RPC response to client, e.g. Invalid LSK address is queried.
 - HTTP
   - `DEBUG`: When there is a valid incoming HTTP request.
