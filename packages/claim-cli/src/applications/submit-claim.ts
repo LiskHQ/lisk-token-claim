@@ -34,7 +34,7 @@ export default async function submitClaim(networkParams: Network) {
 		// Regular Claim
 		const wallet = await getETHWallet();
 		const walletWithSigner = wallet.connect(new ethers.JsonRpcProvider(networkParams.rpc));
-		console.log('Representing LSK L2 Address:', wallet.address);
+		console.log('> Representing LSK L2 Address:', wallet.address);
 
 		const destinationAddress = await input({
 			message: 'Claim Destination Address',

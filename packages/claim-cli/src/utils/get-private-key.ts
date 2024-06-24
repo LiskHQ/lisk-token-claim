@@ -17,30 +17,34 @@ const getSecretType = (wallet: string) =>
 			{ name: 'Private Key', value: SecretType.PRIVATE_KEY },
 		],
 	});
-export const getPrivateKeyFromMnemonic = async (): Promise<Buffer> => {
+
+export const getLSKPrivateKeyFromMnemonic = async (): Promise<Buffer> => {
+	console.log(input);
 	const mnemonic = await input({ message: 'Your Mnemonic' });
 	const path = await input({ message: 'Path', default: "m/44'/134'/0'" });
 
 	return crypto.ed.getPrivateKeyFromPhraseAndPath(mnemonic.trim(), path);
 };
 
-export const getPrivateKeyFromString = async (): Promise<Buffer> => {
+export const getLSKPrivateKeyFromString = async (): Promise<Buffer> => {
 	const privKey = await input({
 		message: 'Your Private Key',
 	});
 
 	const privKeyFormatted = remove0x(privKey);
 
-	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/)) {
-		console.log('Invalid Private Key, please check again.');
+	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{128}$/)) {
+		console.log(
+			'Invalid Private Key, please check again. Private Key should be 128-character long',
+		);
 		process.exit(1);
 	}
-	return Buffer.from(privKey, 'hex');
+	return Buffer.from(privKeyFormatted, 'hex');
 };
 
 export const getLSKPrivateKey = async () => {
 	const type = await getSecretType('Lisk L1 Wallet');
-	return [getPrivateKeyFromMnemonic, getPrivateKeyFromString][type]();
+	return [getLSKPrivateKeyFromMnemonic, getLSKPrivateKeyFromString][type]();
 };
 
 export const getETHWalletFromMnemonic = async (): Promise<HDNodeWallet> => {

@@ -22,19 +22,19 @@ export default async function publishMultisigClaim(
 	}
 
 	if (!result.account.ready) {
-		console.log(`Address ${lskAddress} has insufficient signatures.`);
+		console.log(`> Address ${lskAddress} has insufficient signatures.`);
 		process.exit(1);
 	}
 
 	const claimedTo = await claimContract.claimedTo(result.account.address);
 	if (claimedTo !== ethers.ZeroAddress) {
-		console.log(`Address ${lskAddress} has already been claimed.`);
+		console.log(`> Address ${lskAddress} has already been claimed.`);
 		process.exit(1);
 	}
 
 	const wallet = await getETHWallet();
 	const walletWithSigner = wallet.connect(provider);
-	console.log('Representing LSK L2 Address:', wallet.address);
+	console.log('> Representing LSK L2 Address:', wallet.address);
 
 	const signaturesGroupByDestinationAddress = result.signatures.reduce(
 		(

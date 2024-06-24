@@ -8,6 +8,7 @@ export const signMessage = (hash: string, destinationAddress: string, privKey: B
 	const message =
 		keccak256(abiCoder.encode(['bytes32', 'address'], [hash, destinationAddress])) + BYTES_9;
 
+	console.log('signMessage', privKey.toString('hex'));
 	return Buffer.from(
 		tweetnacl.sign.detached(Buffer.from(remove0x(message), 'hex'), privKey),
 	).toString('hex');

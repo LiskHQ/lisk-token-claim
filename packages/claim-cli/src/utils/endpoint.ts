@@ -4,7 +4,7 @@ import {
 	JSONRPCSuccessResponse,
 	SubmitMultisigResponse,
 } from '../interfaces';
-import { Network } from '../utils/network';
+import { Network } from './network';
 
 export const fetchCheckEligibility = async (
 	lskAddress: string,

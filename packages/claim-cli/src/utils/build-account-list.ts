@@ -6,7 +6,7 @@ import L2ClaimAbi from '../abi/L2Claim';
 export interface AccountListChoice {
 	name: string;
 	value: Account;
-	disabled?: string;
+	claimed?: string;
 }
 
 export default async function buildAccountList(
@@ -24,12 +24,16 @@ export default async function buildAccountList(
 		{},
 	);
 
-	const accountList: AccountListChoice[] = [
-		{
-			name: `${result.account.lskAddress} (${ethers.formatUnits(result.account.balanceBeddows, 8)} LSK)`,
-			value: result.account,
-		},
-	].concat(
+	const regularAccountSingleton = result.account
+		? [
+				{
+					name: `${result.account.lskAddress} (${ethers.formatUnits(result.account.balanceBeddows, 8)} LSK)`,
+					value: result.account,
+				},
+			]
+		: [];
+
+	const accountList: AccountListChoice[] = regularAccountSingleton.concat(
 		result.multisigAccounts.map(account => ({
 			name: `${account.lskAddress} [${numOfSigned[account.lskAddress] ?? 0}/${account.numberOfSignatures}] (${ethers.formatUnits(account.balanceBeddows, 8)} LSK)`,
 			value: account,
@@ -45,7 +49,7 @@ export default async function buildAccountList(
 	for (const account of accountList) {
 		const claimedTo = await claimContract.claimedTo(account.value.address);
 		if (claimedTo !== ethers.ZeroAddress) {
-			account.disabled = `Already Claimed To: ${claimedTo}`;
+			account.claimed = `Already Claimed To: ${claimedTo}`;
 		}
 	}
 
