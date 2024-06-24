@@ -1,4 +1,4 @@
-import { input, select, confirm } from '@inquirer/prompts';
+import { select, confirm } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
 import L2ClaimAbi from '../abi/L2Claim';
@@ -11,6 +11,7 @@ import confirmSendTransaction from '../utils/confirm-send-transaction';
 import publishMultisigClaim from './publish-multisig-claim';
 import buildAccountList from '../utils/build-account-list';
 import { append0x } from '../utils';
+import { getInput } from '../utils/get-prompts';
 
 export default async function submitClaim(networkParams: Network) {
 	const privateKey = await getLSKPrivateKey();
@@ -22,7 +23,7 @@ export default async function submitClaim(networkParams: Network) {
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account && result.multisigAccounts.length === 0) {
 		console.log(`No Eligible Claim for Address: ${lskAddress}`);
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const claimAccount = await select({
@@ -36,7 +37,7 @@ export default async function submitClaim(networkParams: Network) {
 		const walletWithSigner = wallet.connect(new ethers.JsonRpcProvider(networkParams.rpc));
 		console.log('> Representing LSK L2 Address:', wallet.address);
 
-		const destinationAddress = await input({
+		const destinationAddress = await getInput({
 			message: 'Claim Destination Address',
 			default: wallet.address,
 		});
@@ -97,7 +98,7 @@ export default async function submitClaim(networkParams: Network) {
 			});
 		}
 		if (destinationAddress === '') {
-			destinationAddress = await input({ message: 'Destination L2 Address' });
+			destinationAddress = await getInput({ message: 'Destination L2 Address' });
 		}
 		const signature = signMessage(claimAccount.hash, destinationAddress, privateKey);
 

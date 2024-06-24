@@ -1,35 +1,36 @@
 import { ethers, ZeroHash } from 'ethers';
-import { input, select } from '@inquirer/prompts';
+import { select } from '@inquirer/prompts';
 import { Network } from '../utils/network';
 import { fetchCheckEligibility } from '../utils/endpoint';
 import { getETHWallet } from '../utils/get-private-key';
 import L2ClaimAbi from '../abi/L2Claim';
 import confirmSendTransaction from '../utils/confirm-send-transaction';
 import { printPreview } from '../utils/print-table';
+import { getInput } from '../utils/get-prompts';
 
 export default async function publishMultisigClaim(
 	networkParams: Network,
 	address: string | null = null,
 ) {
 	const provider = new ethers.JsonRpcProvider(networkParams.rpc);
-	const lskAddress = address || (await input({ message: 'Multisig Address to be published' }));
+	const lskAddress = address || (await getInput({ message: 'Multisig Address to be published' }));
 	const claimContract = new ethers.Contract(networkParams.l2Claim, L2ClaimAbi, provider);
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account) {
 		console.log(`Address ${lskAddress} has no eligibility.`);
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	if (!result.account.ready) {
 		console.log(`> Address ${lskAddress} has insufficient signatures.`);
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const claimedTo = await claimContract.claimedTo(result.account.address);
 	if (claimedTo !== ethers.ZeroAddress) {
 		console.log(`> Address ${lskAddress} has already been claimed.`);
-		process.exit(1);
+		return process.exit(1);
 	}
 
 	const wallet = await getETHWallet();

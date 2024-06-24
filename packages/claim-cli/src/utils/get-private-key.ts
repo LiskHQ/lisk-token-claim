@@ -1,7 +1,8 @@
-import { input, password, select } from '@inquirer/prompts';
+import { select } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
-import { HDNodeWallet, Wallet } from 'ethers';
+import { Mnemonic, HDNodeWallet, Wallet } from 'ethers';
 import { remove0x } from './index';
+import { getInput, getPassword } from './get-prompts';
 
 enum SecretType {
 	MNEMONIC,
@@ -19,15 +20,19 @@ const getSecretType = (wallet: string) =>
 	});
 
 export const getLSKPrivateKeyFromMnemonic = async (): Promise<Buffer> => {
-	console.log(input);
-	const mnemonic = await input({ message: 'Your Mnemonic' });
-	const path = await input({ message: 'Path', default: "m/44'/134'/0'" });
+	const mnemonic = await getInput({ message: 'Your Mnemonic' });
+	if (!Mnemonic.isValidMnemonic(mnemonic)) {
+		console.log('> Invalid Mnemonic, please check again.');
+		return process.exit(1);
+	}
+
+	const path = await getInput({ message: 'Path', default: "m/44'/134'/0'" });
 
 	return crypto.ed.getPrivateKeyFromPhraseAndPath(mnemonic.trim(), path);
 };
 
 export const getLSKPrivateKeyFromString = async (): Promise<Buffer> => {
-	const privKey = await input({
+	const privKey = await getInput({
 		message: 'Your Private Key',
 	});
 
@@ -35,9 +40,9 @@ export const getLSKPrivateKeyFromString = async (): Promise<Buffer> => {
 
 	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{128}$/)) {
 		console.log(
-			'Invalid Private Key, please check again. Private Key should be 128-character long',
+			'> Invalid Private Key, please check again. Private Key should be 128-character long.',
 		);
-		process.exit(1);
+		return process.exit(1);
 	}
 	return Buffer.from(privKeyFormatted, 'hex');
 };
@@ -48,23 +53,30 @@ export const getLSKPrivateKey = async () => {
 };
 
 export const getETHWalletFromMnemonic = async (): Promise<HDNodeWallet> => {
-	const mnemonic = await input({ message: 'Your L2 Mnemonic' });
-	const passphrase = await password({ message: 'BIP39 Passphrase (Optional)' });
-	const path = await input({ message: 'Path', default: "m/44'/60'/0'/0/0" });
+	const mnemonic = await getInput({ message: 'Your L2 Mnemonic' });
+	if (!Mnemonic.isValidMnemonic(mnemonic)) {
+		console.log('> Invalid Mnemonic, please check again.');
+		return process.exit(1);
+	}
+
+	const passphrase = await getPassword({ message: 'BIP39 Passphrase (Optional)' });
+	const path = await getInput({ message: 'Path', default: "m/44'/60'/0'/0/0" });
 
 	return HDNodeWallet.fromPhrase(mnemonic, passphrase, path);
 };
 
 export const getETHWalletKeyFromString = async (): Promise<Wallet> => {
-	const privKey = await input({
+	const privKey = await getInput({
 		message: 'Your Private Key',
 	});
 
 	const privKeyFormatted = remove0x(privKey);
 
 	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/)) {
-		console.log('Invalid Private Key, please check again.');
-		process.exit(1);
+		console.log(
+			'> Invalid Private Key, please check again. Private Key should be 64-character long.',
+		);
+		return process.exit(1);
 	}
 	return new Wallet(privKey);
 };

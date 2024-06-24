@@ -28,16 +28,16 @@ export const fetchCheckEligibility = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later.');
-		process.exit(1);
+		console.log('> Network Error, please try again later.');
+		return process.exit(1);
 	}
 
 	const { result, error } = (await response.json()) as
 		| JSONRPCSuccessResponse<CheckEligibilityResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('Claim Endpoint returned error:', error.message);
-		process.exit(1);
+		console.log('> Claim Endpoint returned error:', error.message);
+		return process.exit(1);
 	}
 
 	return result;
@@ -73,16 +73,16 @@ export const fetchSubmitMultisig = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later.');
-		process.exit(1);
+		console.log('> Network Error, please try again later.');
+		return process.exit(1);
 	}
 
 	const { result, error } = (await response.json()) as
 		| JSONRPCSuccessResponse<SubmitMultisigResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('Claim Endpoint returned error:', error.message);
-		process.exit(1);
+		console.log('> Claim Endpoint returned error:', error.message);
+		return process.exit(1);
 	}
 
 	return result;

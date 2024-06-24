@@ -3,7 +3,7 @@ import { select } from '@inquirer/prompts';
 import checkEligibility from '../../applications/check-eligibility';
 import submitClaim from '../../applications/submit-claim';
 import publishMultisigClaim from '../../applications/publish-multisig-claim';
-import { Local, Mainnet, Testnet } from '../../utils/network';
+import { Mainnet, Testnet } from '../../utils/network';
 
 enum Choice {
 	CHECK_ELIGIBILITY,
@@ -45,8 +45,7 @@ export default class Start extends Command {
 		const networkParams = {
 			mainnet: Mainnet,
 			testnet: Testnet,
-			local: Local,
-		}[network as 'mainnet' | 'testnet' | 'local'];
+		}[network as 'mainnet' | 'testnet'];
 		await [checkEligibility, submitClaim, publishMultisigClaim][answer](networkParams);
 	}
 }
