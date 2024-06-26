@@ -1,4 +1,4 @@
-import { NetworkParams } from './networkParams';
+import { NetworkParams } from './network-params';
 import { Account, CheckEligibilityResponse } from '../interfaces';
 import { ethers } from 'ethers';
 import L2ClaimAbi from '../abi/L2Claim';

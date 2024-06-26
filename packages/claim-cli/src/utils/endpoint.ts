@@ -4,7 +4,7 @@ import {
 	JSONRPCSuccessResponse,
 	SubmitMultisigResponse,
 } from '../interfaces';
-import { NetworkParams } from './networkParams';
+import { NetworkParams } from './network-params';
 
 export async function fetchCheckEligibility(
 	lskAddress: string,

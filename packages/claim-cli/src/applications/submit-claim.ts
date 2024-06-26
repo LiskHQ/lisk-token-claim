@@ -2,7 +2,7 @@ import { select, confirm } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
 import L2ClaimAbi from '../abi/L2Claim';
-import { NetworkParams } from '../utils/networkParams';
+import { NetworkParams } from '../utils/network-params';
 import { ethers } from 'ethers';
 import { getETHWallet, getLSKPrivateKey } from '../utils/get-private-key';
 import { signMessage } from '../utils/sign-message';

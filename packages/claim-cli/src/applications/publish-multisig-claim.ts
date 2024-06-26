@@ -1,6 +1,6 @@
 import { ethers, ZeroHash } from 'ethers';
 import { select } from '@inquirer/prompts';
-import { NetworkParams } from '../utils/networkParams';
+import { NetworkParams } from '../utils/network-params';
 import { fetchCheckEligibility } from '../utils/endpoint';
 import { getETHWallet } from '../utils/get-private-key';
 import L2ClaimAbi from '../abi/L2Claim';

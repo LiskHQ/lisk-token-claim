@@ -1,7 +1,7 @@
 import { BaseContractMethod, ethers, HDNodeWallet, Wallet } from 'ethers';
 import { confirm } from '@inquirer/prompts';
 import { getInput } from './get-prompts';
-import { NetworkParams } from './networkParams';
+import { NetworkParams } from './network-params';
 
 export default async function confirmSendTransaction(
 	contractMethod: BaseContractMethod,
