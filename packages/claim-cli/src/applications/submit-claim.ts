@@ -115,7 +115,7 @@ export default async function submitClaim(networkParams: NetworkParams): Promise
 			);
 
 			if (submitResult.success) {
-				console.log('Success Submitted Claim!');
+				console.log('Success Submitted Signature to Claim API!');
 			}
 
 			if (
