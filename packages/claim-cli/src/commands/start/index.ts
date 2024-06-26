@@ -14,14 +14,14 @@ enum Choice {
 export default class Start extends Command {
 	static flags = {
 		network: Flags.string({
-			description: 'Network ',
+			description: 'Operating network for the tool to run.',
 			required: false,
 			default: 'mainnet',
-			options: ['mainnet', 'testnet', 'local'],
+			options: ['mainnet', 'testnet'],
 		}),
 	};
 
-	static description = 'Start Lisk Migration CLI';
+	static description = 'Start Lisk Claim CLI Tool.';
 
 	static examples = [`$ oex example`];
 
