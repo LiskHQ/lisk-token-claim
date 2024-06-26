@@ -1,6 +1,6 @@
 import { ethers, ZeroHash } from 'ethers';
 import { select } from '@inquirer/prompts';
-import { Network } from '../utils/network';
+import { NetworkParams } from '../utils/networkParams';
 import { fetchCheckEligibility } from '../utils/endpoint';
 import { getETHWallet } from '../utils/get-private-key';
 import L2ClaimAbi from '../abi/L2Claim';
@@ -9,7 +9,7 @@ import { printPreview } from '../utils/print-table';
 import { getInput } from '../utils/get-prompts';
 
 export default async function publishMultisigClaim(
-	networkParams: Network,
+	networkParams: NetworkParams,
 	address: string | null = null,
 ): Promise<void> {
 	const provider = new ethers.JsonRpcProvider(networkParams.rpc);

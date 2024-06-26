@@ -2,7 +2,7 @@ import * as tweetnacl from 'tweetnacl';
 import { BYTES_9, remove0x } from './index';
 import { AbiCoder, keccak256 } from 'ethers';
 
-export function signMessage (hash: string, destinationAddress: string, privKey: Buffer): string {
+export function signMessage(hash: string, destinationAddress: string, privKey: Buffer): string {
 	const abiCoder = new AbiCoder();
 
 	const message =

@@ -4,11 +4,11 @@ import {
 	JSONRPCSuccessResponse,
 	SubmitMultisigResponse,
 } from '../interfaces';
-import { Network } from './network';
+import { NetworkParams } from './networkParams';
 
-export async function fetchCheckEligibility (
+export async function fetchCheckEligibility(
 	lskAddress: string,
-	network: Network,
+	networkParams: NetworkParams,
 ): Promise<CheckEligibilityResponse> {
 	const jsonRPCRequest = {
 		jsonrpc: '2.0',
@@ -19,7 +19,7 @@ export async function fetchCheckEligibility (
 		id: 1,
 	};
 
-	const response = await fetch(network.api, {
+	const response = await fetch(networkParams.api, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
@@ -41,15 +41,15 @@ export async function fetchCheckEligibility (
 	}
 
 	return result;
-};
+}
 
-export async function fetchSubmitMultisig (
+export async function fetchSubmitMultisig(
 	lskAddress: string,
 	destination: string,
 	publicKey: string,
 	r: string,
 	s: string,
-	network: Network,
+	networkParams: NetworkParams,
 ): Promise<SubmitMultisigResponse> {
 	const jsonRPCRequest = {
 		jsonrpc: '2.0',
@@ -64,7 +64,7 @@ export async function fetchSubmitMultisig (
 		id: 1,
 	};
 
-	const response = await fetch(network.api, {
+	const response = await fetch(networkParams.api, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
@@ -86,4 +86,4 @@ export async function fetchSubmitMultisig (
 	}
 
 	return result;
-};
+}

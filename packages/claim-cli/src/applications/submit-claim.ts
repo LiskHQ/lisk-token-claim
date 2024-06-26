@@ -2,7 +2,7 @@ import { select, confirm } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
 import L2ClaimAbi from '../abi/L2Claim';
-import { Network } from '../utils/network';
+import { NetworkParams } from '../utils/networkParams';
 import { ethers } from 'ethers';
 import { getETHWallet, getLSKPrivateKey } from '../utils/get-private-key';
 import { signMessage } from '../utils/sign-message';
@@ -13,7 +13,7 @@ import buildAccountList from '../utils/build-account-list';
 import { append0x } from '../utils';
 import { getInput } from '../utils/get-prompts';
 
-export default async function submitClaim(networkParams: Network): Promise<void> {
+export default async function submitClaim(networkParams: NetworkParams): Promise<void> {
 	const privateKey = await getLSKPrivateKey();
 
 	const lskAddressBytes = crypto.address.getAddressFromPrivateKey(privateKey);

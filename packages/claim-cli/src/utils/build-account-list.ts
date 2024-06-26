@@ -1,4 +1,4 @@
-import { Network } from '../utils/network';
+import { NetworkParams } from './networkParams';
 import { Account, CheckEligibilityResponse } from '../interfaces';
 import { ethers } from 'ethers';
 import L2ClaimAbi from '../abi/L2Claim';
@@ -11,7 +11,7 @@ export interface AccountListChoice {
 
 export default async function buildAccountList(
 	result: CheckEligibilityResponse,
-	networkParams: Network,
+	networkParams: NetworkParams,
 ): Promise<AccountListChoice[]> {
 	const numOfSigned = result.signatures.reduce(
 		(acc: { [destination: string]: number }, signature) => {

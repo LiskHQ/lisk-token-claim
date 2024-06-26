@@ -1,11 +1,13 @@
 import { BaseContractMethod, ethers, HDNodeWallet, Wallet } from 'ethers';
 import { confirm } from '@inquirer/prompts';
 import { getInput } from './get-prompts';
+import { NetworkParams } from './networkParams';
 
 export default async function confirmSendTransaction(
 	contractMethod: BaseContractMethod,
 	args: unknown[],
 	walletWithSigner: Wallet | HDNodeWallet,
+	networkParams: NetworkParams,
 ): Promise<void> {
 	const provider = walletWithSigner.provider;
 	if (!provider) {
@@ -13,7 +15,7 @@ export default async function confirmSendTransaction(
 	}
 
 	const feeData = await provider.getFeeData();
-	const suggestedMaxFeePerGas = feeData.maxFeePerGas ?? BigInt(1);
+	const suggestedMaxFeePerGas = feeData.maxFeePerGas ?? networkParams.maxFeePerGas;
 	const maxFeePerGas = BigInt(
 		await getInput({
 			message: `Max Fee Per Gas (wei) (Suggested: ${suggestedMaxFeePerGas.toString()})`,
@@ -21,7 +23,8 @@ export default async function confirmSendTransaction(
 		}),
 	);
 
-	const suggestedMaxPriorityFeePerGas = feeData.maxPriorityFeePerGas ?? BigInt(1);
+	const suggestedMaxPriorityFeePerGas =
+		feeData.maxPriorityFeePerGas ?? networkParams.maxPriorityFeePerGas;
 	const maxPriorityFeePerGas = BigInt(
 		await getInput({
 			message: `Max Priority Fee Per Gas (wei) (Suggested: ${suggestedMaxPriorityFeePerGas.toString()})`,

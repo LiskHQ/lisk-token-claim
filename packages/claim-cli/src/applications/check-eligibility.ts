@@ -1,9 +1,9 @@
-import { Network } from '../utils/network';
+import { NetworkParams } from '../utils/networkParams';
 import buildAccountList, { AccountListChoice } from '../utils/build-account-list';
 import { fetchCheckEligibility } from '../utils/endpoint';
 import { getInput } from '../utils/get-prompts';
 
-export default async function checkEligibility(networkParams: Network): Promise<void> {
+export default async function checkEligibility(networkParams: NetworkParams): Promise<void> {
 	const lskAddress = await getInput({ message: 'Your LSK Address' });
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
