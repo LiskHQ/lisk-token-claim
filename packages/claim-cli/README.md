@@ -11,7 +11,11 @@ This library is a tool to Claim Lisk token without the need to UI. This tool can
 ## Run
 
 ```
+# Enter claim-cli package
 cd packages/claim-cli
+
+# Install dependencies
+yarn
 
 # Start Claim CLI on mainnet
 ./bin/run.js start
