@@ -11,7 +11,7 @@ import { getInput } from '../utils/get-prompts';
 export default async function publishMultisigClaim(
 	networkParams: Network,
 	address: string | null = null,
-) {
+): Promise<void> {
 	const provider = new ethers.JsonRpcProvider(networkParams.rpc);
 	const lskAddress = address || (await getInput({ message: 'Multisig Address to be published' }));
 	const claimContract = new ethers.Contract(networkParams.l2Claim, L2ClaimAbi, provider);
@@ -23,19 +23,19 @@ export default async function publishMultisigClaim(
 	}
 
 	if (!result.account.ready) {
-		console.log(`> Address ${lskAddress} has insufficient signatures.`);
+		console.log(`Address ${lskAddress} has insufficient signatures.`);
 		return process.exit(1);
 	}
 
 	const claimedTo = await claimContract.claimedTo(result.account.address);
 	if (claimedTo !== ethers.ZeroAddress) {
-		console.log(`> Address ${lskAddress} has already been claimed.`);
+		console.log(`Address ${lskAddress} has already been claimed.`);
 		return process.exit(1);
 	}
 
 	const wallet = await getETHWallet();
 	const walletWithSigner = wallet.connect(provider);
-	console.log('> Representing LSK L2 Address:', wallet.address);
+	console.log('Representing LSK L2 Address:', wallet.address);
 
 	const signaturesGroupByDestinationAddress = result.signatures.reduce(
 		(

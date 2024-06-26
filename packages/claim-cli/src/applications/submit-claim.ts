@@ -13,7 +13,7 @@ import buildAccountList from '../utils/build-account-list';
 import { append0x } from '../utils';
 import { getInput } from '../utils/get-prompts';
 
-export default async function submitClaim(networkParams: Network) {
+export default async function submitClaim(networkParams: Network): Promise<void> {
 	const privateKey = await getLSKPrivateKey();
 
 	const lskAddressBytes = crypto.address.getAddressFromPrivateKey(privateKey);
@@ -35,7 +35,7 @@ export default async function submitClaim(networkParams: Network) {
 		// Regular Claim
 		const wallet = await getETHWallet();
 		const walletWithSigner = wallet.connect(new ethers.JsonRpcProvider(networkParams.rpc));
-		console.log('> Representing LSK L2 Address:', wallet.address);
+		console.log('Representing LSK L2 Address:', wallet.address);
 
 		const destinationAddress = await getInput({
 			message: 'Claim Destination Address',

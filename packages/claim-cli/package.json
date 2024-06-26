@@ -29,7 +29,7 @@
 		"postpack": "shx rm -f oclif.manifest.json",
 		"prepack": "yarn build && oclif manifest && oclif readme",
 		"prepare": "yarn build",
-		"test": "echo test"
+		"test": "mocha --forbid-only \"test/**/*.test.ts\""
 	},
 	"oclif": {
 		"bin": "claim-cli",

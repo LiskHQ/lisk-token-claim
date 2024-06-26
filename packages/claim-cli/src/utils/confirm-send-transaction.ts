@@ -6,7 +6,7 @@ export default async function confirmSendTransaction(
 	contractMethod: BaseContractMethod,
 	args: unknown[],
 	walletWithSigner: Wallet | HDNodeWallet,
-) {
+): Promise<void> {
 	const provider = walletWithSigner.provider;
 	if (!provider) {
 		return process.exit(1);
@@ -33,15 +33,15 @@ export default async function confirmSendTransaction(
 	const estimatedFee = estimatedGas * maxFeePerGas;
 	const ethBalance = await provider.getBalance(walletWithSigner.address);
 	console.log(
-		`> Estimated Network Fee (${estimatedGas} * ${maxFeePerGas} wei) = ${ethers.formatUnits(estimatedFee)} ETH.`,
+		`Estimated Network Fee (${estimatedGas} * ${maxFeePerGas} wei) = ${ethers.formatUnits(estimatedFee)} ETH.`,
 	);
-	console.log(`> Your Balance: ${ethers.formatUnits(ethBalance)} ETH`);
+	console.log(`Your Balance: ${ethers.formatUnits(ethBalance)} ETH`);
 	if (estimatedFee > ethBalance) {
-		console.log('> Insufficient Balance for the Transaction.');
+		console.log('Insufficient Balance for the Transaction.');
 		return process.exit(1);
 	}
 	if (!(await confirm({ message: 'Confirm to Send Transaction', default: false }))) {
-		console.log('> User Cancelled Submission.');
+		console.log('User Cancelled Submission.');
 		return process.exit(1);
 	}
 
@@ -49,8 +49,8 @@ export default async function confirmSendTransaction(
 		maxFeePerGas,
 		maxPriorityFeePerGas,
 	});
-	console.log(`> Successfully submitted transaction, tx: ${tx.hash}. Waiting for Confirmation ...`);
+	console.log(`Successfully submitted transaction, tx: ${tx.hash}. Waiting for Confirmation ...`);
 
 	const receipt = await tx.wait();
-	console.log(`> Transaction Confirmed at Block: ${receipt.blockNumber}!`);
+	console.log(`Transaction Confirmed at Block: ${receipt.blockNumber}!`);
 }

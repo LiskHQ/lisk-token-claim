@@ -15,13 +15,13 @@ This library is a tool to Claim Lisk token without the need to UI. This tool can
 cd packages/claim-cli
 
 # Install dependencies
-yarn
+yarn && yarn build
 
 # Start Claim CLI on mainnet
 ./bin/run.js start
 
-# Start Claim CLI on testnet
-./bin/run.js start --network testnet
+# Or start Claim CLI on testnet
+# ./bin/run.js start --network testnet
 ```
 
 ## Workflow

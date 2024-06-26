@@ -6,10 +6,10 @@ import {
 } from '../interfaces';
 import { Network } from './network';
 
-export const fetchCheckEligibility = async (
+export async function fetchCheckEligibility (
 	lskAddress: string,
 	network: Network,
-): Promise<CheckEligibilityResponse> => {
+): Promise<CheckEligibilityResponse> {
 	const jsonRPCRequest = {
 		jsonrpc: '2.0',
 		method: 'checkEligibility',
@@ -28,7 +28,7 @@ export const fetchCheckEligibility = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('> Network Error, please try again later.');
+		console.log('Network Error, please try again later.');
 		return process.exit(1);
 	}
 
@@ -36,21 +36,21 @@ export const fetchCheckEligibility = async (
 		| JSONRPCSuccessResponse<CheckEligibilityResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('> Claim Endpoint returned error:', error.message);
+		console.log('Claim Endpoint returned error:', error.message);
 		return process.exit(1);
 	}
 
 	return result;
 };
 
-export const fetchSubmitMultisig = async (
+export async function fetchSubmitMultisig (
 	lskAddress: string,
 	destination: string,
 	publicKey: string,
 	r: string,
 	s: string,
 	network: Network,
-): Promise<SubmitMultisigResponse> => {
+): Promise<SubmitMultisigResponse> {
 	const jsonRPCRequest = {
 		jsonrpc: '2.0',
 		method: 'submitMultisig',
@@ -73,7 +73,7 @@ export const fetchSubmitMultisig = async (
 	});
 
 	if (response.status !== 200) {
-		console.log('> Network Error, please try again later.');
+		console.log('Network Error, please try again later.');
 		return process.exit(1);
 	}
 
@@ -81,7 +81,7 @@ export const fetchSubmitMultisig = async (
 		| JSONRPCSuccessResponse<SubmitMultisigResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('> Claim Endpoint returned error:', error.message);
+		console.log('Claim Endpoint returned error:', error.message);
 		return process.exit(1);
 	}
 

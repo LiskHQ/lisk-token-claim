@@ -3,12 +3,12 @@ import buildAccountList, { AccountListChoice } from '../utils/build-account-list
 import { fetchCheckEligibility } from '../utils/endpoint';
 import { getInput } from '../utils/get-prompts';
 
-export default async function checkEligibility(networkParams: Network) {
+export default async function checkEligibility(networkParams: Network): Promise<void> {
 	const lskAddress = await getInput({ message: 'Your LSK Address' });
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account && result.multisigAccounts.length === 0) {
-		console.log(`> No Eligible Claim for Address: ${lskAddress}.`);
+		console.log(`No Eligible Claim for Address: ${lskAddress}.`);
 		return process.exit(1);
 	}
 
@@ -35,14 +35,14 @@ export default async function checkEligibility(networkParams: Network) {
 		},
 	);
 
-	console.log(`> Claimed Addresses (${accountGroupedByClaimStatus.claimed.length}):`);
+	console.log(`Claimed Addresses (${accountGroupedByClaimStatus.claimed.length}):`);
 	for (const [index, account] of accountGroupedByClaimStatus.claimed.entries()) {
-		console.log(`> ${index + 1}: ${account.name} ${account.claimed}`);
+		console.log(`${index + 1}: ${account.name} ${account.claimed}`);
 	}
 
-	console.log('> ==========');
+	console.log('==========');
 
-	console.log(`> Eligible Claims (${accountGroupedByClaimStatus.unclaimed.length}):`);
+	console.log(`Eligible Claims (${accountGroupedByClaimStatus.unclaimed.length}):`);
 	for (const [index, account] of accountGroupedByClaimStatus.unclaimed.entries()) {
 		console.log(`${index + 1}: ${account.name}`);
 	}
