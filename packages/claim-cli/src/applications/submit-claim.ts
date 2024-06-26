@@ -62,6 +62,7 @@ export default async function submitClaim(networkParams: NetworkParams): Promise
 				[append0x(signature.substring(0, 64)), append0x(signature.substring(64))],
 			],
 			walletWithSigner,
+			networkParams,
 		);
 	} else {
 		// Multisig Claim

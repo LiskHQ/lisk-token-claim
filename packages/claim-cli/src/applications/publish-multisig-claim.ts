@@ -134,5 +134,6 @@ export default async function publishMultisigClaim(
 			signatures.map(signature => [signature.r, signature.s]),
 		],
 		walletWithSigner,
+		networkParams,
 	);
 }
