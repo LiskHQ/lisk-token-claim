@@ -1,5 +1,5 @@
 import * as tweetnacl from 'tweetnacl';
-import { BYTES_9, remove0x } from './index';
+import { BYTES_9, remove0x } from './prefix';
 import { AbiCoder, keccak256 } from 'ethers';
 
 export function signMessage(hash: string, destinationAddress: string, privKey: Buffer): string {

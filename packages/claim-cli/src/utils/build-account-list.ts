@@ -9,7 +9,7 @@ export interface AccountListChoice {
 	claimed?: string;
 }
 
-export default async function buildAccountList(
+export async function buildAccountList(
 	result: CheckEligibilityResponse,
 	networkParams: NetworkParams,
 ): Promise<AccountListChoice[]> {

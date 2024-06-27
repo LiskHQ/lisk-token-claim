@@ -1,7 +1,7 @@
 import { select } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
 import { Mnemonic, HDNodeWallet, Wallet } from 'ethers';
-import { remove0x } from './index';
+import { remove0x } from './prefix';
 import { getInput, getPassword } from './get-prompts';
 
 enum SecretType {

@@ -3,7 +3,7 @@ import { select } from '@inquirer/prompts';
 import checkEligibility from '../../applications/check-eligibility';
 import submitClaim from '../../applications/submit-claim';
 import publishMultisigClaim from '../../applications/publish-multisig-claim';
-import { Mainnet, Testnet } from '../../utils/network-params';
+import { Mainnet, Testnet } from '../../utils/';
 
 enum Choice {
 	CHECK_ELIGIBILITY,

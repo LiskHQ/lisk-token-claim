@@ -1,8 +1,7 @@
 import * as tweetnacl from 'tweetnacl';
 import { AbiCoder, keccak256 } from 'ethers';
 
-import { append0x, BYTES_9 } from '../../src/utils';
-import { signMessage } from '../../src/utils/sign-message';
+import { append0x, BYTES_9, signMessage } from '../../src/utils';
 
 const abiCoder = new AbiCoder();
 

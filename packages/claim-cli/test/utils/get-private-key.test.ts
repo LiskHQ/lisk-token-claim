@@ -5,12 +5,13 @@ import * as crypto from '@liskhq/lisk-cryptography';
 import { HDNodeWallet, Wallet } from 'ethers';
 
 import * as getPrompts from '../../src/utils/get-prompts';
+
 import {
 	getETHWalletFromMnemonic,
 	getETHWalletKeyFromString,
 	getLSKPrivateKeyFromMnemonic,
 	getLSKPrivateKeyFromString,
-} from '../../src/utils/get-private-key';
+} from '../../src/utils';
 
 describe('getPrivateKey', () => {
 	const { expect } = chai;

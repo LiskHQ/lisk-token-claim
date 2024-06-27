@@ -1,17 +1,22 @@
 import { select, confirm } from '@inquirer/prompts';
 import * as crypto from '@liskhq/lisk-cryptography';
-import { fetchCheckEligibility, fetchSubmitMultisig } from '../utils/endpoint';
-import L2ClaimAbi from '../abi/L2Claim';
-import { NetworkParams } from '../utils/network-params';
 import { ethers } from 'ethers';
-import { getETHWallet, getLSKPrivateKey } from '../utils/get-private-key';
-import { signMessage } from '../utils/sign-message';
-import { printPreview } from '../utils/print-table';
-import confirmSendTransaction from '../utils/confirm-send-transaction';
+
+import L2ClaimAbi from '../abi/L2Claim';
 import publishMultisigClaim from './publish-multisig-claim';
-import buildAccountList from '../utils/build-account-list';
-import { append0x } from '../utils';
-import { getInput } from '../utils/get-prompts';
+import {
+	buildAccountList,
+	fetchCheckEligibility,
+	fetchSubmitMultisig,
+	NetworkParams,
+	getETHWallet,
+	getLSKPrivateKey,
+	signMessage,
+	printPreview,
+	confirmSendTransaction,
+	append0x,
+	getInput,
+} from '../utils';
 
 export default async function submitClaim(networkParams: NetworkParams): Promise<void> {
 	const privateKey = await getLSKPrivateKey();

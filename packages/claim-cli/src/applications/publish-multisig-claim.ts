@@ -1,12 +1,15 @@
 import { ethers, ZeroHash } from 'ethers';
 import { select } from '@inquirer/prompts';
-import { NetworkParams } from '../utils/network-params';
-import { fetchCheckEligibility } from '../utils/endpoint';
-import { getETHWallet } from '../utils/get-private-key';
+
 import L2ClaimAbi from '../abi/L2Claim';
-import confirmSendTransaction from '../utils/confirm-send-transaction';
-import { printPreview } from '../utils/print-table';
-import { getInput } from '../utils/get-prompts';
+import {
+	NetworkParams,
+	fetchCheckEligibility,
+	getETHWallet,
+	confirmSendTransaction,
+	printPreview,
+	getInput,
+} from '../utils/';
 
 export default async function publishMultisigClaim(
 	networkParams: NetworkParams,

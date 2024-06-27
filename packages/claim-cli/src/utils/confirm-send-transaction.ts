@@ -3,7 +3,7 @@ import { confirm } from '@inquirer/prompts';
 import { getInput } from './get-prompts';
 import { NetworkParams } from './network-params';
 
-export default async function confirmSendTransaction(
+export async function confirmSendTransaction(
 	contractMethod: BaseContractMethod,
 	args: unknown[],
 	walletWithSigner: Wallet | HDNodeWallet,
