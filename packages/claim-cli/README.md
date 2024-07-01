@@ -1,6 +1,6 @@
 # Claim CLI
 
-This library is a tool to Claim Lisk token without the need to UI. This tool can provider the following services:
+This library is a tool to claim Lisk tokens without the need for UI. This tool can provide the following services:
 
 - Check Eligibility
 - Submit a Claim
