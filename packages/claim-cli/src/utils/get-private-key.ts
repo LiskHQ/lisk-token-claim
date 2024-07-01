@@ -37,12 +37,20 @@ export async function getLSKPrivateKeyFromString(): Promise<Buffer> {
 	});
 
 	const privKeyFormatted = remove0x(privKey);
-
-	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{128}$/)) {
+	if (
+		!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/) &&
+		!privKeyFormatted.match(/^[A-Fa-f0-9]{128}$/)
+	) {
 		console.log(
-			'Invalid Private Key, please check again. Private Key should be 128-character long.',
+			'Invalid Private Key, please check again. Private Key should be 64 or 128 characters long.',
 		);
 		return process.exit(1);
+	}
+
+	// Convert 64-character long private key to 128, by constructing public key (For Exodus Wallet)
+	if (privKeyFormatted.length === 64) {
+		const pubKey = crypto.ed.getPublicKeyFromPrivateKey(Buffer.from(privKeyFormatted, 'hex'));
+		return Buffer.concat([Buffer.from(privKeyFormatted, 'hex'), pubKey]);
 	}
 	return Buffer.from(privKeyFormatted, 'hex');
 }

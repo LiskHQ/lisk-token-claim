@@ -63,32 +63,47 @@ describe('getPrivateKey', () => {
 	});
 
 	describe('getLSKPrivateKeyFromString', () => {
-		const validPrivateKeyString = new Array(128).fill('f').join('');
+		const privateKey = crypto.utils.getRandomBytes(32);
+		const publicKey = crypto.ed.getPublicKeyFromPrivateKey(privateKey);
 
 		it('should throw when private key has invalid format', async () => {
-			inputStub.onCall(0).resolves(validPrivateKeyString + 'f');
+			inputStub.onCall(0).resolves(privateKey.toString('hex') + 'f');
 			await getLSKPrivateKeyFromString();
 
 			expect(
 				printStub.calledWith(
-					'Invalid Private Key, please check again. Private Key should be 128-character long.',
+					'Invalid Private Key, please check again. Private Key should be 64 or 128 characters long.',
 				),
 			).to.be.true;
 			expect(processExitStub.calledWith(1)).to.be.true;
 		});
 
-		it('should get valid private key with 0x prefix', async () => {
-			inputStub.onCall(0).resolves('0x' + validPrivateKeyString);
+		it('should get valid 64-character-long private key with 0x prefix', async () => {
+			inputStub.onCall(0).resolves('0x' + privateKey.toString('hex'));
 
-			const privateKey = await getLSKPrivateKeyFromString();
-			expect(privateKey).to.be.deep.eq(Buffer.from(validPrivateKeyString, 'hex'));
+			const promptPrivateKey = await getLSKPrivateKeyFromString();
+			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
 		});
 
-		it('should get valid private key without 0x', async () => {
-			inputStub.onCall(0).resolves(validPrivateKeyString);
+		it('should get valid 128-character-long private key with 0x prefix', async () => {
+			inputStub.onCall(0).resolves('0x' + privateKey.toString('hex') + publicKey.toString('hex'));
 
-			const privateKey = await getLSKPrivateKeyFromString();
-			expect(privateKey).to.be.deep.eq(Buffer.from(validPrivateKeyString, 'hex'));
+			const promptPrivateKey = await getLSKPrivateKeyFromString();
+			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
+		});
+
+		it('should get valid 64-character-long private key without 0x', async () => {
+			inputStub.onCall(0).resolves(privateKey.toString('hex'));
+
+			const promptPrivateKey = await getLSKPrivateKeyFromString();
+			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
+		});
+
+		it('should get valid 128-character-long private key without 0x', async () => {
+			inputStub.onCall(0).resolves(privateKey.toString('hex') + publicKey.toString('hex'));
+
+			const promptPrivateKey = await getLSKPrivateKeyFromString();
+			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
 		});
 	});
 
