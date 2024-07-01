@@ -11,7 +11,7 @@ This library is a tool to claim Lisk tokens without the need for UI. This tool c
 ## Run
 
 ```
-# Enter claim-cli package
+# Navigate to claim-cli package
 cd packages/claim-cli
 
 # Install dependencies

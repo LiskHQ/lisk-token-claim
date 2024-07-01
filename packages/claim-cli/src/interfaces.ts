@@ -45,3 +45,9 @@ export interface Signature {
 	r: string;
 	s: string;
 }
+
+export interface AccountListChoice {
+	name: string;
+	value: Account;
+	claimed?: string;
+}

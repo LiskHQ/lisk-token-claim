@@ -1,13 +1,7 @@
 import { ethers } from 'ethers';
 import { NetworkParams } from './network-params';
-import { Account, CheckEligibilityResponse } from '../interfaces';
+import { AccountListChoice, CheckEligibilityResponse } from '../interfaces';
 import L2ClaimAbi from '../abi/L2Claim';
-
-export interface AccountListChoice {
-	name: string;
-	value: Account;
-	claimed?: string;
-}
 
 export async function buildAccountList(
 	result: CheckEligibilityResponse,

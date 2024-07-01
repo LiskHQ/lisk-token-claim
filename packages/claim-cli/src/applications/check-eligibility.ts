@@ -1,10 +1,5 @@
-import {
-	NetworkParams,
-	buildAccountList,
-	AccountListChoice,
-	fetchCheckEligibility,
-	getInput,
-} from '../utils/';
+import { NetworkParams, buildAccountList, fetchCheckEligibility, getInput } from '../utils/';
+import { AccountListChoice } from '../interfaces';
 
 export default async function checkEligibility(networkParams: NetworkParams): Promise<void> {
 	const lskAddress = await getInput({ message: 'Your LSK Address' });
