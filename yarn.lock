@@ -1114,7 +1114,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@liskhq/lisk-codec@^0.5.0":
+"@liskhq/lisk-codec@0.5.0", "@liskhq/lisk-codec@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@liskhq/lisk-codec/-/lisk-codec-0.5.0.tgz#39ae557c30d2cc11b449f6db34054928fcf98e78"
   integrity sha512-IW8s3s1JvHZMx2SmMh8MJyUE7D9gJGJyJq5s8xxWik4IOTN/zRdNFK2m1qIgL+6T8SchEKS4P8r/Xpnl5KUeiw==
@@ -1133,7 +1133,7 @@
     hash-wasm "4.9.0"
     tweetnacl "1.0.3"
 
-"@liskhq/lisk-db@^0.3.10":
+"@liskhq/lisk-db@0.3.10", "@liskhq/lisk-db@^0.3.10":
   version "0.3.10"
   resolved "https://registry.yarnpkg.com/@liskhq/lisk-db/-/lisk-db-0.3.10.tgz#af0a96925a3a76a6b05bef0a31dacc2b2357bfb0"
   integrity sha512-1vG6qCCbSw016peckgcl8vxwJMke0kUi9a4OCUmp+OgzcroNmc/EHR/psOVaBqW3Jrmcg7BNpY4d3vGsFy1tsg==
