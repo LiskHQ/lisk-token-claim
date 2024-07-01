@@ -126,7 +126,7 @@ export default async function submitClaim(networkParams: NetworkParams): Promise
 			if (
 				submitResult.ready &&
 				(await confirm({
-					message: `Address: ${claimAccount.lskAddress} has reach sufficient signatures, proceed to publish?`,
+					message: `Address: ${claimAccount.lskAddress} has reached sufficient signatures, proceed to publish?`,
 				}))
 			) {
 				await publishMultisigClaim(networkParams, claimAccount.lskAddress);

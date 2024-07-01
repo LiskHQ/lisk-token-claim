@@ -17,8 +17,6 @@ export default async function publishMultisigClaim(
 ): Promise<void> {
 	const provider = new ethers.JsonRpcProvider(networkParams.rpc);
 	const lskAddress = address || (await getInput({ message: 'Multisig Address to be published' }));
-	const claimContract = new ethers.Contract(networkParams.l2Claim, L2ClaimAbi, provider);
-
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account) {
 		console.log(`Address ${lskAddress} has no eligibility.`);
@@ -30,6 +28,7 @@ export default async function publishMultisigClaim(
 		return process.exit(1);
 	}
 
+	const claimContract = new ethers.Contract(networkParams.l2Claim, L2ClaimAbi, provider);
 	const claimedTo = await claimContract.claimedTo(result.account.address);
 	if (claimedTo !== ethers.ZeroAddress) {
 		console.log(`Address ${lskAddress} has already been claimed.`);

@@ -25,11 +25,7 @@ export default async function checkEligibility(networkParams: NetworkParams): Pr
 			},
 			account,
 		) => {
-			if (account.claimed) {
-				acc.claimed.push(account);
-			} else {
-				acc.unclaimed.push(account);
-			}
+			account.claimed ? acc.claimed.push(account) : acc.unclaimed.push(account);
 			return acc;
 		},
 		{
