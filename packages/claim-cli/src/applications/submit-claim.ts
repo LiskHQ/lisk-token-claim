@@ -23,7 +23,7 @@ export default async function submitClaim(networkParams: NetworkParams): Promise
 
 	const lskAddressBytes = crypto.address.getAddressFromPrivateKey(privateKey);
 	const lskAddress = crypto.address.getLisk32AddressFromAddress(lskAddressBytes);
-	console.log('Representing LSK L1 Address:', lskAddress);
+	console.log('Representing LSK v4 Address:', lskAddress);
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account && result.multisigAccounts.length === 0) {

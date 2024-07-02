@@ -56,7 +56,7 @@ export async function getLSKPrivateKeyFromString(): Promise<Buffer> {
 }
 
 export async function getLSKPrivateKey() {
-	const type = await getSecretType('Lisk L1 Wallet');
+	const type = await getSecretType('Lisk v4 Wallet');
 	return [getLSKPrivateKeyFromMnemonic, getLSKPrivateKeyFromString][type]();
 }
 
