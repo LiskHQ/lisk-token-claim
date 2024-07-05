@@ -52,8 +52,8 @@ describe('getPrivateKey', () => {
 		});
 
 		it('should get valid private key from mnemonic and path', async () => {
-			inputStub.onCall(0).resolves(correctMnemonic);
-			inputStub.onCall(1).resolves(lskPath);
+			passwordStub.onCall(0).resolves(correctMnemonic);
+			inputStub.onCall(0).resolves(lskPath);
 
 			const privateKey = await getLSKPrivateKeyFromMnemonic();
 			expect(privateKey).to.be.deep.eq(
@@ -67,7 +67,7 @@ describe('getPrivateKey', () => {
 		const publicKey = crypto.ed.getPublicKeyFromPrivateKey(privateKey);
 
 		it('should throw when private key has invalid format', async () => {
-			inputStub.onCall(0).resolves(privateKey.toString('hex') + 'f');
+			passwordStub.onCall(0).resolves(privateKey.toString('hex') + 'f');
 			await getLSKPrivateKeyFromString();
 
 			expect(
@@ -79,28 +79,30 @@ describe('getPrivateKey', () => {
 		});
 
 		it('should get valid 64-character-long private key with 0x prefix', async () => {
-			inputStub.onCall(0).resolves('0x' + privateKey.toString('hex'));
+			passwordStub.onCall(0).resolves('0x' + privateKey.toString('hex'));
 
 			const promptPrivateKey = await getLSKPrivateKeyFromString();
 			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
 		});
 
 		it('should get valid 128-character-long private key with 0x prefix', async () => {
-			inputStub.onCall(0).resolves('0x' + privateKey.toString('hex') + publicKey.toString('hex'));
+			passwordStub
+				.onCall(0)
+				.resolves('0x' + privateKey.toString('hex') + publicKey.toString('hex'));
 
 			const promptPrivateKey = await getLSKPrivateKeyFromString();
 			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
 		});
 
 		it('should get valid 64-character-long private key without 0x', async () => {
-			inputStub.onCall(0).resolves(privateKey.toString('hex'));
+			passwordStub.onCall(0).resolves(privateKey.toString('hex'));
 
 			const promptPrivateKey = await getLSKPrivateKeyFromString();
 			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
 		});
 
 		it('should get valid 128-character-long private key without 0x', async () => {
-			inputStub.onCall(0).resolves(privateKey.toString('hex') + publicKey.toString('hex'));
+			passwordStub.onCall(0).resolves(privateKey.toString('hex') + publicKey.toString('hex'));
 
 			const promptPrivateKey = await getLSKPrivateKeyFromString();
 			expect(promptPrivateKey).to.be.deep.eq(Buffer.concat([privateKey, publicKey]));
@@ -109,7 +111,7 @@ describe('getPrivateKey', () => {
 
 	describe('getETHWalletFromMnemonic', () => {
 		it('should throw when mnemonic is not valid', async () => {
-			inputStub.onCall(0).resolves(badMnemonic);
+			passwordStub.onCall(0).resolves(badMnemonic);
 
 			await getETHWalletFromMnemonic();
 			expect(printStub.calledWith('Invalid Mnemonic, please check again.')).to.be.true;
@@ -119,9 +121,9 @@ describe('getPrivateKey', () => {
 		it('should get valid private key from mnemonic, passphrase and path', async () => {
 			const passphrase = 'foobar';
 
-			inputStub.onCall(0).resolves(correctMnemonic);
-			passwordStub.onCall(0).resolves(passphrase);
-			inputStub.onCall(1).resolves(ethPath);
+			passwordStub.onCall(0).resolves(correctMnemonic);
+			passwordStub.onCall(1).resolves(passphrase);
+			inputStub.onCall(0).resolves(ethPath);
 
 			const wallet = await getETHWalletFromMnemonic();
 
@@ -134,7 +136,7 @@ describe('getPrivateKey', () => {
 		const validPrivateKeyString = new Array(64).fill('e').join('');
 
 		it('should throw when private key has invalid format', async () => {
-			inputStub.onCall(0).resolves(validPrivateKeyString + 'f');
+			passwordStub.onCall(0).resolves(validPrivateKeyString + 'f');
 			await getETHWalletKeyFromString();
 
 			expect(
@@ -146,14 +148,14 @@ describe('getPrivateKey', () => {
 		});
 
 		it('should get valid private key with 0x prefix', async () => {
-			inputStub.onCall(0).resolves('0x' + validPrivateKeyString);
+			passwordStub.onCall(0).resolves('0x' + validPrivateKeyString);
 
 			const wallet = await getETHWalletKeyFromString();
 			expect(wallet).to.be.deep.eq(new Wallet(validPrivateKeyString));
 		});
 
 		it('should get valid private key without 0x', async () => {
-			inputStub.onCall(0).resolves(validPrivateKeyString);
+			passwordStub.onCall(0).resolves(validPrivateKeyString);
 
 			const wallet = await getETHWalletKeyFromString();
 			expect(wallet).to.be.deep.eq(new Wallet(validPrivateKeyString));
