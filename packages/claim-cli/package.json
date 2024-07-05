@@ -34,11 +34,13 @@
 	"oclif": {
 		"bin": "claim-cli",
 		"dirname": "claim-cli",
-		"commands": "./dist/commands",
+		"commands": {
+			"strategy": "single",
+			"target": "./dist/index.js"
+		},
 		"plugins": [
 			"@oclif/plugin-help"
-		],
-		"topicSeparator": " "
+		]
 	},
 	"dependencies": {
 		"@inquirer/prompts": "^5.0.4",

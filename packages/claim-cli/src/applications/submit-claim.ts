@@ -27,13 +27,29 @@ export default async function submitClaim(networkParams: NetworkParams): Promise
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account && result.multisigAccounts.length === 0) {
-		console.log(`No Eligible Claim for Address: ${lskAddress}`);
+		console.log(`No Eligible Claim for Address: ${lskAddress}.`);
+		return process.exit(1);
+	}
+
+	const choices = await buildAccountList(result, networkParams);
+
+	if (
+		choices.reduce((numOfClaimed, choice) => numOfClaimed + (choice.claimed ? 1 : 0), 0) ==
+		choices.length
+	) {
+		for (const [index, choice] of choices.entries()) {
+			console.log(`${index + 1}: ${choice.value.lskAddress} ${choice.claimed}`);
+		}
+		console.log(`All accounts under ${lskAddress} have successfully been claimed.`);
 		return process.exit(1);
 	}
 
 	const claimAccount = await select({
 		message: 'Choose Claim Address',
-		choices: await buildAccountList(result, networkParams),
+		choices: choices.map(account => ({
+			...account,
+			disabled: !!account.claimed,
+		})),
 	});
 
 	if (claimAccount.numberOfSignatures === 0) {

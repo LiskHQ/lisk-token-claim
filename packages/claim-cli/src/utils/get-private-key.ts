@@ -20,7 +20,7 @@ const getSecretType = (wallet: string) =>
 	});
 
 export async function getLSKPrivateKeyFromMnemonic(): Promise<Buffer> {
-	const mnemonic = await getInput({ message: 'Your Mnemonic' });
+	const mnemonic = await getPassword({ message: 'Your Mnemonic' });
 	if (!Mnemonic.isValidMnemonic(mnemonic)) {
 		console.log('Invalid Mnemonic, please check again.');
 		return process.exit(1);
@@ -32,7 +32,7 @@ export async function getLSKPrivateKeyFromMnemonic(): Promise<Buffer> {
 }
 
 export async function getLSKPrivateKeyFromString(): Promise<Buffer> {
-	const privKey = await getInput({
+	const privKey = await getPassword({
 		message: 'Your Private Key',
 	});
 
@@ -61,7 +61,7 @@ export async function getLSKPrivateKey() {
 }
 
 export async function getETHWalletFromMnemonic(): Promise<HDNodeWallet> {
-	const mnemonic = await getInput({ message: 'Your L2 Mnemonic' });
+	const mnemonic = await getPassword({ message: 'Your L2 Mnemonic' });
 	if (!Mnemonic.isValidMnemonic(mnemonic)) {
 		console.log('Invalid Mnemonic, please check again.');
 		return process.exit(1);
@@ -74,7 +74,7 @@ export async function getETHWalletFromMnemonic(): Promise<HDNodeWallet> {
 }
 
 export const getETHWalletKeyFromString = async (): Promise<Wallet> => {
-	const privKey = await getInput({
+	const privKey = await getPassword({
 		message: 'Your Private Key',
 	});
 
