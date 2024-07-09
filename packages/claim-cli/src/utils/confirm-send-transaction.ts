@@ -11,7 +11,7 @@ export async function confirmSendTransaction(
 ): Promise<void> {
 	const provider = walletWithSigner.provider;
 	if (!provider) {
-		return process.exit(1);
+		throw new Error('Provider not found.');
 	}
 
 	const feeData = await provider.getFeeData();
@@ -40,12 +40,10 @@ export async function confirmSendTransaction(
 	);
 	console.log(`Your Balance: ${ethers.formatUnits(ethBalance)} ETH.`);
 	if (estimatedFee > ethBalance) {
-		console.log('Insufficient Balance for the Transaction.');
-		return process.exit(1);
+		throw new Error('Insufficient Balance for the Transaction.');
 	}
 	if (!(await confirm({ message: 'Confirm to Send Transaction', default: false }))) {
-		console.log('User Cancelled Submission.');
-		return process.exit(1);
+		throw new Error('User Cancelled Submission.');
 	}
 
 	const tx = await contractMethod(...args, {

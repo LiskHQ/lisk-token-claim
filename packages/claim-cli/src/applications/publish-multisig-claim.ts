@@ -19,20 +19,19 @@ export default async function publishMultisigClaim(
 	const lskAddress = address || (await getInput({ message: 'Multisig Address to be published' }));
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account) {
-		console.log(`Address ${lskAddress} has no eligibility.`);
-		return process.exit(1);
+		throw new Error(`Address ${lskAddress} has no eligibility.`);
 	}
 
 	if (!result.account.ready) {
-		console.log(`Address ${lskAddress} has insufficient signatures.`);
-		return process.exit(1);
+		throw new Error(
+			`Address ${lskAddress} is not a Multisig address, or has insufficient signatures.`,
+		);
 	}
 
 	const claimContract = new ethers.Contract(networkParams.l2Claim, L2ClaimAbi, provider);
 	const claimedTo = await claimContract.claimedTo(result.account.address);
 	if (claimedTo !== ethers.ZeroAddress) {
-		console.log(`Address ${lskAddress} has already been claimed.`);
-		return process.exit(1);
+		throw new Error(`Address ${lskAddress} has already been claimed.`);
 	}
 
 	const wallet = await getETHWallet();

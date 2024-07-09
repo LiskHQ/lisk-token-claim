@@ -28,16 +28,14 @@ export async function fetchCheckEligibility(
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later.');
-		return process.exit(1);
+		throw new Error('Network Error, please try again later.');
 	}
 
 	const { result, error } = (await response.json()) as
 		| JSONRPCSuccessResponse<CheckEligibilityResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('Claim Endpoint returned error:', error.message);
-		return process.exit(1);
+		throw Error(`Claim Endpoint returned error: ${error.message}`);
 	}
 
 	return result;
@@ -73,16 +71,14 @@ export async function fetchSubmitMultisig(
 	});
 
 	if (response.status !== 200) {
-		console.log('Network Error, please try again later.');
-		return process.exit(1);
+		throw new Error('Network Error, please try again later.');
 	}
 
 	const { result, error } = (await response.json()) as
 		| JSONRPCSuccessResponse<SubmitMultisigResponse>
 		| JSONRPCErrorResponse;
 	if (error) {
-		console.log('Claim Endpoint returned error:', error.message);
-		return process.exit(1);
+		throw new Error(`Claim Endpoint returned error: ${error.message}`);
 	}
 
 	return result;

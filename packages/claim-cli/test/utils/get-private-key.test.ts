@@ -20,7 +20,6 @@ describe('getPrivateKey', () => {
 	let inputStub: sinon.SinonStub;
 	let passwordStub: sinon.SinonStub;
 	let printStub: sinon.SinonStub;
-	let processExitStub: sinon.SinonStub;
 
 	// Invalid
 	const badMnemonic = new Array(12).fill('test').join(' ');
@@ -32,23 +31,21 @@ describe('getPrivateKey', () => {
 		inputStub = sinon.stub(getPrompts, 'getInput');
 		passwordStub = sinon.stub(getPrompts, 'getPassword');
 		printStub = sinon.stub(console, 'log');
-		processExitStub = sinon.stub(process, 'exit');
 	});
 
 	afterEach(() => {
 		inputStub.restore();
 		passwordStub.restore();
 		printStub.restore();
-		processExitStub.restore();
 	});
 
 	describe('getLSKPrivateKeyFromMnemonic', () => {
 		it('should throw when mnemonic is not valid', async () => {
 			inputStub.onCall(0).resolves(badMnemonic);
 
-			await getLSKPrivateKeyFromMnemonic();
-			expect(printStub.calledWith('Invalid Mnemonic, please check again.')).to.be.true;
-			expect(processExitStub.calledWith(1)).to.be.true;
+			await expect(getLSKPrivateKeyFromMnemonic()).to.eventually.be.rejectedWith(
+				'Invalid Mnemonic, please check again.',
+			);
 		});
 
 		it('should get valid private key from mnemonic and path', async () => {
@@ -68,14 +65,10 @@ describe('getPrivateKey', () => {
 
 		it('should throw when private key has invalid format', async () => {
 			passwordStub.onCall(0).resolves(privateKey.toString('hex') + 'f');
-			await getLSKPrivateKeyFromString();
 
-			expect(
-				printStub.calledWith(
-					'Invalid Private Key, please check again. Private Key should be 64 or 128 characters long.',
-				),
-			).to.be.true;
-			expect(processExitStub.calledWith(1)).to.be.true;
+			await expect(getLSKPrivateKeyFromString()).to.eventually.be.rejectedWith(
+				'Invalid Private Key, please check again. Private Key should be 64 or 128 characters long.',
+			);
 		});
 
 		it('should get valid 64-character-long private key with 0x prefix', async () => {
@@ -113,9 +106,9 @@ describe('getPrivateKey', () => {
 		it('should throw when mnemonic is not valid', async () => {
 			passwordStub.onCall(0).resolves(badMnemonic);
 
-			await getETHWalletFromMnemonic();
-			expect(printStub.calledWith('Invalid Mnemonic, please check again.')).to.be.true;
-			expect(processExitStub.calledWith(1)).to.be.true;
+			await expect(getETHWalletFromMnemonic()).to.eventually.be.rejectedWith(
+				'Invalid Mnemonic, please check again.',
+			);
 		});
 
 		it('should get valid private key from mnemonic, passphrase and path', async () => {
@@ -137,14 +130,10 @@ describe('getPrivateKey', () => {
 
 		it('should throw when private key has invalid format', async () => {
 			passwordStub.onCall(0).resolves(validPrivateKeyString + 'f');
-			await getETHWalletKeyFromString();
 
-			expect(
-				printStub.calledWith(
-					'Invalid Private Key, please check again. Private Key should be 64-character long.',
-				),
-			).to.be.true;
-			expect(processExitStub.calledWith(1)).to.be.true;
+			await expect(getETHWalletKeyFromString()).to.eventually.be.rejectedWith(
+				'Invalid Private Key, please check again. Private Key should be 64-character long.',
+			);
 		});
 
 		it('should get valid private key with 0x prefix', async () => {

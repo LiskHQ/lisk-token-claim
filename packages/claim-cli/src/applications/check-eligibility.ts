@@ -6,8 +6,7 @@ export default async function checkEligibility(networkParams: NetworkParams): Pr
 
 	const result = await fetchCheckEligibility(lskAddress, networkParams);
 	if (!result.account && result.multisigAccounts.length === 0) {
-		console.log(`No Eligible Claim for Address: ${lskAddress}.`);
-		return process.exit(1);
+		throw new Error(`No Eligible Claim for Address: ${lskAddress}.`);
 	}
 
 	const accountList = await buildAccountList(result, networkParams);

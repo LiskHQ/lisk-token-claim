@@ -22,8 +22,7 @@ const getSecretType = (wallet: string) =>
 export async function getLSKPrivateKeyFromMnemonic(): Promise<Buffer> {
 	const mnemonic = await getPassword({ message: 'Your Mnemonic' });
 	if (!Mnemonic.isValidMnemonic(mnemonic)) {
-		console.log('Invalid Mnemonic, please check again.');
-		return process.exit(1);
+		throw new Error('Invalid Mnemonic, please check again.');
 	}
 
 	const path = await getInput({ message: 'Path', default: "m/44'/134'/0'" });
@@ -41,10 +40,9 @@ export async function getLSKPrivateKeyFromString(): Promise<Buffer> {
 		!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/) &&
 		!privKeyFormatted.match(/^[A-Fa-f0-9]{128}$/)
 	) {
-		console.log(
+		throw new Error(
 			'Invalid Private Key, please check again. Private Key should be 64 or 128 characters long.',
 		);
-		return process.exit(1);
 	}
 
 	// Convert 64-character long private key to 128, by constructing public key (For Exodus Wallet)
@@ -63,8 +61,7 @@ export async function getLSKPrivateKey() {
 export async function getETHWalletFromMnemonic(): Promise<HDNodeWallet> {
 	const mnemonic = await getPassword({ message: 'Your L2 Mnemonic' });
 	if (!Mnemonic.isValidMnemonic(mnemonic)) {
-		console.log('Invalid Mnemonic, please check again.');
-		return process.exit(1);
+		throw new Error('Invalid Mnemonic, please check again.');
 	}
 
 	const passphrase = await getPassword({ message: 'BIP39 Passphrase (Optional)' });
@@ -81,10 +78,9 @@ export const getETHWalletKeyFromString = async (): Promise<Wallet> => {
 	const privKeyFormatted = remove0x(privKey);
 
 	if (!privKeyFormatted.match(/^[A-Fa-f0-9]{64}$/)) {
-		console.log(
+		throw new Error(
 			'Invalid Private Key, please check again. Private Key should be 64-character long.',
 		);
-		return process.exit(1);
 	}
 	return new Wallet(privKey);
 };
