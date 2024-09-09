@@ -25,6 +25,7 @@ yarn && yarn build
 ```
 
 ## Usage
+
 Detailed guide to Claim CLI is located in [Detailed Guide to Claim CLI Tool](../../documentation/Detailed_Claim_CLI.md).
 
 ## Workflow
