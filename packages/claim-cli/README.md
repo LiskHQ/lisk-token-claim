@@ -18,11 +18,14 @@ cd packages/claim-cli
 yarn && yarn build
 
 # Start Claim CLI on mainnet
-./bin/run.js start
+./bin/run.js
 
 # Or start Claim CLI on testnet
-# ./bin/run.js start --network testnet
+# ./bin/run.js --network testnet
 ```
+
+## Usage
+Detailed guide to Claim CLI is located in [Detailed Guide to Claim CLI Tool](../../documentation/Detailed_Claim_CLI.md).
 
 ## Workflow
 

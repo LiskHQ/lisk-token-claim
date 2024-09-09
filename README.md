@@ -7,6 +7,7 @@ This repository is a monorepo for essential non-contract services for the LSK To
 - [Packages](#packages)
   - [Tree Builder](#tree-builder)
   - [Token Claim Backend](#claim-backend)
+  - [Token Claim CLI](#claim-cli)
 - [Setup and Installation](#setup-and-installation)
 - [Docker](#docker)
 - [Contributing](#contributing)
@@ -25,6 +26,10 @@ Builds a Merkle Tree from a snapshot and computes the Merkle Root.
 Perform as a backend server, compatible with JSON RPC 2.0 Standard.
 
 The database is using PostgreSQL.
+
+### [Claim CLI](packages/claim-cli)
+
+A command-line tool to claim LSK token direct by submitting transaction directly on-chain.
 
 ## Setup and Installation
 
