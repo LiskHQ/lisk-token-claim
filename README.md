@@ -74,6 +74,10 @@ docker build -t lisk-claim-backend -f ./docker/claim-backend/Dockerfile .
     - Lisk Token Migration
     - Migration Airdrop
 
+- [Detailed Guide to Claim CLI Tool](./documentation/Detailed_Claim_CLI.md) - A detailed documentation for:
+  - Claiming Lisk tokens without the need for UI
+  - Detailed steps of the claim process using CLI
+
 ## Contributing
 
 If you find any issues or have suggestions for improvements,
