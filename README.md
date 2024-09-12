@@ -29,7 +29,7 @@ The database is using PostgreSQL.
 
 ### [Claim CLI](packages/claim-cli)
 
-A command-line tool to claim LSK token direct by submitting transaction directly on-chain.
+A command-line tool to claim LSK token by submitting transaction directly on-chain.
 
 ## Setup and Installation
 
