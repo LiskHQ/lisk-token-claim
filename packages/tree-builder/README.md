@@ -10,8 +10,14 @@ cd packages/tree-builder
 # Lisk Token Migration
 ./bin/run.js generate-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [excluded-addresses-path <value>]
 
-# Migration Airdrop
+# Migration Airdrop (Hodlerdrop)
 ./bin/run.js generate-airdrop-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [--cutoff <value>] [--whale-cap <value>] [--airdrop-percent <value>] [--excluded-addresses-path <value>]
+
+# Helper function for Hodlerdrop V2
+./bin/run.js download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
+
+# Hodlerdrop v2
+./bin/run.js generate-hodlerdrop-merkle-tree --subgraph-url <value> --subgraph-token <value> [--output-path <value>]
 ```
 
 ## Files
