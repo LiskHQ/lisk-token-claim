@@ -26,6 +26,15 @@ export interface AirdropAccount {
 	balanceWei: string;
 }
 
+export interface AirdropClaimedAccount {
+	address: string;
+	claimedAmountWei: string;
+}
+
+export interface HodlerdropAccount extends AirdropClaimedAccount {
+	balanceWei: string;
+}
+
 export interface Leaf {
 	lskAddress: string;
 	address: string;
@@ -41,6 +50,11 @@ export interface AirdropLeaf {
 	lskAddress: string;
 	address: string;
 	balanceWei: string;
+	hash: string;
+	proof: string[];
+}
+
+export interface HodlerdropLeaf extends HodlerdropAccount {
 	hash: string;
 	proof: string[];
 }
