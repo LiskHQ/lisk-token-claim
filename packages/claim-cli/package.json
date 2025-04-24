@@ -1,0 +1,73 @@
+{
+	"name": "@liskhq/claim-cli",
+	"version": "0.1.0",
+	"private": true,
+	"description": "CLI to claim process",
+	"author": "Lisk Foundation <admin@lisk.com>, lightcurve GmbH <admin@lightcurve.io>",
+	"license": "Apache-2.0",
+	"keywords": [
+		"blockchain",
+		"lisk"
+	],
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LiskHQ/lisk-token-claim.git"
+	},
+	"bugs": {
+		"url": "https://github.com/LiskHQ/lisk-token-claim/issues"
+	},
+	"homepage": "https://github.com/LiskHQ/lisk-token-claim#readme",
+	"bin": {
+		"claim-cli": "./bin/run"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"build": "shx rm -rf dist tsconfig.tsbuildinfo && tsc -b",
+		"postpack": "shx rm -f oclif.manifest.json",
+		"prepack": "yarn build && oclif manifest && oclif readme",
+		"prepare": "yarn build",
+		"test": "mocha --forbid-only \"test/**/*.test.ts\""
+	},
+	"oclif": {
+		"bin": "claim-cli",
+		"dirname": "claim-cli",
+		"commands": {
+			"strategy": "single",
+			"target": "./dist/index.js"
+		},
+		"plugins": [
+			"@oclif/plugin-help"
+		]
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^5.0.4",
+		"@liskhq/lisk-codec": "0.5.0",
+		"@liskhq/lisk-cryptography": "4.1.0",
+		"@liskhq/lisk-db": "0.3.10",
+		"@oclif/core": "^3.26.6",
+		"@oclif/plugin-help": "^6",
+		"@openzeppelin/merkle-tree": "^1.0.6",
+		"ethereumjs-util": "^7.1.5",
+		"ethers": "^6.8.1",
+		"inquirer": "^9.2.22",
+		"tweetnacl": "^1.0.3"
+	},
+	"devDependencies": {
+		"@oclif/prettier-config": "^0.2.1",
+		"@oclif/test": "^3.1.8",
+		"@types/chai": "^4",
+		"@types/inquirer": "^9.0.7",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "^18",
+		"chai": "^4",
+		"mocha": "^10",
+		"oclif": "^4.10.5",
+		"shx": "^0.3.3",
+		"sinon": "^17.0.1",
+		"ts-node": "^10.9.2",
+		"typescript": "^5"
+	}
+}

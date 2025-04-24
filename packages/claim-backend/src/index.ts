@@ -7,6 +7,7 @@ import { loadAirdropMerkleTree, loadMerkleTree } from './utils/leaf-map';
 import { submitMultisig } from './controllers/submit-multisig';
 import { checkEligibility } from './controllers/check-eligibility';
 import { checkAirdropEligibility } from './controllers/check-airdrop-eligibility';
+import logger, { expressLogger, expressErrorHandler, rpcLogger, rpcErrorHandler } from './logger';
 dotenv.config();
 
 const HOST = process.env.BACKEND_HOST || '127.0.0.1';
@@ -25,10 +26,13 @@ void (async () => {
 	app.use(cors(corsOptions));
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
+	app.use(expressLogger);
+	app.use(expressErrorHandler);
 
 	server.addMethod('checkEligibility', checkEligibility);
 	server.addMethod('checkAirdropEligibility', checkAirdropEligibility);
 	server.addMethod('submitMultisig', submitMultisig);
+	server.applyMiddleware(rpcLogger, rpcErrorHandler);
 
 	// For Health Check from VPS monitoring
 	app.get('/', (_, res) => res.send('OK'));
@@ -49,6 +53,6 @@ void (async () => {
 	await db.sync();
 
 	app.listen(PORT, HOST, () => {
-		console.info(`Claim Backend running at ${HOST}:${PORT}`);
+		logger.info(`Claim Backend running at ${HOST}:${PORT}`);
 	});
 })();

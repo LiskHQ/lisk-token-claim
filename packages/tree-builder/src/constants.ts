@@ -13,6 +13,11 @@ export const LEAF_ENCODING = ['bytes20', 'uint64', 'uint32', 'bytes32[]', 'bytes
 // BALANCE_IN_WEI: uint256
 export const AIRDROP_LEAF_ENCODING = ['bytes20', 'uint256'];
 
+// Each leaf will be encoded in the following order:
+// ADDRESS_IN_HEX: address
+// BALANCE_IN_WEI: uint256
+export const HODLERDROP_LEAF_ENCODING = ['address', 'uint256'];
+
 // moduleName = "token", substore prefix = "0x00"
 export const TOKEN_PREFIX = Buffer.concat([computeStorePrefix('token'), Buffer.alloc(2, 0)]);
 

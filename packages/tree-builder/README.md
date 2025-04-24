@@ -17,7 +17,7 @@ cd packages/tree-builder
 ./bin/run.js download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
 
 # Hodlerdrop v2
-./bin/run.js generate-hodlerdrop-merkle-tree --subgraph-url <value> --subgraph-token <value> [--output-path <value>]
+./bin/run.js generate-hodlerdrop-merkle-tree --airdrop-amount <value> --unclaimed-amount <value> [--json-path <value>] [--output-path <value>]
 ```
 
 ## Files

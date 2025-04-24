@@ -2,6 +2,7 @@ import { AirdropLeaf, Leaf } from '../interface';
 import { address } from '@liskhq/lisk-cryptography';
 import { remove0x } from './index';
 import { readJson } from './fs-helper';
+import logger from '../logger';
 
 const leafMap: {
 	[lskAddress: string]: Leaf;
@@ -33,7 +34,7 @@ export async function loadMerkleTree() {
 			`MERKLE_TREE_PATH is invalid or does not exist: ${process.env.MERKLE_TREE_PATH}`,
 		);
 	}
-	console.log(`Loading Merkle Tree: ${process.env.MERKLE_TREE_PATH}`);
+	logger.log(`Loading Merkle Tree: ${process.env.MERKLE_TREE_PATH}`);
 
 	const { leaves } = await readJson(process.env.MERKLE_TREE_PATH);
 	for (const leaf of leaves) {
@@ -49,8 +50,8 @@ export async function loadMerkleTree() {
 		}
 	}
 
-	console.log(`LeafMap: ${Object.keys(leafMap).length} Leaves loaded`);
-	console.log(`MultisigMap: ${Object.keys(multisigMap).length} Multisig Account Holders loaded`);
+	logger.log(`LeafMap: ${Object.keys(leafMap).length} Leaves loaded`);
+	logger.log(`MultisigMap: ${Object.keys(multisigMap).length} Multisig Account Holders loaded`);
 }
 
 export async function loadAirdropMerkleTree() {
@@ -60,12 +61,12 @@ export async function loadAirdropMerkleTree() {
 			`AIRDROP_MERKLE_TREE_PATH is invalid or does not exist: ${airdropMerkleTreePath}`,
 		);
 	}
-	console.log(`Loading Airdrop Merkle Tree: ${airdropMerkleTreePath}`);
+	logger.log(`Loading Airdrop Merkle Tree: ${airdropMerkleTreePath}`);
 
 	const { leaves } = await readJson(airdropMerkleTreePath);
 	for (const leaf of leaves) {
 		airdropLeafMap[leaf.lskAddress] = leaf;
 	}
 
-	console.log(`AirdropLeafMap: ${Object.keys(airdropLeafMap).length} Leaves loaded`);
+	logger.log(`AirdropLeafMap: ${Object.keys(airdropLeafMap).length} Leaves loaded`);
 }
