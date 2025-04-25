@@ -1,12 +1,12 @@
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { ux } from '@oclif/core';
-import { HodlerdropAccount } from '../../interface';
+import { AirdropClaimedAccount } from '../../interface';
 import { buildHodlerdropTree } from './build_hodlerdrop_tree';
 
 export async function buildHodlerdropTreeJson(
 	outputPath: string,
-	accounts: HodlerdropAccount[],
+	accounts: AirdropClaimedAccount[],
 	airdropAmount: bigint,
 	unclaimedAmount: bigint,
 ) {

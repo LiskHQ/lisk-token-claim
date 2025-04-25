@@ -50,7 +50,7 @@
 		"@oclif/plugin-help": "^6",
 		"@openzeppelin/merkle-tree": "^1.0.6",
 		"ethereumjs-util": "^7.1.5",
-		"ethers": "^6.8.1",
+		"ethers": "^6.13.5",
 		"graphql": "^16.10.0",
 		"tweetnacl": "^1.0.3"
 	},

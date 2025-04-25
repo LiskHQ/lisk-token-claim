@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { promises as fs } from 'fs';
 import { Command, Flags } from '@oclif/core';
-import { HodlerdropAccount } from '../../interface';
+import { AirdropClaimedAccount } from '../../interface';
 import { buildHodlerdropTreeJson } from '../../applications/generate-hodlerdrop-merkle-tree/build_hodlerdrop_tree_json';
 
 export default class GenerateHodlerdropMerkleTree extends Command {
@@ -46,7 +46,7 @@ export default class GenerateHodlerdropMerkleTree extends Command {
 		await fs.access(airdropClaimedJSONPath);
 		const airdropClaimedAccounts = JSON.parse(
 			await fs.readFile(airdropClaimedJSONPath, 'utf-8'),
-		) as HodlerdropAccount[];
+		) as AirdropClaimedAccount[];
 
 		await buildHodlerdropTreeJson(
 			outputPath,
