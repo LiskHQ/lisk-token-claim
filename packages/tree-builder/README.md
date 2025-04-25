@@ -16,7 +16,7 @@ cd packages/tree-builder
 # Helper function for Hodlerdrop V2
 ./bin/run.js download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
 
-# Hodlerdrop v2
+# Hodlerdrop V2
 ./bin/run.js generate-hodlerdrop-merkle-tree --airdrop-amount <value> --unclaimed-amount <value> [--json-path <value>] [--output-path <value>]
 ```
 
@@ -45,10 +45,17 @@ OPTIONAL_KEYS: bytes32[]
 
 If the address is not a multisig address, `NUMBER_OF_SIGNATURES` would be `0,` `MANDATORY_KEYS` and `OPTIONAL_KEYS` be `[]`
 
-### Migration Airdrop
+### Migration Airdrop (Hodlerdrop)
 
 ```
 LSK_ADDRESS_IN_HEX: bytes20
+BALANCE_IN_WEI: uint256
+```
+
+### Hodlerdrop V2
+
+```
+ADDRESS_IN_HEX: address
 BALANCE_IN_WEI: uint256
 ```
 
@@ -111,7 +118,17 @@ merkle-tree-result.json:
 # `address` is a reserved in solidity, hence `b32Address` here
 ```
 
-### Migration Airdrop
+### Helper function for Hodlerdrop V2
+
+```
+airdropClaimed.json:
+{
+    address: string;
+    claimedAmountWei: string;
+}[]
+```
+
+### Migration Airdrop (Hodlerdrop)
 
 ```
 accounts.json:
@@ -138,6 +155,27 @@ merkle-tree-result.json:
   leaves: {
     b32Address: string;
     balanceWei: number;
+    proof: string[];
+  }[];
+}
+```
+
+### Hodlerdrop V2
+
+```
+hodlerdrop-merkle-root.json:
+{
+    merkleRoot: string;
+}
+
+hodlerdrop-merkle-tree-result.json:
+{
+  merkleRoot: string;
+  leaves: {
+    address: string;
+    claimedAmountWei: string;
+    balanceWei: string;
+    hash: string;
     proof: string[];
   }[];
 }
