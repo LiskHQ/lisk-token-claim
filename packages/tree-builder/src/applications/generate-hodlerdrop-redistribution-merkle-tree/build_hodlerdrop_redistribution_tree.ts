@@ -1,7 +1,7 @@
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { ux } from '@oclif/core';
 import { AirdropClaimedAccount, HodlerdropAccount, HodlerdropLeaf } from '../../interface';
-import { HODLERDROP_LEAF_ENCODING } from '../../constants';
+import { HODLERDROP_REDISTRIBUTION_LEAF_ENCODING } from '../../constants';
 
 export function applyClaimMultiplier(
 	userAmount: bigint,
@@ -12,10 +12,10 @@ export function applyClaimMultiplier(
 }
 
 export function createPayload(account: HodlerdropAccount) {
-	return [account.address, account.balanceWei];
+	return [account.address, account.claimableAmountWei];
 }
 
-export function buildHodlerdropTree(
+export function buildHodlerdropRedistributionTree(
 	accounts: AirdropClaimedAccount[],
 	airdropAmount: bigint,
 	unclaimedAmount: bigint,
@@ -30,7 +30,7 @@ export function buildHodlerdropTree(
 			continue;
 		}
 		if (account.address > accounts[index + 1].address) {
-			throw new Error('Address not sorted! Please sort your addresses before continue');
+			throw new Error('Addresses not sorted! Please sort your addresses before continue');
 		}
 	}
 
@@ -40,7 +40,7 @@ export function buildHodlerdropTree(
 	);
 	const appliedMultiplierAccounts: HodlerdropAccount[] = accounts.map(account => ({
 		...account,
-		balanceWei: applyClaimMultiplier(
+		claimableAmountWei: applyClaimMultiplier(
 			BigInt(account.claimedAmountWei),
 			airdropAmount,
 			unclaimedAmount,
@@ -50,7 +50,7 @@ export function buildHodlerdropTree(
 	const leaves: HodlerdropLeaf[] = [];
 	const tree = StandardMerkleTree.of(
 		appliedMultiplierAccounts.map(account => createPayload(account)),
-		HODLERDROP_LEAF_ENCODING,
+		HODLERDROP_REDISTRIBUTION_LEAF_ENCODING,
 	);
 
 	for (const account of appliedMultiplierAccounts) {
@@ -59,7 +59,7 @@ export function buildHodlerdropTree(
 		leaves.push({
 			address: account.address,
 			claimedAmountWei: account.claimedAmountWei,
-			balanceWei: account.balanceWei,
+			claimableAmountWei: account.claimableAmountWei,
 			hash: tree.leafHash(payload),
 			proof: tree.getProof(payload),
 		});

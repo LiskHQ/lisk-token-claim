@@ -7,7 +7,6 @@ import { AirdropClaimedAccount } from '../../interface';
 
 interface GraphQLResponse {
 	ID: string;
-	lskAddress: string;
 	recipient: string;
 	amount: string;
 }
@@ -16,7 +15,6 @@ const query = `
 query GetAirdropClaimeds($first: Int!, $skip: Int!) {
   airdropClaimeds(first: $first, skip: $skip) {
     id
-    lskAddress
     recipient
     amount
   }

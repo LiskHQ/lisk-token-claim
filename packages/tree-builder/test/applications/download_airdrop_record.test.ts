@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { consolidateRecords } from '../../src/applications/download-airdrop-record/download_airdrop_record';
+import { consolidateRecords } from '../../src/applications/generate-hodlerdrop-redistribution-merkle-tree/download_airdrop_record';
 
 describe('downloadAirdropRecord', () => {
 	describe('consolidateRecords', () => {

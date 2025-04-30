@@ -2,23 +2,27 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { ux } from '@oclif/core';
 import { AirdropClaimedAccount } from '../../interface';
-import { buildHodlerdropTree } from './build_hodlerdrop_tree';
+import { buildHodlerdropRedistributionTree } from './build_hodlerdrop_redistribution_tree';
 
-export async function buildHodlerdropTreeJson(
+export async function buildHodlerdropRedistributionTreeJson(
 	outputPath: string,
 	accounts: AirdropClaimedAccount[],
 	airdropAmount: bigint,
 	unclaimedAmount: bigint,
 ) {
-	const { tree, leaves } = buildHodlerdropTree(accounts, airdropAmount, unclaimedAmount);
+	const { tree, leaves } = buildHodlerdropRedistributionTree(
+		accounts,
+		airdropAmount,
+		unclaimedAmount,
+	);
 
-	const hodlerdropMerkleTreeResultJSONPath = path.join(
+	const hodlerdropRedistributionMerkleTreeResultJSONPath = path.join(
 		outputPath,
-		'hodlerdrop-merkle-tree-result.json',
+		'hodlerdrop-redistribution-merkle-tree-result.json',
 	);
 
 	await fs.writeFile(
-		hodlerdropMerkleTreeResultJSONPath,
+		hodlerdropRedistributionMerkleTreeResultJSONPath,
 		JSON.stringify(
 			{
 				merkleRoot: tree.root,
@@ -29,7 +33,9 @@ export async function buildHodlerdropTreeJson(
 		),
 		'utf-8',
 	);
-	ux.log(`Hodlerdrop Merkle Tree result outputted to: ${hodlerdropMerkleTreeResultJSONPath}`);
+	ux.log(
+		`Hodlerdrop Redistribution Merkle Tree result outputted to: ${hodlerdropRedistributionMerkleTreeResultJSONPath}`,
+	);
 
 	const merkleRootJSONPath = path.join(outputPath, 'hodlerdrop-merkle-root.json');
 	await fs.writeFile(

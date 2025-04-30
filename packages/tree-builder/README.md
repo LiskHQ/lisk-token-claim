@@ -13,11 +13,11 @@ cd packages/tree-builder
 # Migration Airdrop (Hodlerdrop)
 ./bin/run.js generate-airdrop-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [--cutoff <value>] [--whale-cap <value>] [--airdrop-percent <value>] [--excluded-addresses-path <value>]
 
-# Helper function for Hodlerdrop V2
-./bin/run.js download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
+# Hodlerdrop Redistribution (Helper Function - Download Airdrop Record)
+./bin/run.js generate-hodlerdrop-redistribution-merkle-tree download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
 
-# Hodlerdrop V2
-./bin/run.js generate-hodlerdrop-merkle-tree --airdrop-amount <value> --unclaimed-amount <value> [--json-path <value>] [--output-path <value>]
+# Hodlerdrop Redistribution (Generate Merkle Tree)
+./bin/run.js generate-hodlerdrop-redistribution-merkle-tree --airdrop-amount <value> --unclaimed-amount <value> [--json-path <value>] [--output-path <value>]
 ```
 
 ## Files
@@ -52,18 +52,20 @@ LSK_ADDRESS_IN_HEX: bytes20
 BALANCE_IN_WEI: uint256
 ```
 
-### Hodlerdrop V2
+Note that `BALANCE_IN_WEI` is represented in Wei(2\*\*18) and in `uint256` format.
+
+### Hodlerdrop Redistribution
 
 ```
 ADDRESS_IN_HEX: address
-BALANCE_IN_WEI: uint256
+CLAIMABLE_AMOUNT_IN_WEI: uint256
 ```
 
-Note that Balance is represented in Wei(2\*\*18) and in `uint256` format.
+Note that `CLAIMABLE_AMOUNT_IN_WEI` is represented in Wei(2\*\*18) and in `uint256` format.
 
 ## Params
 
-For both `Lisk Token Migration` and `Migration Airdrop`, a `merkle-root.json` will be generated.
+For `Lisk Token Migration`, `Migration Airdrop` and `Hodlerdrop Redistribution`, a `merkle-root.json` will be generated.
 
 ```
 merkle-root.json:
@@ -118,7 +120,7 @@ merkle-tree-result.json:
 # `address` is a reserved in solidity, hence `b32Address` here
 ```
 
-### Helper function for Hodlerdrop V2
+### Helper function for Hodlerdrop Redistribution
 
 ```
 airdropClaimed.json:
@@ -160,7 +162,7 @@ merkle-tree-result.json:
 }
 ```
 
-### Hodlerdrop V2
+### Hodlerdrop Redistribution
 
 ```
 hodlerdrop-merkle-root.json:
@@ -168,7 +170,7 @@ hodlerdrop-merkle-root.json:
     merkleRoot: string;
 }
 
-hodlerdrop-merkle-tree-result.json:
+hodlerdrop-redistribution-merkle-tree-result.json:
 {
   merkleRoot: string;
   leaves: {

@@ -32,7 +32,7 @@ export interface AirdropClaimedAccount {
 }
 
 export interface HodlerdropAccount extends AirdropClaimedAccount {
-	balanceWei: string;
+	claimableAmountWei: string;
 }
 
 export interface Leaf {

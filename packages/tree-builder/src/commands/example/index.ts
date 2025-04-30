@@ -7,7 +7,7 @@ import { signAccounts } from '../../applications/example/sign_accounts';
 import { buildTreeJson } from '../../applications/generate-merkle-tree/build_tree_json';
 import { createKeyPairs } from '../../applications/example/create_key_pairs';
 import { Account, AirdropClaimedAccount } from '../../interface';
-import { buildHodlerdropTreeJson } from '../../applications/generate-hodlerdrop-merkle-tree/build_hodlerdrop_tree_json';
+import { buildHodlerdropRedistributionTreeJson } from '../../applications/generate-hodlerdrop-redistribution-merkle-tree/build_hodlerdrop_redistribution_tree_json';
 
 export default class Example extends Command {
 	static flags = {
@@ -24,7 +24,7 @@ export default class Example extends Command {
 		}),
 		'hodlerdrop-mnemonic': Flags.string({
 			description:
-				'Mnemonic used for generating Hodlerdrop V2. Default is the default mnemonic used by Anvil/Ganache',
+				'Mnemonic used for generating Hodlerdrop Redistribution. Default is the default mnemonic used by Anvil/Ganache',
 			required: false,
 			default:
 				'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about',
@@ -72,7 +72,7 @@ export default class Example extends Command {
 			});
 		}
 
-		await buildHodlerdropTreeJson(
+		await buildHodlerdropRedistributionTreeJson(
 			exampleDataPath,
 			hodlerdropAddresses.sort((a, b) => (a.address > b.address ? 1 : -1)),
 			ethers.parseUnits('3000000', 'ether'),

@@ -1,7 +1,7 @@
 import * as path from 'path';
 
 import { Command, Flags } from '@oclif/core';
-import { downloadAirdropRecord } from '../../applications/download-airdrop-record/download_airdrop_record';
+import { downloadAirdropRecord } from '../../applications/generate-hodlerdrop-redistribution-merkle-tree/download_airdrop_record';
 
 export default class DownloadAirdropRecord extends Command {
 	static description = 'Fetch all airdrop record from Goldsky subgraph, and output as JSON file.';

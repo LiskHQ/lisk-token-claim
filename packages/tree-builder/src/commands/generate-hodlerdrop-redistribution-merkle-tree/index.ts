@@ -2,14 +2,14 @@ import * as path from 'path';
 import { promises as fs } from 'fs';
 import { Command, Flags } from '@oclif/core';
 import { AirdropClaimedAccount } from '../../interface';
-import { buildHodlerdropTreeJson } from '../../applications/generate-hodlerdrop-merkle-tree/build_hodlerdrop_tree_json';
+import { buildHodlerdropRedistributionTreeJson } from '../../applications/generate-hodlerdrop-redistribution-merkle-tree/build_hodlerdrop_redistribution_tree_json';
 
-export default class GenerateHodlerdropMerkleTree extends Command {
+export default class GenerateHodlerdropRedistributionMerkleTree extends Command {
 	static description =
 		'Generate a Merkle tree for the Hodlerdrop based on claimed airdrop records and ratio of unclaimed amount';
 
 	static examples = [
-		`$ oex generate-hodlerdrop-merkle-tree --airdrop-amount 3000000000000000000000000 --unclaimed-amount 1375134441061135000000000 --json-path ./data --output-path ./data`,
+		`$ oex generate-hodlerdrop-redistribution-merkle-tree --airdrop-amount 3000000000000000000000000 --unclaimed-amount 1375134441061135000000000 --json-path ./data --output-path ./data`,
 	];
 
 	static flags = {
@@ -32,7 +32,7 @@ export default class GenerateHodlerdropMerkleTree extends Command {
 	};
 
 	async run(): Promise<void> {
-		const { flags } = await this.parse(GenerateHodlerdropMerkleTree);
+		const { flags } = await this.parse(GenerateHodlerdropRedistributionMerkleTree);
 		const {
 			'json-path': jsonPath,
 			'airdrop-amount': airdropAmount,
@@ -48,7 +48,7 @@ export default class GenerateHodlerdropMerkleTree extends Command {
 			await fs.readFile(airdropClaimedJSONPath, 'utf-8'),
 		) as AirdropClaimedAccount[];
 
-		await buildHodlerdropTreeJson(
+		await buildHodlerdropRedistributionTreeJson(
 			outputPath,
 			airdropClaimedAccounts,
 			BigInt(airdropAmount),
