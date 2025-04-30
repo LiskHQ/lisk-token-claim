@@ -176,7 +176,7 @@ hodlerdrop-redistribution-merkle-tree-result.json:
   leaves: {
     address: string;
     claimedAmountWei: string;
-    balanceWei: string;
+    claimableAmountWei: string;
     hash: string;
     proof: string[];
   }[];
