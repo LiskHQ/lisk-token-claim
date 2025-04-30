@@ -6,7 +6,7 @@ import { buildHodlerdropRedistributionTreeJson } from '../../applications/genera
 
 export default class GenerateHodlerdropRedistributionMerkleTree extends Command {
 	static description =
-		'Generate a Merkle tree for the Hodlerdrop based on claimed airdrop records and ratio of unclaimed amount';
+		'Generate a Merkle tree for the Hodlerdrop Redistribution based on claimed airdrop records and ratio of unclaimed amount';
 
 	static examples = [
 		`$ oex generate-hodlerdrop-redistribution-merkle-tree --airdrop-amount 3000000000000000000000000 --unclaimed-amount 1375134441061135000000000 --json-path ./data --output-path ./data`,

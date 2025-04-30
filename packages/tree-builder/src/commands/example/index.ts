@@ -22,7 +22,7 @@ export default class Example extends Command {
 			required: false,
 			default: '0x34A1D3fff3958843C43aD80F30b94c510645C316',
 		}),
-		'hodlerdrop-mnemonic': Flags.string({
+		'hodlerdrop-redistribution-mnemonic': Flags.string({
 			description:
 				'Mnemonic used for generating Hodlerdrop Redistribution. Default is the default mnemonic used by Anvil/Ganache',
 			required: false,
@@ -58,7 +58,7 @@ export default class Example extends Command {
 
 		// Create Accounts for Hodlerdrop
 		const hdNodeWallet = ethers.HDNodeWallet.fromPhrase(
-			flags['hodlerdrop-mnemonic'],
+			flags['hodlerdrop-redistribution-mnemonic'],
 			'',
 			"m/44'/60'/0'/0",
 		);

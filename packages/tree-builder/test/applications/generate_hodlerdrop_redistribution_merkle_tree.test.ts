@@ -7,7 +7,7 @@ import {
 	createPayload,
 	buildHodlerdropRedistributionTree,
 } from '../../src/applications/generate-hodlerdrop-redistribution-merkle-tree/build_hodlerdrop_redistribution_tree';
-import { AirdropClaimedAccount, HodlerdropAccount } from '../../src/interface';
+import { AirdropClaimedAccount, HodlerdropRedistributionAccount } from '../../src/interface';
 import { HODLERDROP_REDISTRIBUTION_LEAF_ENCODING } from '../../src/constants';
 
 const ETHER_TO_WEI = BigInt(10 ** 18);
@@ -62,7 +62,7 @@ describe('generateHodlerdropRedistributionMerkleTree', () => {
 			airdropAmount -
 			accounts.reduce((acc, account) => acc + BigInt(account.claimedAmountWei), BigInt(0));
 
-		const appliedMultiplierAccounts: HodlerdropAccount[] = accounts.map(account => ({
+		const appliedMultiplierAccounts: HodlerdropRedistributionAccount[] = accounts.map(account => ({
 			...account,
 			claimableAmountWei: applyClaimMultiplier(
 				BigInt(account.claimedAmountWei),

@@ -52,7 +52,7 @@ LSK_ADDRESS_IN_HEX: bytes20
 BALANCE_IN_WEI: uint256
 ```
 
-Note that `BALANCE_IN_WEI` is represented in Wei(2\*\*18) and in `uint256` format.
+Note that `BALANCE_IN_WEI` is represented in Wei and in `uint256` format.
 
 ### Hodlerdrop Redistribution
 
@@ -61,7 +61,7 @@ ADDRESS_IN_HEX: address
 CLAIMABLE_AMOUNT_IN_WEI: uint256
 ```
 
-Note that `CLAIMABLE_AMOUNT_IN_WEI` is represented in Wei(2\*\*18) and in `uint256` format.
+Note that `CLAIMABLE_AMOUNT_IN_WEI` is represented in Wei and in `uint256` format.
 
 ## Params
 

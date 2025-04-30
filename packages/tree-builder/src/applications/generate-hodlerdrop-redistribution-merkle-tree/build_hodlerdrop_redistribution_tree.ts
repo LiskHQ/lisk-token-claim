@@ -1,6 +1,10 @@
 import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
 import { ux } from '@oclif/core';
-import { AirdropClaimedAccount, HodlerdropAccount, HodlerdropLeaf } from '../../interface';
+import {
+	AirdropClaimedAccount,
+	HodlerdropRedistributionAccount,
+	HodlerdropRedistributionLeaf,
+} from '../../interface';
 import { HODLERDROP_REDISTRIBUTION_LEAF_ENCODING } from '../../constants';
 
 export function applyClaimMultiplier(
@@ -11,7 +15,7 @@ export function applyClaimMultiplier(
 	return (userAmount * unclaimedAmount) / (airdropAmount - unclaimedAmount);
 }
 
-export function createPayload(account: HodlerdropAccount) {
+export function createPayload(account: HodlerdropRedistributionAccount) {
 	return [account.address, account.claimableAmountWei];
 }
 
@@ -21,7 +25,7 @@ export function buildHodlerdropRedistributionTree(
 	unclaimedAmount: bigint,
 ): {
 	tree: StandardMerkleTree<(string | number | Buffer | string[])[]>;
-	leaves: HodlerdropLeaf[];
+	leaves: HodlerdropRedistributionLeaf[];
 } {
 	// Check that addresses are sorted
 	for (const [index, account] of accounts.entries()) {
@@ -38,7 +42,7 @@ export function buildHodlerdropRedistributionTree(
 	ux.log(
 		`Claim multiplier: ${(Number(unclaimedAmount) / Number(airdropAmount - unclaimedAmount)).toFixed(4)}x`,
 	);
-	const appliedMultiplierAccounts: HodlerdropAccount[] = accounts.map(account => ({
+	const appliedMultiplierAccounts: HodlerdropRedistributionAccount[] = accounts.map(account => ({
 		...account,
 		claimableAmountWei: applyClaimMultiplier(
 			BigInt(account.claimedAmountWei),
@@ -47,7 +51,7 @@ export function buildHodlerdropRedistributionTree(
 		).toString(),
 	}));
 
-	const leaves: HodlerdropLeaf[] = [];
+	const leaves: HodlerdropRedistributionLeaf[] = [];
 	const tree = StandardMerkleTree.of(
 		appliedMultiplierAccounts.map(account => createPayload(account)),
 		HODLERDROP_REDISTRIBUTION_LEAF_ENCODING,

@@ -31,7 +31,7 @@ export interface AirdropClaimedAccount {
 	claimedAmountWei: string;
 }
 
-export interface HodlerdropAccount extends AirdropClaimedAccount {
+export interface HodlerdropRedistributionAccount extends AirdropClaimedAccount {
 	claimableAmountWei: string;
 }
 
@@ -54,7 +54,7 @@ export interface AirdropLeaf {
 	proof: string[];
 }
 
-export interface HodlerdropLeaf extends HodlerdropAccount {
+export interface HodlerdropRedistributionLeaf extends HodlerdropRedistributionAccount {
 	hash: string;
 	proof: string[];
 }

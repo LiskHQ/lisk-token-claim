@@ -27,7 +27,6 @@ describe('downloadAirdropRecord', () => {
 
 			const result = consolidateRecords(subgraphResponse);
 
-			// https://www.wolframalpha.com/input?i=%2810000+*+10+**+18%29+*+%281234567+*+10+**+18%29+%2F+%283000000+*+10+**+18+-+1234567+*+10+**+18%29
 			expect(result).to.deep.eq([
 				{
 					address: '0xabc',
