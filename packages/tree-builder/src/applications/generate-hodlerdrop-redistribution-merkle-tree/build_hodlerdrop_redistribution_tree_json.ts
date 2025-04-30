@@ -37,7 +37,7 @@ export async function buildHodlerdropRedistributionTreeJson(
 		`Hodlerdrop Redistribution Merkle Tree result outputted to: ${hodlerdropRedistributionMerkleTreeResultJSONPath}`,
 	);
 
-	const merkleRootJSONPath = path.join(outputPath, 'hodlerdrop-merkle-root.json');
+	const merkleRootJSONPath = path.join(outputPath, 'hodlerdrop-redistribution-merkle-root.json');
 	await fs.writeFile(
 		merkleRootJSONPath,
 		JSON.stringify({

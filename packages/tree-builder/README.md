@@ -165,7 +165,7 @@ merkle-tree-result.json:
 ### Hodlerdrop Redistribution
 
 ```
-hodlerdrop-merkle-root.json:
+hodlerdrop-redistribution-merkle-root.json:
 {
     merkleRoot: string;
 }
