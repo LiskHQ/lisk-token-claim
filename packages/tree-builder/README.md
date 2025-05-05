@@ -10,8 +10,14 @@ cd packages/tree-builder
 # Lisk Token Migration
 ./bin/run.js generate-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [excluded-addresses-path <value>]
 
-# Migration Airdrop
+# Migration Airdrop (Hodlerdrop)
 ./bin/run.js generate-airdrop-merkle-tree --db-path <value> [--output-path <value>] [--token-id <value>] [--cutoff <value>] [--whale-cap <value>] [--airdrop-percent <value>] [--excluded-addresses-path <value>]
+
+# Hodlerdrop Redistribution (Helper Function - Download Airdrop Record)
+./bin/run.js generate-hodlerdrop-redistribution-merkle-tree download-airdrop-record --claiming-subgraph-url <value> --subgraph-token <value> [--output-path <value>]
+
+# Hodlerdrop Redistribution (Generate Merkle Tree)
+./bin/run.js generate-hodlerdrop-redistribution-merkle-tree --airdrop-amount <value> --unclaimed-amount <value> [--json-path <value>] [--output-path <value>]
 ```
 
 ## Files
@@ -39,18 +45,27 @@ OPTIONAL_KEYS: bytes32[]
 
 If the address is not a multisig address, `NUMBER_OF_SIGNATURES` would be `0,` `MANDATORY_KEYS` and `OPTIONAL_KEYS` be `[]`
 
-### Migration Airdrop
+### Migration Airdrop (Hodlerdrop)
 
 ```
 LSK_ADDRESS_IN_HEX: bytes20
 BALANCE_IN_WEI: uint256
 ```
 
-Note that Balance is represented in Wei(2\*\*18) and in `uint256` format.
+Note that `BALANCE_IN_WEI` is represented in Wei and in `uint256` format.
+
+### Hodlerdrop Redistribution
+
+```
+ADDRESS_IN_HEX: address
+CLAIMABLE_AMOUNT_IN_WEI: uint256
+```
+
+Note that `CLAIMABLE_AMOUNT_IN_WEI` is represented in Wei and in `uint256` format.
 
 ## Params
 
-For both `Lisk Token Migration` and `Migration Airdrop`, a `merkle-root.json` will be generated.
+For `Lisk Token Migration`, `Migration Airdrop` and `Hodlerdrop Redistribution`, a `merkle-root.json` will be generated.
 
 ```
 merkle-root.json:
@@ -105,7 +120,17 @@ merkle-tree-result.json:
 # `address` is a reserved in solidity, hence `b32Address` here
 ```
 
-### Migration Airdrop
+### Helper function for Hodlerdrop Redistribution
+
+```
+airdropClaimed.json:
+{
+    address: string;
+    claimedAmountWei: string;
+}[]
+```
+
+### Migration Airdrop (Hodlerdrop)
 
 ```
 accounts.json:
@@ -132,6 +157,27 @@ merkle-tree-result.json:
   leaves: {
     b32Address: string;
     balanceWei: number;
+    proof: string[];
+  }[];
+}
+```
+
+### Hodlerdrop Redistribution
+
+```
+hodlerdrop-redistribution-merkle-root.json:
+{
+    merkleRoot: string;
+}
+
+hodlerdrop-redistribution-merkle-tree-result.json:
+{
+  merkleRoot: string;
+  leaves: {
+    address: string;
+    claimedAmountWei: string;
+    claimableAmountWei: string;
+    hash: string;
     proof: string[];
   }[];
 }

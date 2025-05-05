@@ -1,0 +1,76 @@
+import { StandardMerkleTree } from '@openzeppelin/merkle-tree';
+import { ux } from '@oclif/core';
+import {
+	AirdropClaimedAccount,
+	HodlerdropRedistributionAccount,
+	HodlerdropRedistributionLeaf,
+} from '../../interface';
+import { HODLERDROP_REDISTRIBUTION_LEAF_ENCODING } from '../../constants';
+
+export function applyClaimMultiplier(
+	userAmount: bigint,
+	airdropAmount: bigint,
+	unclaimedAmount: bigint,
+): bigint {
+	return (userAmount * unclaimedAmount) / (airdropAmount - unclaimedAmount);
+}
+
+export function createPayload(account: HodlerdropRedistributionAccount) {
+	return [account.address, account.claimableAmountWei];
+}
+
+export function buildHodlerdropRedistributionTree(
+	accounts: AirdropClaimedAccount[],
+	airdropAmount: bigint,
+	unclaimedAmount: bigint,
+): {
+	tree: StandardMerkleTree<(string | number | Buffer | string[])[]>;
+	leaves: HodlerdropRedistributionLeaf[];
+} {
+	// Check that addresses are sorted
+	for (const [index, account] of accounts.entries()) {
+		// Last address, skip
+		if (index === accounts.length - 1) {
+			continue;
+		}
+		if (account.address > accounts[index + 1].address) {
+			throw new Error('Addresses not sorted! Please sort your addresses before continue');
+		}
+	}
+
+	ux.log(`${accounts.length} Accounts to generate:`);
+	ux.log(
+		`Claim multiplier: ${(Number(unclaimedAmount) / Number(airdropAmount - unclaimedAmount)).toFixed(4)}x`,
+	);
+	const appliedMultiplierAccounts: HodlerdropRedistributionAccount[] = accounts.map(account => ({
+		...account,
+		claimableAmountWei: applyClaimMultiplier(
+			BigInt(account.claimedAmountWei),
+			airdropAmount,
+			unclaimedAmount,
+		).toString(),
+	}));
+
+	const leaves: HodlerdropRedistributionLeaf[] = [];
+	const tree = StandardMerkleTree.of(
+		appliedMultiplierAccounts.map(account => createPayload(account)),
+		HODLERDROP_REDISTRIBUTION_LEAF_ENCODING,
+	);
+
+	for (const account of appliedMultiplierAccounts) {
+		const payload = createPayload(account);
+
+		leaves.push({
+			address: account.address,
+			claimedAmountWei: account.claimedAmountWei,
+			claimableAmountWei: account.claimableAmountWei,
+			hash: tree.leafHash(payload),
+			proof: tree.getProof(payload),
+		});
+	}
+
+	return {
+		tree,
+		leaves,
+	};
+}
